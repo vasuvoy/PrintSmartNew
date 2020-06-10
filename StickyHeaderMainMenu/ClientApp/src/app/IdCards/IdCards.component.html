@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+  <div>
+    <div id="div_idcards" style="width:500px !important;cursor:pointer">
+      <div class="container" style="width:500px !important">
+        <div class="row" style="width:800px !important">
+          <div class="col-sm">
+            <img src="assets/Img/IDCARD1.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
+          </div>
+          <div class="col-sm">
+            <img src="assets/Img/IDCARD2.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
+          </div>
+          <div class="col-sm">
+            <img src="assets/Img/IDCARD3.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
+          </div>
+        </div>
+        <br />
+        <div class="row" style="width:800px !important">
+          <div class="col-sm">
+            <img src="assets/Img/IDCARD4.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="inner_div_idcards" class="container">
+    <div class="row">
+      <div class="col">
+        <img src="" id="img_selected_idcard" style="width:400px" alt="selected img" />
+      </div>
+      <!--<div class="col">
+    <label>Company Name:</label>
+    <br />
+    <label>Name:</label>
+    <br />
+    <label>Designation:</label> &nbsp;&nbsp;<input type="text" placeholder="Name" />
+    <br />
+    <label>ID No:</label> &nbsp;&nbsp;<input type="text" placeholder="Name" />
+    <br />
+    <label>Blood:</label> &nbsp;&nbsp;<input type="text" placeholder="Name" />
+    <br />
+    <label>Email:</label> &nbsp;&nbsp;<input type="text" placeholder="Name" />
+    <br />
+    <label>Phone No:</label> &nbsp;&nbsp;<input type="text" placeholder="Name" />
+  </div>-->
+      <div class="col">
+        <input class="e-input" style="width:170px" type="text" placeholder="Enter Name" />
+        <br />
+        <input class="e-input" style="width:170px" type="text" placeholder="Enter Designation" />
+        <br />
+        <input class="e-input" style="width:170px" type="text" placeholder="Enter ID Number" />
+        <br />
+        <input class="e-input" style="width:170px" type="text" placeholder="Enter Blood Group" />
+        <br />
+        <input class="e-input" style="width:170px" type="text" placeholder="Enter Email Id" />
+        <br />
+        <input class="e-input" style="width:170px" type="text" placeholder="Enter Phone Number" />
+        <br />
+        <input class="e-input" style="width:170px" type="text" placeholder="Enter Joined Date" />
+        <br />
+        <input class="e-input" style="width:170px" type="text" placeholder="Enter Expire Date" />
+        <br />
+        <input class="e-input" style="width:170px" type="text" placeholder="Enter Employee Id" />
+        <br />
+        <label for="file">Picture Upload</label>
+        <input type="file"
+               id="file"
+               accept=".jpeg,.jpg"
+               (change)="handleFileInput($event.target.files)">
+        <!--<br />
+        <input type="file" #Image accept=".jpg" />
+        <br />
+        <button type="submit" class="btn btn-outline-success" (click)="Submit()" id="btn_AddtoCart"
+                style="background:lightseagreen;border-color:lightseagreen;color:white">
+          Submit
+        </button>-->
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

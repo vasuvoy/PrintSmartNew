@@ -1,0 +1,133 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+</head>
+
+<body>
+
+  <div style="text-align:left;margin-top:-11px">
+    <header>
+      <div class="container">
+        <div class="row" style="margin-left:-60px !important">
+          <div class="col-sm">
+            <img src="assets/Img/Icon.jpg" style="height:100px;width:100px" />
+          </div>
+          <div class="col-sm">
+            <h2 style="padding-top:30px;padding-left:10px;margin-left:-110px;color:lightseagreen">
+              PrintSmart
+            </h2>
+          </div>
+        </div>
+      </div>
+
+
+    </header>
+  </div>
+  <div>
+    <nav class="navbar navbar-custom navbar-expand-lg navbar-dark fixed-top" style="height:">
+      <!--<a class="navbar-brand" href="#">Navbar</a>-->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <!--<li class="nav-item active">
+          <a class="nav-link" href="#">Products <span class="sr-only">(current)</span></a>
+        </li>-->
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/']">Home</a>
+          </li>
+          <li style="margin-left:40px">    </li>
+          <li class="dropdown">
+            <a class="nav-link dropdown-toggle active" href="#"
+               id="navbarDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+              Products
+            </a>
+            <ul class="dropdown-menu" id="products_list">
+              <li><a href="#">Business Cards</a></li>
+              <li><a href="#">Clothing & Bags</a></li>
+              <li><a href="#">Invitations & Stationery</a></li>
+              <li class="dropdown-divider"></li>
+              <li><a href="#">Labels & Stickers</a></li>
+              <li class="divider"></li>
+              <li class="dropdown dropright" id="photogift_menu">
+                <a href="#">Photo Gifts</a>
+                <ul class="dropdown-menu" id="photogifts_submenu">
+                  <li><a href="" [routerLink]="['Tshirts']">T shirts</a></li>
+                  <li><a href="#">Pillows</a></li>
+                  <li><a href="#">Mouse pads</a></li>
+                </ul>
+              </li>
+              <li><a>Stationery</a></li>
+            </ul>
+          </li>
+          <li style="margin-left:40px">    </li>
+          <li class="dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Services
+            </a>
+            <ul class="dropdown-menu" id="services_list">
+              <!--<div class="row">-->
+              <!-- <div class="col-sm-6">-->
+              <ul class="multi-column-dropdown">
+                <li><a href="#">Logo Maker</a></li>
+                <li><a href="#">Custom Logo Design</a></li>
+                <li><a href="#">Printed Product Design</a></li>
+                <!--<li class="dropdown-divider"></li>-->
+                <li><a href="#">Design Live</a></li>
+                <!--<li class="divider"></li>
+              <li><a href="#">One more separated link</a></li>-->
+              </ul>
+              <!--</div>-->
+              <!--<div class="col-sm-6">
+              <ul class="multi-column-dropdown">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="dropdown-divider"></li>
+                <li><a href="#">Separated link</a></li>
+                <li class="divider"></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </div>-->
+              <!--</div>-->
+            </ul>
+          </li>
+          <li style="margin-left:40px"></li>
+          <li class="nav-item active">
+            <a href="#" class="nav-link">
+              Enquiry
+            </a>
+          </li>
+          <li style="margin-left:40px"></li>
+          <li class="nav-item active">
+            <a href="#" class="nav-link">
+              Contact
+            </a>
+          </li>
+          <li style="margin-left:40px"></li>
+
+          <li class="nav-item active">
+            <a href="#" class="nav-link">
+              <span class="glyphicon glyphicon-shopping-cart"></span>
+              Cart
+            </a>
+          </li>
+        </ul>
+      </div>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color:white">Search</button>
+      </form>
+    </nav>
+    <app-home></app-home>
+  </div>
+ 
+
+</body>
+</html>

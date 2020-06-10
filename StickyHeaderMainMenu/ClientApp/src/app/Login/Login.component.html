@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title></title>
+</head>
+<body>
+  <div id="login">
+    <div class="container" style="height:500px" >
+      <div id="login-row" class="row justify-content-center align-items-center">
+        <div id="login-column" class="col-md-6">
+          <div id="login-box" class="col-md-12">
+            <form id="login-form" class="form" action="" method="post">
+              <h3 class="text-center text-info">Login</h3>
+              <div>
+                <label for="username" class="text-info">Username:</label><br>
+                <input type="text" name="username" id="username">
+              </div>
+              <div>
+                <label for="password" class="text-info">Password:</label><br>
+                <input type="text" name="password" id="password">
+              </div>
+              <br />
+              <div>
+                <!--<label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>-->
+                <button type="submit" name="submit" style=" background: lightseagreen;
+    border-color: lightseagreen;color: white" id="btn_login" class="btn btn-outline-success" (click)="submit()" value="submit">
+                  Login
+                </button>
+                &nbsp; &nbsp; &nbsp;
+                <a href="#" class="text-info" id="frgotpwd">Forgot Password</a>
+                <a href="" class="text-info" [routerLink]="['/Register']">Register here</a>
+              </div>
+
+            </form>
+
+            <div class="modal" tabindex="-1" role="dialog" id="myModal">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" style="color:lightseagreen">Password assistance</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div>
+                      <label for="username" class="text-info">Name of the First School</label><br>
+                      <input class="e-input" style="width:170px" type="text"/>
+                    </div>
+                    <div>
+                      <label for="password" class="text-info">Password:</label><br>
+                      <input type="text" name="password" id="password">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

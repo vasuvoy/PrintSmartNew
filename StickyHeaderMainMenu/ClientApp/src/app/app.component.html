@@ -1,0 +1,585 @@
+<html>
+<head>
+  <style>
+  .dropdown-menu {
+  min-width: 200px;
+  }
+
+  .dropdown-menu.columns-2 {
+  min-width: 400px;
+  }
+
+  .dropdown-menu.columns-3 {
+  min-width: 600px;
+  }
+
+  .dropdown-menu li a {
+  padding: 5px 15px;
+  font-weight: 300;
+  color: #000000;
+  }
+
+    .dropdown-menu li a:hover {
+      text-decoration: none;
+      color: #262626;
+      background-color: white;
+      opacity: 1.0;
+      color: blue;
+    }
+
+  .multi-column-dropdown {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  color: #ff0000;
+  }
+
+  .multi-column-dropdown li a {
+  display: block;
+  clear: both;
+  line-height: 1.428571429;
+  color: #000000;
+  white-space: normal;
+  }
+
+  .multi-column-dropdown li a:hover {
+  text-decoration: none;
+  color: #262626;
+  /*background-color: #999;*/
+  opacity: 1.0;
+  color: blue;
+  }
+
+    @media (max-width: 767px) {
+      .dropdown-menu.multi-column {
+        min-width: 240px !important;
+        overflow-x: hidden;
+        background-color: red;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .navbar-collapse.in {
+        overflow-y: visible;
+      }
+
+
+      
+    }
+
+
+
+  /*nav bar background colour custom*/
+  .navbar-custom {
+  background-color: lightseagreen;
+  }
+
+    /*.table td, .table th {
+      padding: .75rem;
+       vertical-align: text-top; 
+      border-top: 1px solid #dee2e6;
+    }*/
+
+    i {
+      border: solid black;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+    }
+
+    .right {
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+      border-color:lightseagreen;
+    }
+  </style>
+</head>
+
+<body>
+  <table class="table" style="margin-top:-30px">
+    <thead>
+      <tr>
+        <th scope="col"><img src="assets/Img/Icon.jpg" style="width:100px" /></th>
+        <th scope="col" style="vertical-align:middle;color:lightseagreen"><h2>Print Smart</h2></th>
+        <th scope="col" style="vertical-align: middle;text-align: center;color: lightseagreen"><a href="#" [routerLink]="['Login']" onclick="return theFunction();">{{login_text}}</a></th>
+
+      </tr>
+    </thead>
+  </table>
+
+  <!--<table class="table" height="10px">
+    <tr>
+      <td scope="col"><img src="assets/Img/Icon.jpg" style="height:100px;width:100px;margin-top:-29px" /></td>
+      <td scope="col"><h2 style="padding-left: 230px;color:lightseagreen">Print Smart</h2></td>
+      <td scope="col"><a href="#" [routerLink]="['Login']" style="color:lightseagreen;vertical-align:bottom" onclick="return theFunction();">{{login_text}}</a></td>
+    </tr>
+    </table>-->
+
+  <div>
+    <nav class="navbar navbar-custom navbar-expand-lg navbar-dark " style="margin-top:-33px !important">
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/']">Home</a>
+          </li>
+          <li style="margin-left:40px">    </li>
+          <li class="dropdown">
+            <a class="nav-link dropdown-toggle active" href="#"
+               id="navbarDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+              Products
+            </a>
+            <ul class="dropdown-menu" id="products_list">
+              <li class="dropdown dropright" id="visitingcard_menu">
+                <a href="#">Visiting Cards&nbsp;&nbsp;<i class="right"></i></a>
+                <ul class="dropdown-menu multi-column columns-3" id="visitingcard_submenu">
+                  <div class="row">
+                    <div class="col-sm-4" style="width:800px">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Visiting Cards</strong></li>
+                        <li><a href="#" [routerLink]="['IdCards']">Standard Visiting Card</a></li>
+                        <li><a href="#">Classic Visiting Card</a></li>
+                        <li><a href="#">Square Visiting Card</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Standard Papers</strong></li>
+                        <li><a href="#">Glossy Visiting Cards</a></li>
+                        <li><a href="#">Matte Visiting Cards</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Premium Papers</strong></li>
+                        <li><a href="#">Premium Plus Visiting Cards</a></li>
+                        <li><a href="#">Non-Tearable Visiting Cards</a></li>
+                        <li><a href="#">Velvet Touch Visiting Cards</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </ul>
+              </li>
+              <li><a href="#">New Arrivals</a></li>
+              <li class="dropdown dropright" id="banner_menu">
+                <a href="#">Banners,Posters & Signs &nbsp;&nbsp;<i class="right"></i></a>
+                <ul class="dropdown-menu multi-column columns-3" id="banner_submenu">
+                  <div class="row">
+                    <div class="col-sm-4" style="width:800px">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Signs & Posters</strong></li>
+                        <li><a href="#">Banners</a></li>
+                        <li><a href="#">Standees</a></li>
+                        <li><a href="#">Posters</a></li>
+                        <li><a href="#">Coated Aluminium Signs</a></li>
+                        <li><a href="#">Plastic Signboards</a></li>
+                        <li><a href="#">Magnetic Signs</a></li>
+                        <li><a href="#">Tabletop Standees</a></li>
+                        <li><a href="#">Sun Boards</a></li>
+                        <li><a href="#">Tabletop Signs</a></li>
+                        <li><a href="#">Door Hangers</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black"><strong>&nbsp;&nbsp;&nbsp;Office Signs</strong></li>
+                        <li><a href="#">Engraved Name Plates</a></li>
+                        <li><a href="#">Exit Signs</a></li>
+                        <li><a href="#">Mens Restroom Signs</a></li>
+                        <li><a href="#">Women's Restroom Signs</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </ul>
+              </li>
+              <!--<li class="dropdown-divider"></li>-->
+              <li class="dropdown dropright" id="calendar_menu">
+                <a href="#">Calendars&nbsp;&nbsp;<i class="right"></i></a>
+                <ul class="dropdown-menu multi-column columns-3" id="calendar_submenu">
+                  <div class="row">
+                    <div class="col-sm-4" style="width:800px">
+                      <ul class="multi-column-dropdown">
+                        <li><a href="#">Desk Calendars-Photo</a></li>
+                        <li><a href="#">Desk Calendars-Theme</a></li>
+                        <li><a href="#">Predesigned Regional Desk Calendars</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Wall Calendar</strong></li>
+                        <li><a href="#">Mini Wall Calendar</a></li>
+                        <li><a href="#">Classic Wall Calendar</a></li>
+                        <li><a href="#">Large Wall Calendar</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li><a href="#">Pocket Calendar</a></li>
+                        <li><a href="#">Magnetic Calendar</a></li>
+                        <li><a href="#">Poster Calendar</a></li>
+                        <li><a href="#">2020 Notebooks</a></li>
+                        <li><a href="#">2020 Mouse pads</a></li>
+                        <li><a href="#">2020 Personalised mugs</a></li>
+                        <li><a href="#">Folded Visiting cards</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </ul>
+              </li>
+              <!--<li class="divider"></li>-->
+              <li class="dropdown dropright" id="photogift_menu">
+                <a href="#">Clothing & Bags&nbsp;&nbsp;<i class="right"></i></a>
+                <ul class="dropdown-menu" id="photogifts_submenu">
+                  <li><a href="" [routerLink]="['Tshirts']">Printed T-shirts</a></li>
+                  <li><a href="#">Embroidered Polo T-shirts </a></li>
+                  <li><a href="#">Bags</a></li>
+                  <li><a href="#">Caps</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Corporate Gifts</a></li>
+              <li><a href="#">Embroidered Clothing</a></li>
+              <li class="dropdown dropright" id="invitation_menu">
+                <a href="#">Invitations and Announcements&nbsp; &nbsp;<i class="right"></i></a>
+                <ul class="dropdown-menu multi-column columns-3" id="invitation_submenu">
+                  <div class="row">
+                    <div class="col-sm-4" style="width:800px">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Invitations & Announcements</strong></li>
+                        <li><a href="#">Baby Shower Invitations</a></li>
+                        <li><a href="#">Birthday Invitations</a></li>
+                        <li><a href="#">Business Invitations</a></li>
+                        <li><a href="#">Graduation Invitations</a></li>
+                        <li><a href="#">Party Invitations</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Religious Announcements</a></li>
+                        <li><a href="#">Envelopes</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black"><strong>&nbsp;&nbsp;&nbsp;Wedding</strong></li>
+                        <li><a href="#" [routerLink]="['invitation-cards']">Wedding Invitations</a></li>
+                        <li><a href="#">Wedding Signs</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Save the Date Cards</a></li>
+                        <li><a href="#">Thankyou Cards</a></li>
+                        <li><a href="#">Wedding Enclosure Cards</a></li>
+                        <li><a href="#">Wedding Programmes</a></li>
+                        <li><a href="#">Wedding Menus</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </ul>
+              </li>
+              <li class="dropdown dropright" id="label_menu">
+                <a href="#">Labels & Stickers&nbsp; &nbsp;<i class="right"></i></a>
+                <ul class="dropdown-menu multi-column columns-3" id="label_submenu">
+                  <div class="row">
+                    <div class="col-sm-4" style="width:800px">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Labels</strong></li>
+                        <li><a href="#">Mailing Labels</a></li>
+                        <li><a href="#">Product & Packaging Labels</a></li>
+                        <li><a href="#">Return Address Labels</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Stickers</strong></li>
+                        <li><a href="#">Visiting Card Stickers</a></li>
+                        <li><a href="#">Custom Stickers</a></li>
+                        <li><a href="#">Waterproof Stickers</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Tags</strong></li>
+                        <li><a href="#">Hand Tags</a></li>
+                        <li><a href="#">Name Tags</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </ul>
+              </li>
+              <li><a href="#">Laptop Bags</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Mugs</a></li>
+              <li class="dropdown dropright" id="pens_menu">
+                <a href="#">Personalised pens&nbsp; &nbsp;<i class="right"></i></a>
+                <ul class="dropdown-menu multi-column columns-3" id="pens_submenu">
+                  <div class="row">
+                    <div class="col-sm-4" style="width:800px">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Pens</strong></li>
+                        <li><a href="#">Personalised Pens</a></li>
+                        <li><a href="#">Personalised Sleek Pens</a></li>
+                        <li><a href="#">Basic Pens</a></li>
+                        <li><a href="#">Pen Gift Box</a></li>
+                        <li><a href="#">Premium Mate Pens</a></li>
+                        <li><a href="#">Submarine Metal Roller Pens</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Wallet & Keychains printing and Engrave Personalised Photos</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </ul>
+              </li>
+              <li><a href="#">Photo Albums</a></li>
+              <li class="dropdown dropright" id="MAG_menu">
+                <a href="#">Mugs,Albums & Gifts&nbsp; &nbsp;<i class="right"></i></a>
+                <ul class="dropdown-menu multi-column columns-3" id="MAG_submenu">
+                  <div class="row">
+                    <div class="col-sm-4" style="width:800px">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Calendars</strong></li>
+                        <li><a href="#">Desk Calendars</a></li>
+                        <li><a href="#">Wall Calendars</a></li>
+                        <li><a href="#">Poster Calendars</a></li>
+                        <li><a href="#">2020 Notebooks</a></li>
+                        <li><a href="#">Magnetic Calendars</a></li>
+                        <li><a href="#">Pocket Calendars</a></li>
+                        <li><a href="#">2020 Folded Visting Cards</a></li>
+                        <li class="divider"></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Mouse Pads</strong></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Canvas Prints</strong></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Photo Flip Books</strong></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Photo Albums</strong></li>
+                        <li><a href="#">Small Landscape Photo Album</a></li>
+                        <li><a href="#">Medium Landscape Photo Album</a></li>
+                        <li><a href="#">Large Landscape Photo Album</a></li>
+                        <li class="divider"></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Photo Frames</strong></li>
+                        <li><a href="#">Wooden & acrylic frames 2D/3D</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Magnets</strong></li>
+                        <li><a href="#">Fridge Magnets</a></li>
+                        <li><a href="#">Magnetic Signs</a></li>
+                        <li><a href="#">Photo Magnets</a></li>
+                        <li class="divider"></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Mugs</strong></li>
+                        <li><a href="#">Personalised Mugs</a></li>
+                        <li><a href="#">Colour Changing Mugs</a></li>
+                        <li><a href="#">Photo Magnets</a></li>
+                        <li class="divider"></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Photo Coasters</strong></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Soft Coasters</strong></li>
+                      </ul>
+                    </div>
+                  </div>
+                </ul>
+              </li>
+              <li><a href="#">Printed Clothing</a></li>
+              <li><a href="#">Stamps & Ink</a></li>
+              <li class="dropdown dropright" id="SLS_menu">
+                <a href="#">Staionery and Letterheads&nbsp; &nbsp;<i class="right"></i></a>
+                <ul class="dropdown-menu multi-column columns-3" id="SLS_submenu">
+                  <div class="row">
+                    <div class="col-sm-4" style="width:800px">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Letterheads</strong></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Stationery</strong></li>
+                        <li><a href="#">Letterheads</a></li>
+                        <li><a href="#">Envelope</a></li>
+                        <li><a href="#">Notebooks</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Bill Books</a></li>
+                        <li><a href="#">Note Cards</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Thankyou Cards</a></li>
+                        <li><a href="#">Bookmarks</a></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Pens</strong></li>
+                        <li><a href="#">Personalised Pens</a></li>
+                        <li><a href="#">Personalised Sleek Pens</a></li>
+                        <li><a href="#">Basic Pens</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Office Supplies</strong></li>
+                        <li><a href="#">Presentation Folders</a></li>
+                        <li><a href="#">Personalised Mugs</a></li>
+                        <li><a href="#">Mouse Pads</a></li>
+                        <li><a href="#">Engraved Metal Visiting Card Holders</a></li>
+                        <li><a href="#">USB Flash Drives</a></li>
+                        <li><a href="#">Keychains</a></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Stamps & Inks</strong></li>
+                        <li><a href="#">New Round Self-Inking Stamps </a></li>
+                        <li><a href="#">Rectangular Self-Inking Stamps </a></li>
+                        <li><a href="#">Basic Pocket Stamps </a></li>
+                        <li><a href="#">New Basic Rubber Stamps </a></li>
+                        <li><a href="#">New Date Stamps </a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Dairies</strong></li>
+                        <li><a href="#">Dairy</a></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Labels</strong></li>
+                        <li><a href="#">Mailing Labels</a></li>
+                        <li><a href="#">Product and Packaging Labels</a></li>
+                        <li><a href="#">Return address Labels</a></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Stickers</strong></li>
+                        <li><a href="#">Visiting Card Stickers</a></li>
+                        <li><a href="#">Custom Stickers</a></li>
+                        <li><a href="#">Waterproof Stickers</a></li>
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Tags</strong></li>
+                        <li><a href="#">Hand Tags</a></li>
+                        <li><a href="#">Name Tags</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Invitations & Announcements</strong></li>
+                        <li><a href="#">Baby Shower Invitations</a></li>
+                        <li><a href="#">Birthday Invitations</a></li>
+                        <li><a href="#">Business Invitations</a></li>
+                        <li><a href="#">Graduation Invitations</a></li>
+                        <li><a href="#">Party Invitations</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black"><strong>&nbsp;&nbsp;&nbsp;Wedding</strong></li>
+                        <li><a href="#">Wedding Invitations</a></li>
+                        <li><a href="#">Wedding Signs</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Save the Date Cards</a></li>
+                        <li><a href="#">Thankyou Cards</a></li>
+                        <li><a href="#">Wedding Programmes</a></li>
+                        <li><a href="#">Wedding Menus</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </ul>
+              </li>
+              <li><a href="#">Wedding</a></li>
+              <li class="dropdown dropright" id="trophy_menu">
+                <a href="#">Acrylic and wooden trophy achievments (memontows)&nbsp; &nbsp;<i class="right"></i></a>
+                <ul class="dropdown-menu multi-column columns-3" id="trophy_submenu">
+                  <div class="row">
+                    <div class="col-sm-4" style="width:800px">
+                      <ul class="multi-column-dropdown">
+                        <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Calendars</strong></li>
+                        <li><a href="#" [routerLink]="['trophy-engraving']">Engraving</a></li>
+                        <li><a href="#" [routerLink]="['trophy-printing']">Printing</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </ul>
+              </li>
+              <li><a href="#" [routerLink]="['brouchers']">BROUCHERS AND A4 CERTIFICATES</a></li>
+              <li><a href="#" [routerLink]="['cloth-blinders']">Cloth &  BLINDERS  printing</a></li>
+            </ul>
+          </li>
+          <li style="margin-left:40px">    </li>
+          <li class="dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Services
+            </a>
+            <ul class="dropdown-menu" id="services_list">
+              <ul class="multi-column-dropdown">
+                <li class="dropdown dropright" id="3Dwall_menu">
+                  <a href="#">3D wallpapers&nbsp; &nbsp;<i class="right"></i></a>
+                  <ul class="dropdown-menu multi-column columns-3" id="3Dwall_submenu">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <ul class="multi-column-dropdown">
+                          <li><a href="#" [routerLink]="['wallpapers']">Wall Decores</a></li>
+                          <li><a href="" [routerLink]="['Floor']">Floor Decores</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </ul>
+                </li>
+                <li class="dropdown dropright" id="Kitchen_menu">
+                  <a href="#">Modular kitchens&nbsp; &nbsp;<i class="right"></i></a>
+                  <ul class="dropdown-menu multi-column columns-3" id="Kitchen_submenu">
+                    <div class="row">
+                      <div class="col-sm-4" style="width:500px">
+                        <ul class="multi-column-dropdown">
+                          <li style="width:100px"><a href="#">Customized Kitchen Cupboards Designs</a></li>
+                          <li><a href="#" [routerLink]="['cupboards']">Customized Bedroom Cupboards Designs</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </ul>
+                </li>
+                <li class="dropdown dropright" id="interior_menu">
+                  <a href="#">Interior Designs&nbsp; &nbsp;<i class="right"></i></a>
+                  <ul class="dropdown-menu multi-column columns-3" id="interior_submenu">
+                    <div class="row">
+                      <div class="col-sm-4" style="width:500px">
+                        <ul class="multi-column-dropdown">
+                          <li><a href="#">Glass Elevations</a></li>
+                          <li><a href="#" [routerLink]="['door']">Doors</a></li>
+                          <li><a href="#" [routerLink]="['windows']">Windows</a></li>
+                          <li><a href="#" [routerLink]="['glass-partition']">Customized Glass Partion Printing </a></li>
+                          <li><a href="#" [routerLink]="['steps-railing']">Steps railing </a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </ul>
+                </li>
+              </ul>
+            </ul>
+          </li>
+          <li style="margin-left:40px"></li>
+          <li class="nav-item active">
+            <a href="#" class="nav-link">
+              Enquiry
+            </a>
+          </li>
+          <li style="margin-left:40px"></li>
+          <li class="nav-item active">
+            <a href="#" class="nav-link">
+              Contact
+            </a>
+          </li>
+          <li style="margin-left:40px"></li>
+
+          <li class="nav-item active">
+            <a href="#" class="nav-link" [routerLink]="['cart']">
+              <span class="glyphicon glyphicon-shopping-cart"></span>
+              <span id="cartcount">{{cartItemCount}}</span>
+              Cart
+            </a>
+          </li>
+        </ul>
+
+        <!--<ul class="nav navbar-nav navbar-right">
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color:white">Search</button>
+    </form>
+    </ul>-->
+        <form class="navbar-form navbar-right">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" name="search">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </nav>
+  </div>
+  
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</body>
+</html>
