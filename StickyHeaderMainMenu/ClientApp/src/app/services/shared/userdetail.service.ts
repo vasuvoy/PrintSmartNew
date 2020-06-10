@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { user_detail } from '../entities/Userdetail.entity';
+import { Userdetail } from '../entities/Userdetail.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ import { user_detail } from '../entities/Userdetail.entity';
 export class UserdetailService {
 
 
-   formData: user_detail;
+  formData: Userdetail;
   readonly rootURL = 'http://localhost:65067/api';
 //  list: PaymentDetail[];
 
