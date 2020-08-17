@@ -7,25 +7,23 @@
 <body>
   <div>
     <div id="div_idcards" style="width:500px !important;cursor:pointer">
-      <div class="container" style="width:500px !important">
-        <div class="row" style="width:800px !important">
+      <div class="container" style="width:500px !important" *ngFor="let img of img_list">
+        <div class="row" style="width:800px !important" >
           <div class="col-sm">
-            <img src="assets/Img/IDCARD1.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
+            <img src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
           </div>
           <div class="col-sm">
-            <img src="assets/Img/IDCARD2.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
+            <img src="assets/VisitingCards/IDCARD2.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
           </div>
-          <div class="col-sm">
-            <img src="assets/Img/IDCARD3.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
-          </div>
+
         </div>
         <br />
-        <div class="row" style="width:800px !important">
+        <!--<div class="row" style="width:800px !important">
           <div class="col-sm">
             <img src="assets/Img/IDCARD4.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
           </div>
 
-        </div>
+        </div>-->
       </div>
     </div>
   </div>

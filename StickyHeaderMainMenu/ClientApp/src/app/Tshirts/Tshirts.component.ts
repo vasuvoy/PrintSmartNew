@@ -1,11 +1,13 @@
 import { Component, OnInit, ɵɵNgOnChangesFeature, EventEmitter,Input } from '@angular/core';
-import { Product } from '../entities/product.entity';
+//import { Product } from '../entities/product.entity';
 import { ProductService } from '../services/product.service';
 import { Router } from '@angular/router'
 import { SharedService } from '../services/shared.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Image } from '../entities/Image.entity';
 import { using } from 'rxjs/internal/observable/using';
+import { Item } from '../entities/item.entity';
+import { Product } from '../entities/product.entity';
 
 declare var $: any;
 
@@ -24,8 +26,12 @@ let qty: number;
 export class TshirtComponent implements OnInit {
 
   public cartItems: Cart[];
-  public products: Product[];
- public  image_detail: Image[];
+  public item: Item[];
+
+  public products: Product[] = [];
+  public image_detail: Image[];
+  public dim: Dimensions[];
+  public products1: Product[]
   constructor(public router: Router, private httpClient: HttpClient, private _exampleService: ProductService, private _sharedservice: SharedService)
   //private productService: ProductService
   {
@@ -33,7 +39,18 @@ export class TshirtComponent implements OnInit {
 
 
   ngOnInit() {
-
+    this.httpClient.get('https://localhost:44302/' + 'api/Dimmasters/' + localStorage.getItem("ProdId")).subscribe(
+      (res: any) => {
+        this.dim = res
+        this.dim.forEach(e => {
+          var newOption = new Option(e.dimDescription, e.dimDescription, false, false);
+          $('#ddl_size').append(newOption).trigger('change');
+          var newOption_gender = new Option(e.gender, e.gender, false, false);
+          $('#ddl_gender').append(newOption_gender).trigger('change');
+          
+        })
+      }
+   );
     $(document).ready(function () {
       $("#inner_div_basictshirts").hide();
       $("#outer_div_tshirts_cart").hide();
@@ -244,11 +261,11 @@ export class TshirtComponent implements OnInit {
 
 
     $("#ddl_gender").change(function () {
-      gender_text = $('#ddl_gender :selected').text();;
+      gender_text = $('#ddl_gender :selected').text();
 
     });
     $("#ddl_size").change(function () {
-      size = $('#ddl_size :selected').text();;
+      size = $('#ddl_size :selected').val();
 
     });
     $("#ddl_Color").change(function () {
@@ -262,14 +279,129 @@ export class TshirtComponent implements OnInit {
   }
 
   AddToCart() {
-    this.products = this._exampleService.insertProduct('1', gender_text, size, color, qty);
-    //this.cartItemsCount = this.products.length;
+    this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails').subscribe((res: any) => {
+      this.products1 = res;
+   //   var t: Product = this.products1.forEach(e => { e.ProdModelId == 1 }),
+      //var item: Item = {
+      //  product:,
+      //  quantity: 1
+      //};
+    });
+  //  this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.products[0]).subscribe(res => { alert("post"); });
+
+
+    function stringtonum(input: string) {
+      var n = Number(input);
+      return n;
+    }
+    this.products=[ {
+      ProdId: stringtonum(localStorage.getItem('ProdId')),
+      ProdModelId: stringtonum(localStorage.getItem('ProdModelId')),
+      Gender: gender_text,
+      CustomContent: null,
+      DimIdSize: stringtonum(size),
+      OrderedBy: null,
+      DtCreate: null,
+      DtModify: null,
+      Quantity: 1,
+      IsCustomized: 0,
+      StatusCode: "C"
+    }];
+
+    
+    let cart1: any = JSON.parse(localStorage.getItem('cart'));
+    var test: Product = cart1;
+
+    this._exampleService.insertProduct(this.products[0]);
+    var id = 1;
+    if (id) {
+      var item: Item = {
+        product: this._exampleService.find(id),
+        quantity: 1
+      };
+
+      if (localStorage.getItem('cart') == "null") {
+        let cart: any = [];
+        cart.push(JSON.stringify(item));
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+      else {
+        let cart: any = JSON.parse(localStorage.getItem('cart'));
+        let index: number = -1;
+        for (var i = 0; i < cart.length; i++) {
+          let item: Item = JSON.parse(cart[i]);
+          if (item.product.ProdId == id) {
+            index = i;
+            break;
+          }
+        }
+        if (index == -1) {
+          cart.push(JSON.stringify(item));
+          localStorage.setItem('cart', JSON.stringify(cart));
+        } else {
+          let item: Item = JSON.parse(cart[index]);
+          item.quantity += 1;
+          cart[index] = JSON.stringify(item);
+          localStorage.setItem("cart", JSON.stringify(cart));
+        }
+      }
+    }
     this._sharedservice.updateCartCount(this.products.length);
-    this._exampleService.addProductToCart(this.products);
-
-    //Storing image
-
+    this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.products[0]).subscribe(res => { alert("post"); });
   }
+  //AddToCart() {
+
+  //  if (localStorage.getItem('cart') != "null") {
+  //    var item: Item = {
+  //      product: this._exampleService.find("1"),
+  //      quantity: 1
+  //    };
+
+  //    let cart: any = localStorage.getItem('cart');
+  //    let index: number = -1;
+
+  //    for (var i = 0; i < cart.length; i++) {
+
+  //      item = cart[i];
+  //      if (item.product.id == "1") {
+  //        index = i;
+  //        break;
+  //      }
+  //    }
+  //    if (index == -1) {
+  //      cart.push(JSON.stringify(Item));
+  //      localStorage.setItem('cart', JSON.stringify(cart));
+  //    } else {
+  //      let item: Item = JSON.parse(cart[index]);
+  //      item.quantity += 1;
+  //      cart[index] = JSON.stringify(item);
+  //      localStorage.setItem("cart", JSON.stringify(cart));
+  //    }
+    
+  //  }
+  //  else {
+  //    //var products: Product[] = this._exampleService.insertProduct('1', gender_text, size, color, qty);
+  //    var item: Item = {
+  //      product: { id: '1', gender: gender_text, size: size, color: color, qty: qty },
+  //      quantity: 1
+  //    };
+  //   // this.products = this._exampleService.insertProduct('1', gender_text, size, color, qty);
+  //    if (localStorage.getItem('cart') == "null") {
+  //      let product: any = [];
+  //      product.push(JSON.stringify(item));
+  //      //localStorage.setItem('product', JSON.stringify(product));
+  //      this._exampleService.addProductToCart(product);
+  //    }
+
+        
+  //  }
+  //  //this.cartItemsCount = this.products.length;
+  ////  this._sharedservice.updateCartCount();
+   
+   
+  //  //Storing image
+
+  //}
 
 
   shopnow() {
@@ -297,6 +429,41 @@ export class TshirtComponent implements OnInit {
       
     }
   }
+}
+
+//export class Product {
+//  DetailId?: number;
+//  OrderId?: number;
+//  ProdId: number;
+//  ProdModelId: number;
+//  IsCustomized: number;
+//  Gender: string;
+//  DimIdSize: number;
+//  CustomContent: number;
+//  Quantity: number;
+//  StatusCode: string;
+//  OrderedBy: number;
+//  DtCreate: null;
+//  DtModify: null;
+
+//  //id: string;
+//  //gender: string;
+//  //size: string;
+//  //color: string;
+//  //qty: number;
+//}
+
+
+export class Dimensions {
+
+  DimId: number;
+  ProdId: number;
+  ProdModelId: number;
+  gender: string;
+  dimDescription: string;
+  IsActive: number;
+  DtCreate: null;
+  DtModify: null;
 }
 
 

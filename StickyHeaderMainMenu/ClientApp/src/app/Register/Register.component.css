@@ -18,6 +18,13 @@ span.arrow {
   background: url('http://i45.tinypic.com/f9ifz6.png') no-repeat left center;
 }
 
+
+  .errorspan::after{
+  content: "\a";
+  white-space: pre;
+}
+
+
 label.error {
   height: 17px;
   border-top: 1px solid #99182c;
@@ -25,6 +32,7 @@ label.error {
   border-bottom: 1px solid #99182c;
   margin-left: 9px;
   padding: 1px 5px 0px 5px;
-  font-size: small;
+  font-size: 10px !important;
+  font-weight:100 !important;
+  
 }
-

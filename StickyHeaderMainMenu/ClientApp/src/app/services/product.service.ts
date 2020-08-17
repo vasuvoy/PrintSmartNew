@@ -21,31 +21,48 @@ export class ProductService {
     return this.products;
   }
 
-  find(id: string): Product {
+  find(id: number): Product {
     return this.products[this.getSelectedIndex(id)];
   }
 
-  private getSelectedIndex(id: string) {
+  private getSelectedIndex(id: number) {
     for (var i = 0; i < this.products.length; i++) {
-      if (this.products[i].id == id) {
+      if (this.products[i].ProdId == id) {
         return i;
       }
     }
     return -1;
   }
 
-  public insertProduct(id: string, gender: string, size: string, color: string, qty: number) {
-    this.products.push({ 'id': id, 'gender': gender, 'size': size, 'color': color, 'qty': qty })
+  public insertProduct(products) {
+    function stringtonum(input: string) {
+      var n = Number(input);
+      return n;
+    }
+    this.products.push({
+      ProdId: stringtonum(localStorage.getItem('ProdId')),
+      ProdModelId: stringtonum(localStorage.getItem('ProdModelId')),
+      Gender: products.Gender,
+      CustomContent: null,
+      DimIdSize: null,
+      OrderedBy: null,
+      DtCreate: null,
+      DtModify: null,
+      Quantity: 1,
+      IsCustomized: 0,
+      StatusCode: "C"
+    });
+  //this.products.push({ 'ProdId': ProdId, 'ProdModelId': , 'size': size, 'color': color, 'qty': qty })
     return this.products;
  
   }
 
   addProductToCart(prodcuts: any) {
-    localStorage.setItem("product", JSON.stringify(prodcuts));
+    localStorage.setItem("cart", JSON.stringify(prodcuts));
   }
 
   getProductFromCart() {
     //return localStorage.getItem("product");
-    return JSON.parse(localStorage.getItem('product'));
+    return JSON.parse(localStorage.getItem('cart'));
   }
 }

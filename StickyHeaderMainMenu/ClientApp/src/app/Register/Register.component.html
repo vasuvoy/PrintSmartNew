@@ -1,207 +1,129 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title></title>
 </head>
 <body>
-  <!--<form action="" name="registration">
-    <div style=" border-radius:15px 15px 15px 15px;border:1px solid;border-color:lightseagreen;width:800px">
-      <div class="table-responsive">
-        <table class="table borderless">
-          <tbody>
-            <tr>
-              <td>
-                <div class="control-group">
-                  <label class="lbl_style" for="firstname">First Name:</label><span style="color:red">*</span>&nbsp;
+
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header" style="color:lightseagreen;font-size:medium"><b>Register</b></div>
+          <div class="card-body">
+            <form id="registration" action="" method="post">
+
+                <table class="table borderless">
+                  <tbody>
+                    <tr>
+                      <td style="width:150px">
+                        <label class="lbl_style" for="firstname">First Name:</label><span style="color:red">*</span>&nbsp;
+                      </td>
+                      <td>
+                        <input class="form-control" name="firstname" id="firstname" style="width: 220px " type="text" required />
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:150px">
+                        <label class="lbl_style" for="lastname">Last Name:</label><span style="color:red">*</span>&nbsp;
+                      </td>
+                      <td>
+                        <input class="form-control " name="lastname" id="lastname" style="width: 220px " type="text" required />
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:150px">
+                        <label class="lbl_style" for="email">Email:</label><span style="color:red">*</span>&nbsp;
+                      </td>
+                      <td>
+                        <input class="form-control " name="email" id="email" style="width: 170px " type="email" required />
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:150px">
+                        <label class="lbl_style" for="DOB">Date Of Birth:</label><span style="color:red">*</span>&nbsp;
+                      </td>
+                      <td>
+                        <input class="form-control " name="DOB" placeholder="YYYY-MM-DD"  id="DOB" style="width: 220px " type="date" required />
+                        <!--<div class="input-group date" data-provide="datepicker">
+            <input type="text" class="form-control">
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+            </div>
+          </div>-->
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:150px">
+                        <label class="lbl_style" for="pwd">Passowrd:</label><span style="color:red">*</span>&nbsp;
+                      </td>
+                      <td>
+                        <input class="form-control" name="pwd" id="pwd" style="width: 220px " type="password" required />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:175px">
+                        <label class="lbl_style" for="Confirmpwd">Confirm Password:</label><span style="color:red">*</span>&nbsp;
+                      </td>
+                      <td>
+                        <input class="form-control " name="Confirmpwd" id="Confirmpwd" style="width: 220px " type="text" required />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:150px">
+                        <label class="lbl_style" for="Phonenum">Phone Number:</label><span style="color:red">*</span>&nbsp;
+                      </td>
+                      <td>
+                        <input class="form-control " name="Phonenum" id="Phonenum" style="width: 220px " type="number" required />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:150px">
+                        <label class="lbl_style" for="SecurityQus">Security Question:</label><span style="color:red">*</span>&nbsp;
+                      </td>
+                      <td>
+                        <!--<input class="form-control " id="SecurityQus" style="width: 170px " type="text" required />-->
+                        <select class="form-control select2" required name="ddl_secqus" id="ddl_secqus" style="width:220px">
+                          <option value=""></option>
+
+                        </select>
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:150px">
+                        <label class="lbl_style" for="ans">Answer:</label><span style="color:red">*</span>&nbsp;
+                      </td>
+                      <td>
+                        <input class="form-control " name="ans" id="ans" style="width: 220px " type="text" required />
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+      
+
+                <div class="col-md-6 offset-md-4">
+                  <button type="submit" (click)="register();" style="background-color:lightseagreen" id="register" class="btn btn-primary">
+                    Register
+                  </button>
                 </div>
-              </td>
-              <td><input class="e-input" name="firstname" style="width: 170px " type="text" required />
-              <label class="error"></label>
-              </td>
-              
-            </tr>
-            <tr>
-              <td>
-                <div class="control-group">
-                  <label class="lbl_style" for="lastname">Last Name:</label><span style="color:red">*</span>&nbsp;
-                </div>
-              </td>
-              <td><input class="e-input" name="lastname" style="width:170px" type="text" /></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="control-group">
-                  <label class="lbl_style" for="email">Email:</label><span style="color:red">*</span>&nbsp;
-                </div>
-              </td>
-              <td><input class="e-input" name="email" style="width:170px" type="email" /></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="control-group">
-                  <label class="lbl_style" for="dob">Date Of Birth:</label>&nbsp;
-                </div>
-              </td>
-              <td><input class="e-input" name="dob" style="width:170px" type="text" /></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="control-group">
-                  <label class="lbl_style" for="password">passowrd:</label><span style="color:red">*</span>&nbsp;
-                </div>
-              </td>
-              <td><input class="e-input" name="password" style="width:170px" type="password" id="password" /></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="control-group">
-                  <label class="lbl_style" for="confirmpassword">Confirm passowrd:</label><span style="color:red">*</span>&nbsp;
-                </div>
-              </td>
-              <td><input class="e-input" name="confirmpassword" style="width:170px" type="password" id="confirmpassword" /></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="control-group">
-                  <label class="lbl_style" for="phonenumber">Phone Number:</label><span style="color:red">*</span>&nbsp;
-                </div>
-              </td>
-              <td><input class="e-input" name="phonenumber" style="width:170px" type="text" /></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="control-group">
-                  <label class="lbl_style" for="securityqus1">Security Question:</label><span style="color:red">*</span>&nbsp;
-                </div>
-              </td>
-              <td><input class="e-input" name="securityqus1" style="width:170px" type="text" /></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="control-group">
-                  <label class="lbl_style" for="answer1">Answer:</label><span style="color:red">*</span>&nbsp;
-                </div>
-              </td>
-              <td><input class="e-input" name="answer1" style="width:170px" type="text" /></td>
-            </tr>
-            <tr><td><button type="submit" style="border-color:lightseagreen;background-color:lightseagreen">Register</button></td></tr>
-          </tbody>
-        </table>
+</form>
+          </div>
+
+        </div>
       </div>
     </div>
-  </form>-->
-  <form class="needs-validation" novalidate method="post" action="">
-    <div style=" border-radius:15px 15px 15px 15px;border:1px solid;border-color:lightseagreen;width:800px">
-      <div class="table-responsive">
-        <div class="form-row">
-          <table class="table borderless">
-            <tbody>
-              <tr>
-                <td style="width:150px">
-                  <label class="lbl_style" for="firstname">First Name:</label><span style="color:red">*</span>&nbsp;
-                </td>
-                <td>
-                  <input class="form-control e-input" id="firstname" style="width: 170px " type="text" required />
-                  <div class="invalid-feedback">
-                    Please enter Email.
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style="width:150px">
-                  <label class="lbl_style" for="lastname">Last Name:</label><span style="color:red">*</span>&nbsp;
-                </td>
-                <td>
-                  <input class="form-control e-input" id="lastname" style="width: 170px " type="text" required />
-                  <div class="invalid-feedback">
-                    Please enter Email.
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style="width:150px">
-                  <label class="lbl_style" for="email">Email:</label><span style="color:red">*</span>&nbsp;
-                </td>
-                <td>
-                  <input class="form-control e-input" id="email" style="width: 170px " type="email" required />
-                  <div class="invalid-feedback">
-                    Please enter Email.
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style="width:150px">
-                  <label class="lbl_style" for="DOB">Date Of Birth:</label><span style="color:red">*</span>&nbsp;
-                </td>
-                <td>
-                  <input class="form-control e-input" id="DOB" style="width: 170px " type="date" required />
+  </div>
 
-                </td>
-              </tr>
-              <tr>
-                <td style="width:150px">
-                  <label class="lbl_style" for="pwd">Passowrd:</label><span style="color:red">*</span>&nbsp;
-                </td>
-                <td>
-                  <input class="form-control e-input" id="pwd" style="width: 170px " type="password" required />
-                  <div class="invalid-feedback">
-                    Please enter Email.
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style="width:150px">
-                  <label class="lbl_style" for="Confirmpwd">Confirm Password:</label><span style="color:red">*</span>&nbsp;
-                </td>
-                <td>
-                  <input class="form-control e-input" id="Confirmpwd" style="width: 170px " type="text" required />
-                  <div class="invalid-feedback">
-                    Please enter Email.
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style="width:150px">
-                  <label class="lbl_style" for="Phonenum">Phone Number:</label><span style="color:red">*</span>&nbsp;
-                </td>
-                <td>
-                  <input class="form-control e-input" id="Phonenum" style="width: 170px " type="number" required />
-                  <div class="invalid-feedback">
-                    Please enter Email.
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style="width:150px">
-                  <label class="lbl_style" for="SecurityQus">Security Question:</label><span style="color:red">*</span>&nbsp;
-                </td>
-                <td>
-                  <input class="form-control e-input" id="SecurityQus" style="width: 170px " type="text" required />
-                  <div class="invalid-feedback">
-                    Please enter Email.
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style="width:150px">
-                  <label class="lbl_style" for="ans">Answer:</label><span style="color:red">*</span>&nbsp;
-                </td>
-                <td>
-                  <input class="form-control e-input" id="ans" style="width: 170px " type="text" required />
-                  <div class="invalid-feedback">
-                    Please enter Email.
-                  </div>
-                </td>
-              </tr>
 
-            </tbody>
-          </table>
-        </div>
-        <button class="btn btn-primary btn-sm btn-rounded" (click)="register()" type="submit">Register</button>
-        </div>
-      </div>
-        </form>
 
 </body>
 </html>

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from './entities/product.entity';
+//import { Product } from './entities/product.entity';
 import { ProductService } from './services/product.service';
 import { SharedService } from './services/shared.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 declare var $: any;
 let count: number;
@@ -14,14 +16,94 @@ let count: number;
 export class AppComponent implements OnInit {
   cartItemCount: number = 0
   login_text: string = "Sign In";
-  public products: Product[];
-  constructor(private _exampleService: ProductService, private router: Router,private _sharedservice: SharedService) {
+  login_username: string = "";
+  change_pwd = "";
+  
+  //public products: Product[];
+  public prodlist: Product_list[] = [];
+  public prodlist_main: mainmodel[] = [];
+  public prodlist1: Product_list[];
+
+  public prodView: prod_View[];
+  public test1: Productmodel[];
+  public test: Productmodel[] = [];
+  public test_l2prod: Productmodel[] = [];
+  public test_l2prod1: l2model[] = [];
+  public test_l2prod2: Productmodel[] = [];
+  public groubedByTeam = [];
+  public groubedByTeam_l2 = [];
+  public testmodel: testModel[] = [];
+  public count=0;
+  constructor(private http: HttpClient, private _exampleService: ProductService, private router: Router, private _sharedservice: SharedService) {
 
   }
   ngOnInit() {
-    
+    //from db loading prod list dynamically
+    this.http.get('https://localhost:44302/' + 'api/Products').subscribe(
+      (res1: any) => {
+        this.prodView = res1;
+
+        var groupBy = function (xs, key) {
+          return xs.reduce(function (rv, x) {
+            (rv[x[key]] = rv[x[key]] || []).push(x);
+            return rv;
+          }, {});
+        };
+        this.groubedByTeam = groupBy(this.prodView, 'l1parentId');
+        for (let key1 in this.groubedByTeam) {
+          if (this.groubedByTeam[key1].length > 1) {
+            this.groubedByTeam_l2 = groupBy(this.groubedByTeam[key1], 'l2prodId');
+            count = 0;
+          }
+          else {
+            this.groubedByTeam_l2 = this.groubedByTeam[key1];
+            count = 1;
+          }
+
+
+          var output = [];
+
+          for (let key in this.groubedByTeam_l2) {
+            if (count == 0) {
+              this.groubedByTeam_l2[key].forEach(e => { this.testmodel.push({ l3prodId: e.l3prodId, l3prodDesc: e.l3prodDesc, l2prodDesc: e.l2prodDesc }) });
+
+              this.test.push({ testmodel: this.testmodel });
+              this.test_l2prod = [{ l2prodDesc: this.groubedByTeam_l2[key][0].l2prodDesc, testmodel: this.test }];
+              this.test_l2prod1.push({ prdmodel: this.test_l2prod });
+              this.prodlist = [{
+                ProdId: this.groubedByTeam_l2[key][0].l1parentId,
+                ProdDesc: this.groubedByTeam_l2[key][0].l1prodDesc,
+                productModel: this.test_l2prod1
+                //productModel: [{ testmodel: this.testmodel }]
+              }];
+            }
+            else {
+              this.prodlist = [{
+                ProdId: this.groubedByTeam_l2[0].l1parentId,
+                ProdDesc: this.groubedByTeam_l2[0].l1prodDesc,
+                productModel: []
+                //productModel: [{ testmodel: this.testmodel }]
+              }];
+            }
+
+            //this.prodlist.push({ ProdId: this.groubedByTeam[1] })
+            this.testmodel = [];
+            this.test = [];
+
+          }
+          this.prodlist_main.push({ mainmodel: this.prodlist });
+
+          this.prodlist = [];
+        }
+      });
+
+ 
+
+    localStorage.setItem('cart', null);
     this._sharedservice.currentMessage.subscribe(msg => this.cartItemCount = msg);
     this._sharedservice.loginMessage.subscribe(msg => this.login_text = msg);
+    this._sharedservice.UserName.subscribe(name => this.login_username = name);
+    this._sharedservice.changepwd.subscribe(changepwd => this.change_pwd = changepwd);
     //function theFunction() {
 
     //  if (this.login_text == 'Sign Out') {
@@ -31,6 +113,8 @@ export class AppComponent implements OnInit {
     //    this.router.navigateByUrl('/')
     //  }
     //}
+
+
     $(document).ready(function () {
       var $window = $(window);
       function checkWidth() {
@@ -39,84 +123,30 @@ export class AppComponent implements OnInit {
         }
       }
       $(window).resize(checkWidth);
-      $(".dropdown").hover(
-        function () {
-          $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideToggle(900);
-          $('#photogifts_submenu').hide();
-          $('#calendar_submenu').hide();
-          $('#banner_submenu').hide();
-          $('#invitation_submenu').hide();
-          $('#label_submenu').hide();
-          $('#MAG_submenu').hide();
-          $('#pens_submenu').hide();
-          $('#visitingcard_submenu').hide();
-          $('#SLS_submenu').hide();
-          $('#3Dwall_submenu').hide();
-          $('#Kitchen_submenu').hide();
-          $('#interior_submenu').hide();
-          $('#trophy_submenu').hide();
-          $(this).toggleClass('open');
-        },
-
-        function () {
-          $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideUp("3000");
-          $(this).toggleClass('open');
-        }
-      );
-      $("#photogift_menu").hover(
-        function () { $('#photogifts_submenu').show(); }
-      );
-      $("#calendar_menu").hover(
-        function () { $('#calendar_submenu').show(); }
-      );
-      $("#banner_menu").hover(
-        function () { $('#banner_submenu').show(); }
-      );
-      $("#invitation_menu").hover(
-        function () { $('#invitation_submenu').show(); }
-      );
-      $("#label_menu").hover(
-        function () { $('#label_submenu').show(); }
-      );
-      $("#MAG_menu").hover(
-        function () { $('#MAG_submenu').show(); }
-      );
-      $("#pens_menu").hover(
-        function () { $('#pens_submenu').show(); }
-      );
-      $("#visitingcard_menu").hover(
-        function () { $('#visitingcard_submenu').show(); }
-      );
-      $("#SLS_menu").hover(
-        function () { $('#SLS_submenu').show(); }
-      );
-      $("#3Dwall_menu").hover(
-        function () { $('#3Dwall_submenu').show(); }
-      );
-      $("#Kitchen_menu").hover(
-        function () { $('#Kitchen_submenu').show(); }
-      );
-      $("#interior_menu").hover(
-        function () { $('#interior_submenu').show(); }
-      );
-      $("#trophy_menu").hover(
-        function () { $('#trophy_submenu').show(); }
-      );
-
+     
       $('#media').carousel({
         pause: false,
         interval: false,
       });
 
-      $('.dropdown-menu a').click(function () {
-        $('#products_list').hide();
-        $('#services_list').hide();
-      });
+
 
     });
 
-    
   
+  
+  }
+
+  //Sub menu hyperlink click event
+  subMenuhyperlinkClick(e) {
+   // alert(e.target.innerText+e.target.id);
+    localStorage.setItem('Prodl2Id', e.target.id);
+  }
+
+  //main menu hyperlink click event
+  MainMenuhyperlinkClick(e) {
+
+    localStorage.setItem('ProdId', e.target.id);
   }
   isExpanded = false;
 
@@ -127,5 +157,69 @@ export class AppComponent implements OnInit {
   toggle() {
     this.isExpanded = !this.isExpanded;
   }
+
+
+  
+     myaccount() {
+       if (this.login_text == 'Sign In') {
+         this.router.navigateByUrl('/Login');
+       }
+       else {
+         //this.router.navigateByUrl('/Login');
+       }
+  }
+
+  myaddress() {
+    if (this.login_text == 'Sign In') {
+      this.router.navigateByUrl('/Login');
+    }
+    else {
+      this.router.navigateByUrl('/new-address');
+    }
+  }
+
+}
+
+
+
+export class Product_list {
+  ProdId?: number;
+  ProdDesc?: string;
+  //ProdLink: number;
+  //IsActive: number;
+  productModel?: l2model[];
+}
+
+export class Productmodel {
+  l2prodDesc?: string;
+  testmodel?: testModel[];
+
+  //modelDesc: string;
+ // modelIdLink: string;
+  //isActive: number;
+
+}
+
+export class testModel {
+  l3prodId?: number;
+  //prodId: number;
+  l3prodDesc?: number;
+  l2prodDesc?: string;
+}
+
+export class l2model {
+  prdmodel?: Productmodel[];
+}
+
+export class mainmodel {
+  mainmodel?: Product_list[];
+}
+
+export class prod_View {
+  prodId: number;
+  prodDesc: string;
+  modelId: number;
+  modelCode: string;
+  modelDesc: string;
 }
 

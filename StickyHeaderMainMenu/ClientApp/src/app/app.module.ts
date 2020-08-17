@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -28,6 +28,9 @@ import { TrophyPrintingComponent } from './trophy-printing/trophy-printing.compo
 import { BrouchersComponent } from './brouchers/brouchers.component';
 import { ClothBlindersComponent } from './cloth-blinders/cloth-blinders.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { NewAddressComponent } from './new-address/new-address.component';
+import { AddressListComponent } from './address-list/address-list.component';
+import { EditAddressComponent } from './edit-address/edit-address.component';
 
 
 @NgModule({
@@ -55,13 +58,17 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
     TrophyPrintingComponent,
     BrouchersComponent,
     ClothBlindersComponent,
-    ForgotpasswordComponent
+    ForgotpasswordComponent,
+    NewAddressComponent,
+    AddressListComponent,
+    EditAddressComponent
     //FileUploadModule
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
@@ -84,7 +91,10 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
       { path: 'trophy-engraving', component: TrophyEngravingComponent },
       { path: 'brouchers', component: BrouchersComponent },
       { path: 'cloth-blinders', component: ClothBlindersComponent },
-      { path: 'forgotpassword', component: ForgotpasswordComponent }
+      { path: 'forgotpassword', component: ForgotpasswordComponent },
+      { path: 'new-address', component: NewAddressComponent },
+      { path: 'address-list', component: AddressListComponent },
+      { path: 'edit-address/:id', component: EditAddressComponent }
     ])
   ],
   providers: [],

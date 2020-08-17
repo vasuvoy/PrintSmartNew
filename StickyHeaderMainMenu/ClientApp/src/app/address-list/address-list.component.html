@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+  <h1>Address List</h1>
+  <table class="table" id="table_address">
+    <tbody>
+      <tr>
+        <td width="100px">
+          <table class="table borderless" id="table_address">
+            <tbody>
+              <tr *ngFor="let address of address_list;let i=index">
+                <td>
+                  <label>{{address.name}}</label><br />
+                  <label>{{address.addressLine1}}</label><span>,</span>
+
+                  <label>{{address.addressLine2}}</label><span>,</span>
+                  <label>{{address.addressLine3}}</label><span>,</span>
+                  <label>{{address.addressLine4}}</label><span>,</span>
+                  <label>{{address.addressLine5}}</label><br />
+                  <label>Contact no:</label>&nbsp;<label>{{address.contactNo}}</label><br />
+                  <label>Pincode:</label>&nbsp;<label>{{address.pinCode}}</label>
+                </td>
+                <td><button (click)="deladdr(address)" class="btn btn-primary" style="width:75px">Remove</button>&nbsp;<span>|</span>&nbsp;<button class="btn btn-primary" (click)="editaddr(address)">Edit</button></td>
+
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td width="100px">
+          <table class="table borderless" id="table_address">
+            <tbody>
+              <tr *ngFor="let address of address_list1;let i=index">
+                <td>
+                  <label>{{address.name}}</label><br />
+                  <label>{{address.addressLine1}}</label><span>,</span>
+
+                  <label>{{address.addressLine2}}</label><span>,</span>
+                  <label>{{address.addressLine3}}</label><span>,</span>
+                  <label>{{address.addressLine4}}</label><span>,</span>
+                  <label>{{address.addressLine5}}</label><br />
+                  <label>Contact no:</label>&nbsp;<label>{{address.contactNo}}</label><br />
+                  <label>Pincode:</label>&nbsp;<label>{{address.pinCode}}</label>
+                </td>
+                <td><button (click)="deladdr(address)" class="btn btn-primary" style="width:75px">Remove</button>&nbsp;<span>|</span>&nbsp;<button class="btn btn-primary" (click)="editaddr(address)">Edit</button></td>
+
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+    
+    
+</body>
+</html>

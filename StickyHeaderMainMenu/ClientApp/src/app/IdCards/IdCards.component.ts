@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
-import { HttpRequest } from '@angular/common/http';
+import { HttpRequest, HttpClient } from '@angular/common/http';
 import { Item } from '../entities/item.entity';
 
 declare var $: any;
@@ -15,6 +15,11 @@ declare var $: any;
 export class IdCardsComponent implements OnInit {
   fileupload: File = null;
   //fileToUpload: File = null;
+  public img_list: visitingcardsimg_list[] = [];
+  constructor(public router: Router, private httpClient: HttpClient)
+  //private productService: ProductService
+  {
+  }
   ngOnInit() {
 
     $(document).ready(function () {
@@ -27,7 +32,11 @@ export class IdCardsComponent implements OnInit {
 
       });
     });
-   
+
+    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + localStorage.getItem("Prodl2Id")).subscribe
+      ((res: any) => {
+        this.img_list = res;
+      });
   }
 
   handleFileInput(file: FileList) {
@@ -39,7 +48,12 @@ export class IdCardsComponent implements OnInit {
   Submit() {
     
   }
-  //handleFileInput(files: FileList) {
-  //  this.fileToUpload = files.item(0);
-  //}
+}
+
+export class visitingcardsimg_list {
+  ModelId: number;
+  ProdId: number;
+  ModelDesc: string;
+  ModelLink: string;
+  IsActive: number;
 }

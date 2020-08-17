@@ -1,0 +1,119 @@
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header" style="color:lightseagreen;font-size:medium"><b>New Address</b></div>
+        <div class="card-body">
+          <form [formGroup]="editForm" id="edit" >
+
+            <table class="table borderless">
+              <tbody>
+                <tr>
+                  <td style="width:150px">
+                    <label class="lbl_style" for="firstname">Name:</label><span style="color:red">*</span>&nbsp;
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="firstname" name="firstname" id="firstname" style="width: 220px " type="text" required />
+
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:150px">
+                    <label class="lbl_style" for="Phonenum">Phone Number:</label><span style="color:red">*</span>&nbsp;
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="Phonenum" name="Phonenum" id="Phonenum" style="width: 220px " type="number" required />
+
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:150px">
+                    <label class="lbl_style" for="AdL1">Address Line1</label><span style="color:red">*</span>&nbsp;
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="AdL1" placeholder="flat no/house no,appt name" name="AdL1" id="AdL1" style="width: 220px " type="text" required />
+
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:150px">
+                    <label class="lbl_style" for="AdL2">Address Line2</label><span style="color:red">*</span>&nbsp;
+                  </td>
+                  <td>
+                    <input class="form-control" name="AdL2" formControlName="AdL2" placeholder="Street" id="AdL2" style="width: 220px " type="text" required />
+
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:150px">
+                    <label class="lbl_style" for="AdL3">Address Line3</label><span style="color:red">*</span>&nbsp;
+                  </td>
+                  <td>
+                    <input class="form-control" name="AdL3"formControlName="AdL3" placeholder="Street" id="AdL3" style="width: 220px " type="text" required />
+
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:150px">
+                    <label class="lbl_style" for="AdL4">Address Line4</label><span style="color:red">*</span>&nbsp;
+                  </td>
+                  <td>
+                    <input class="form-control" name="AdL4" formControlName="AdL4" placeholder="Street" id="AdL4" style="width: 220px " type="text" required />
+
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:150px">
+                    <label class="lbl_style" for="AdL5">Address Line5</label><span style="color:red">*</span>&nbsp;
+                  </td>
+                  <td>
+                    <input class="form-control" name="AdL5" formControlName="AdL5" placeholder="Street" id="AdL5" style="width: 220px " type="text" required />
+
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:150px">
+                    <label class="lbl_style" for="postalcode">ZIP</label><span style="color:red">*</span>&nbsp;
+                  </td>
+                  <td>
+                    <input class="form-control" name="postalcode" formControlName="postalcode" placeholder="postal code" id="postalcode" style="width: 220px " type="number" required />
+
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:150px">
+                    <label class="lbl_style" for="ddl_addtype">Address Type</label><span style="color:red">*</span>&nbsp;
+                  </td>
+                  <td style="width:220px">
+                    <select class="form-control select2" formControlName="ddl_addtype" required name="ddl_addtype" id="ddl_addtype" style="width:220px">
+                      <option value="1">Home</option>
+                      <option value="2">Office</option>
+                    </select>
+
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <input type="checkbox" id="isdefaul" name="isdefaul" formControlName="isdefaul" />&nbsp;
+                    <label for="isdefaul">IsDefault</label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+            <div class="col-md-6 offset-md-4">
+              <button type="submit" (click)="update_address();" style="background-color:lightseagreen" id="submit" class="btn btn-primary">
+                Update Address
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -24,6 +24,7 @@ namespace StickyHeaderMainMenu
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -33,7 +34,17 @@ namespace StickyHeaderMainMenu
             //services.AddDbContext<LoginDetailsContext>(options =>
             //        options.UseSqlServer(Configuration.GetConnectionString("LoginDetailsContext")));
             services.AddDbContext<printsmartContext>(options =>
-                    options.UseMySQL(Configuration.GetConnectionString("printsmart_connectionstring")));
+                  options.UseMySQL(Configuration.GetConnectionString("printsmart_connectionstring")));
+           // services.AddDbContext<httpreqContext>(options =>
+            //       options.UseMySQL(Configuration.GetConnectionString("printsmart_connectionstring")));
+            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,6 +91,7 @@ namespace StickyHeaderMainMenu
                     //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
+            app.UseCors("CorsPolicy");
         }
     }
 }
