@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
         };
         this.groubedByTeam = groupBy(this.prodView, 'l1parentId');
         for (let key1 in this.groubedByTeam) {
-          if (this.groubedByTeam[key1].length > 1) {
+          if (this.groubedByTeam[key1].length > 1 || this.groubedByTeam[key1][0].l2prodId != undefined) {
             this.groubedByTeam_l2 = groupBy(this.groubedByTeam[key1], 'l2prodId');
             count = 0;
           }
@@ -89,10 +89,11 @@ export class AppComponent implements OnInit {
             //this.prodlist.push({ ProdId: this.groubedByTeam[1] })
             this.testmodel = [];
             this.test = [];
-
+    
           }
-          this.prodlist_main.push({ mainmodel: this.prodlist });
 
+          this.prodlist_main.push({ mainmodel: this.prodlist });
+          this.test_l2prod1 = [];
           this.prodlist = [];
         }
       });

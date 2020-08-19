@@ -194,7 +194,7 @@
                 <div *ngFor="let prodli of prodlist_main">
                   <li class="dropdown-submenu"  *ngFor="let x of prodli.mainmodel">
 
-                    <a class="dropdown-item" href="#"  (mouseover)="MainMenuhyperlinkClick($event)" id="{{x.ProdId}}">{{x.ProdDesc}}&nbsp;&nbsp;<i class="right"></i></a>
+                    <a class="dropdown-item" href="#"  (mouseover)="MainMenuhyperlinkClick($event)" id="{{x.ProdId}}">{{x.ProdDesc}}&nbsp;&nbsp;</a>
 
                     <ul class="dropdown-menu multi-column columns-3" *ngIf="x.productModel.length>0" >
                       <div class="row" >

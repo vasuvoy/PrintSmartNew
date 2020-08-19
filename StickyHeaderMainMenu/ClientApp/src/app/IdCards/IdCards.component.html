@@ -7,10 +7,13 @@
 <body>
   <div>
     <div id="div_idcards" style="width:500px !important;cursor:pointer">
-      <div class="container" style="width:500px !important" *ngFor="let img of img_list">
+      <div class="container" style="width:500px !important" >
         <div class="row" style="width:800px !important" >
-          <div class="col-sm">
-            <img src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
+          <div *ngFor="let img of img_list">
+            <div class="col-sm" >
+              <img id="img_idcards" (click)="imgclick(img.modelLink)" src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
+            </div>
+            <br/>
           </div>
           <!--<div class="col-sm">
             <img src="assets/VistingCards/IDCARD2.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
@@ -48,7 +51,8 @@
     <label>Phone No:</label> &nbsp;&nbsp;<input type="text" placeholder="Name" />
   </div>-->
       <div class="col">
-        <input class="e-input" style="width:170px" type="text" placeholder="Enter Name" />
+        
+        <input class="e-input" onclick="myfun();" style="width:170px" type="text" placeholder="Enter Name" />
         <br />
         <input class="e-input" style="width:170px" type="text" placeholder="Enter Designation" />
         <br />

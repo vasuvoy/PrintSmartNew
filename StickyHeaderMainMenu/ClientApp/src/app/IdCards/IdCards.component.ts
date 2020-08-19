@@ -24,7 +24,8 @@ export class IdCardsComponent implements OnInit {
 
     $(document).ready(function () {
       $("#inner_div_idcards").hide();
-      $("#div_idcards img").click(function (e) {
+      $("#img_idcards").click(function (e) {
+        debugger;
         $("#div_idcards").hide();
         $("#inner_div_idcards").show();
         var src = e.currentTarget.currentSrc;
@@ -44,6 +45,17 @@ export class IdCardsComponent implements OnInit {
     var image_type = file.item(0).type;
     alert(image_type);
   }
+
+  imgclick(e) {
+    debugger;
+    $("#div_idcards").hide();
+    $("#inner_div_idcards").show();
+    var src = e;
+
+    $("#img_selected_idcard").attr("src", src);
+  }
+
+  myfun() { alert("ok"); }
 
   Submit() {
     
