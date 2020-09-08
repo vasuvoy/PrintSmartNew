@@ -1,15 +1,15 @@
 export class Product {
-  DetailId?: number;
+  detailId?: number;
   OrderId?: number;
   ProdId: number;
   ProdModelId: number;
   IsCustomized: number;
   Gender: string;
-  DimIdSize: number;
+  dimIdSize?: number;
   CustomContent: number;
-  Quantity: number;
+  quantity: number;
   StatusCode: string;
-  OrderedBy: number;
+  OrderedBy?: number;
   DtCreate: null;
   DtModify: null;
 

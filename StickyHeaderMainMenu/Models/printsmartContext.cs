@@ -310,6 +310,10 @@ namespace StickyHeaderMainMenu.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
+                entity.Property(e => e.RouterLink)
+                   .HasMaxLength(50)
+                   .IsUnicode(false);
+
                 entity.HasOne(d => d.Prod)
                     .WithMany(p => p.Productmodel)
                     .HasForeignKey(d => d.ProdId)
@@ -375,6 +379,12 @@ namespace StickyHeaderMainMenu.Models
                 entity.Property(e => e.L3prodId)
                     .HasColumnName("L3ProdId")
                     .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.ModelId).HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.RouterLink)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
 

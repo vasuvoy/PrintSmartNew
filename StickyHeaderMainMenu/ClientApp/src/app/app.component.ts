@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener  } from '@angular/core';
 //import { Product } from './entities/product.entity';
 import { ProductService } from './services/product.service';
 import { SharedService } from './services/shared.service';
@@ -14,7 +14,8 @@ let count: number;
   providers: [ProductService]
 })
 export class AppComponent implements OnInit {
-  cartItemCount: number = 0
+ 
+  cartItemCount: number = 0;
   login_text: string = "Sign In";
   login_username: string = "";
   change_pwd = "";
@@ -25,6 +26,8 @@ export class AppComponent implements OnInit {
   public prodlist1: Product_list[];
 
   public prodView: prod_View[];
+  public prodView1: prod_View[] = [];
+  public prodView2: prod_View[] = [];
   public test1: Productmodel[];
   public test: Productmodel[] = [];
   public test_l2prod: Productmodel[] = [];
@@ -32,12 +35,15 @@ export class AppComponent implements OnInit {
   public test_l2prod2: Productmodel[] = [];
   public groubedByTeam = [];
   public groubedByTeam_l2 = [];
+  public groubedByTeam_l3 = [];
   public testmodel: testModel[] = [];
   public count=0;
   constructor(private http: HttpClient, private _exampleService: ProductService, private router: Router, private _sharedservice: SharedService) {
-
+    localStorage.setItem("userid","");
   }
   ngOnInit() {
+  
+
     //from db loading prod list dynamically
     this.http.get('https://localhost:44302/' + 'api/Products').subscribe(
       (res1: any) => {
@@ -52,7 +58,27 @@ export class AppComponent implements OnInit {
         this.groubedByTeam = groupBy(this.prodView, 'l1parentId');
         for (let key1 in this.groubedByTeam) {
           if (this.groubedByTeam[key1].length > 1 || this.groubedByTeam[key1][0].l2prodId != undefined) {
+            //for (let r in this.groubedByTeam[key1]) {
+            //  if (this.groubedByTeam[key1][r].l2isHeader == "0") {
+            //    this.prodView1.push(this.groubedByTeam[key1][r]);
+            //    this.groubedByTeam_l2 = groupBy(this.prodView1, 'l3prodId');
+            //  }
+            //  else {
+            //    this.prodView2.push(this.groubedByTeam[key1][r]);
+            //    this.groubedByTeam_l2 = groupBy(this.prodView2, 'l2prodId');
+            //  }
+            //}
+
+            // this.groubedByTeam_l3 = this.groubedByTeam_l3.concat(this.groubedByTeam_l2);
             this.groubedByTeam_l2 = groupBy(this.groubedByTeam[key1], 'l2prodId');
+
+
+            //if (this.groubedByTeam[key1].l2isHeader == 1) {
+            // this.groubedByTeam_l2 = groupBy(this.groubedByTeam[key1], 'l2prodId');
+            //}
+            //else {
+            //  this.groubedByTeam_l2 = this.groubedByTeam[key1];
+            //}
             count = 0;
           }
           else {
@@ -64,11 +90,33 @@ export class AppComponent implements OnInit {
           var output = [];
 
           for (let key in this.groubedByTeam_l2) {
-            if (count == 0) {
-              this.groubedByTeam_l2[key].forEach(e => { this.testmodel.push({ l3prodId: e.l3prodId, l3prodDesc: e.l3prodDesc, l2prodDesc: e.l2prodDesc }) });
 
+            if (count == 0) {
+              //  if (this.groubedByTeam_l2[key].length == 1) {
+              //this.testmodel.push({
+              //  l3prodId: this.groubedByTeam_l2[key][0].l2prodId,
+              //  l3prodDesc: this.groubedByTeam_l2[key][0].l2prodDesc,
+              //  l2prodDesc: ""
+              //})
+              // }
+              // else {
+              this.groubedByTeam_l2[key].forEach(e => {
+                if (e.routerLink != null)
+                  this.testmodel.push({ l3prodId: e.l3prodId, l3prodDesc: e.l3prodDesc, l2prodDesc: e.l2prodDesc, RouterLink: e.routerLink, ModelId: e.modelId })
+                else {
+                  e.routerLink = " ";
+                  this.testmodel.push({ l3prodId: e.l3prodId, l3prodDesc: e.l3prodDesc, l2prodDesc: e.l2prodDesc, RouterLink: e.routerLink, ModelId: e.modelId })
+                }
+              });
+
+              // }
               this.test.push({ testmodel: this.testmodel });
+              // if (this.groubedByTeam_l2[key].length == 1) {
+              // this.test_l2prod = [{ l2prodDesc: "", testmodel: this.test }];
+              // }
+              // else {
               this.test_l2prod = [{ l2prodDesc: this.groubedByTeam_l2[key][0].l2prodDesc, testmodel: this.test }];
+              //}
               this.test_l2prod1.push({ prdmodel: this.test_l2prod });
               this.prodlist = [{
                 ProdId: this.groubedByTeam_l2[key][0].l1parentId,
@@ -89,7 +137,7 @@ export class AppComponent implements OnInit {
             //this.prodlist.push({ ProdId: this.groubedByTeam[1] })
             this.testmodel = [];
             this.test = [];
-    
+
           }
 
           this.prodlist_main.push({ mainmodel: this.prodlist });
@@ -98,9 +146,10 @@ export class AppComponent implements OnInit {
         }
       });
 
- 
 
-    localStorage.setItem('cart', null);
+
+    // localStorage.setItem('cart', null);
+
     this._sharedservice.currentMessage.subscribe(msg => this.cartItemCount = msg);
     this._sharedservice.loginMessage.subscribe(msg => this.login_text = msg);
     this._sharedservice.UserName.subscribe(name => this.login_username = name);
@@ -141,7 +190,9 @@ export class AppComponent implements OnInit {
   //Sub menu hyperlink click event
   subMenuhyperlinkClick(e) {
    // alert(e.target.innerText+e.target.id);
-    localStorage.setItem('Prodl2Id', e.target.id);
+    localStorage.setItem('Prodl3Id', e.target.id);
+
+    
   }
 
   //main menu hyperlink click event
@@ -206,6 +257,8 @@ export class testModel {
   //prodId: number;
   l3prodDesc?: number;
   l2prodDesc?: string;
+  RouterLink?: string;
+  ModelId?: number;
 }
 
 export class l2model {

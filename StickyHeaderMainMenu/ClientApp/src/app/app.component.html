@@ -194,24 +194,27 @@
                 <div *ngFor="let prodli of prodlist_main">
                   <li class="dropdown-submenu"  *ngFor="let x of prodli.mainmodel">
 
-                    <a class="dropdown-item" href="#"  (mouseover)="MainMenuhyperlinkClick($event)" id="{{x.ProdId}}">{{x.ProdDesc}}&nbsp;&nbsp;</a>
+                    <a class="dropdown-item" href="#"  (mouseover)="MainMenuhyperlinkClick($event)" id="{{x.ProdId}}">{{x.ProdDesc}}&nbsp;&nbsp;<i *ngIf="x.productModel.length>0"  class="right"></i></a>
 
                     <ul class="dropdown-menu multi-column columns-3" *ngIf="x.productModel.length>0" >
                       <div class="row" >
-                        <div class="col-sm-4" style="width:520px;overflow-wrap:break-word">
+                        <div class="col-sm-4" style="width:530px;overflow-wrap:break-word">
                           <div *ngFor="let b of x.productModel" style="width:520px;overflow-wrap:break-word">
                             <div class="col-sm-4">
                               <div *ngFor="let c of b.prdmodel ">
                                 <!--<div style="width:800px !important;">-->
                                 <ul class="multi-column-dropdown">
                                   <!--<span>{{c.l2prodDesc}}</span>-->
-                                  <li style="font-size:small;color:black;">&nbsp;&nbsp;&nbsp;<strong>{{c.l2prodDesc}}</strong></li>
-
-                                  <div *ngFor="let d of c.testmodel" style="width:500px;overflow-wrap:break-word">
-                                    <div *ngFor="let e of d.testmodel" style="width:500px;overflow-wrap:break-word">
-                                      <li><a href="#" [routerLink]="['IdCards']" (click)="subMenuhyperlinkClick($event)" id="{{e.l3prodId}}">{{e.l3prodDesc}}</a></li>
+                                  <!--<div *ngIf="c.l2isHeader===1;then content else loggedOut">-->
+                                    <li style="font-size:small;color:black;">&nbsp;&nbsp;&nbsp;<strong>{{c.l2prodDesc}}</strong></li>
+                                  <!--</div>
+                                  <ng-template #content>Pleasssss.</ng-template>-->
+                                  <ng-template #loggedOut>Please friend, login.</ng-template>
+                                  <div *ngFor="let d of c.testmodel" style="width:200px;overflow-wrap:break-word;word-wrap: break-word">
+                                    <div *ngFor="let e of d.testmodel" style="width:200px;overflow-wrap:break-word;word-wrap: break-word">
+                                      <li id="{{e.ModelId}}"><a href="#" [routerLink]="[e.RouterLink]"  (click)="subMenuhyperlinkClick($event)" id="{{e.l3prodId}}">{{e.l3prodDesc}}</a></li>
                                       <!--<li><a href="#">Classic Visiting Card</a></li>
-                      <li><a href="#">Square Visiting Card</a></li>-->
+      <li><a href="#">Square Visiting Card</a></li>-->
                                     </div>
                                   </div>
                                 </ul>
@@ -492,7 +495,7 @@
                     <div class="row">
                       <div class="col-sm-4" style="width:800px">
                         <ul class="multi-column-dropdown">
-                          <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Letterheads</strong></li>
+                          <li style="font-size: small; color: black">&nbsp;&nbsp;&nbsp;<strong>Letterheads</strong></li>
                           <li style="font-size:small;color:black">&nbsp;&nbsp;&nbsp;<strong>Stationery</strong></li>
                           <li><a href="#">Letterheads</a></li>
                           <li><a href="#">Envelope</a></li>

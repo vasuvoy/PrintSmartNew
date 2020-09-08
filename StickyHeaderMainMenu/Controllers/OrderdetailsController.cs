@@ -28,17 +28,31 @@ namespace StickyHeaderMainMenu.Controllers
         }
 
         // GET: api/Orderdetails/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Orderdetail>> GetOrderdetail(int id)
+        [HttpGet("{id}/{page}")]
+        public async Task<ActionResult<IEnumerable<Orderdetail>>> GetOrderdetail(int id,string page)
         {
-            var orderdetail = await _context.Orderdetail.FindAsync(id);
-
-            if (orderdetail == null)
+          
+            if (page == "l3menu")
             {
-                return NotFound();
-            }
+                var orderdetail = await _context.Orderdetail.Where(e => e.ProdModelId == id).ToListAsync();
+                if (orderdetail == null)
+                {
+                    return NotFound();
+                }
 
-            return orderdetail;
+                return orderdetail;
+            }
+            else
+            {
+                var orderdetail = await _context.Orderdetail.Where(e => e.OrderedBy == id).ToListAsync();
+
+                if (orderdetail == null)
+                {
+                    return NotFound();
+                }
+
+                return orderdetail;
+            }
         }
 
         // PUT: api/Orderdetails/5
@@ -58,7 +72,7 @@ namespace StickyHeaderMainMenu.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException e)
             {
                 if (!OrderdetailExists(id))
                 {
@@ -66,7 +80,7 @@ namespace StickyHeaderMainMenu.Controllers
                 }
                 else
                 {
-                    throw;
+                    throw e;
                 }
             }
 
@@ -79,11 +93,15 @@ namespace StickyHeaderMainMenu.Controllers
         [HttpPost]
         public async Task<ActionResult<Orderdetail>> PostOrderdetail(Orderdetail orderdetail)
         {
-            _context.Orderdetail.Add(orderdetail);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Orderdetail.Add(orderdetail);
+                await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrderdetail", new { id = orderdetail.DetailId }, orderdetail);
-        }
+                return CreatedAtAction("GetOrderdetail", new { id = orderdetail.DetailId }, orderdetail);
+            }
+            catch (Exception e) { throw e; };
+            }
 
         // DELETE: api/Orderdetails/5
         [HttpDelete("{id}")]

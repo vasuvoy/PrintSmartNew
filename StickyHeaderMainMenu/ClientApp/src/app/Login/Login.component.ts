@@ -17,6 +17,7 @@ declare var swal: any;
 
 export class LoginComponent implements OnInit {
   userdetails: User_Details[];
+  cartItemCount: number = 0;
   constructor(private user_service: LoginService,
     private _sharedservice: SharedService, private httpClient: HttpClient,
     private router: Router) { }
@@ -65,6 +66,7 @@ export class LoginComponent implements OnInit {
             }
             else {
               let userid = this.userdetails[0].userId;
+              sessionStorage.setItem('userid', userid.toString());
               localStorage.setItem('userid', userid.toString());
              // localStorage.setItem('Name', this.userdetails[0].FirstName);
               user_id = this.userdetails[0].userId;
@@ -76,6 +78,7 @@ export class LoginComponent implements OnInit {
                 this._sharedservice.loginSuccess("Sign Out");
                 this._sharedservice.loginSuccessUsername(this.userdetails[0].firstName);
                 this._sharedservice.loginSuccesschangepwd("Change Password");
+                
               }
               else {
                 swal("Incorrect Passowrd");
@@ -83,52 +86,17 @@ export class LoginComponent implements OnInit {
             }
         });
     }
-    //if (user_name != "" && pwd!="") {
-    //  this.httpClient.get<User_Details[]>('https://localhost:44302/' + 'api/Userdetail').subscribe(
-    //    result => {
-    //      this.userdetails = result;
-    //      var email_exists = result.findIndex(em_exists => em_exists.email == user_name);
-    //      if (email_exists == -1) {
-    //        swal("Email doesn't exist");
-    //      }
-    //      else {
-    //        for (var i = 0; i < this.userdetails.length; i++) {
+    if (localStorage.getItem('userid') != null) {
+      var s = "appPage";
 
+      this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + localStorage.getItem('userid') + '/' + s).subscribe(
+        (res: any) => {
+          localStorage.setItem("cartcount", res.length);
+          this._sharedservice.updateCartCount(res.length);
 
-    //          if (this.userdetails[i].email == user_name) {
-    //            user_id = this.userdetails[i].userId;
-    //            password = this.userdetails[i].pwd;
-    //            email = this.userdetails[i].email;
-    //            if (user_name == email && pwd == password) {
-    //              //alert(user_id);
-    //              this.httpClient.get<User_Details[]>('https://localhost:44302/' + 'api/Userdetail/' + user_id).subscribe(
-    //                res => swal("Login success"));
-    //            }
-    //            else {
-    //              alert("Incorrect Passowrd");
-    //            }
-    //          }
+        });
 
-    //        }
-    //      }
-    //      //if (result.length > 0) {
-    //      //  if (this.userdetails[0].emailid == user_name && this.userdetails[0].password == pwd) {
-    //      //    this._sharedservice.loginSuccess("Sign Out");
-    //      //    this.router.navigateByUrl('/')
-    //      //  }
-    //      //  else { alert('Invalid UserName/Passowrd') }
-    //      //}
-    //    });
-
-    //  //if (this.userdetails.length > 0) {
-    //  //  if (this.userdetails[0].emailid == user_name && this.userdetails[0].password == pwd) { 
-    //  //    this._sharedservice.loginSuccess("Sign Out");
-    //  //    this.router.navigateByUrl('/')
-    //  //}
-    //  //else { alert('Invalid UserName/Passowrd') }
-    //  //}
-    //  //;
-    //}
+    }
   }
 
   changepwd() { }

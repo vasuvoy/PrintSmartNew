@@ -8,13 +8,15 @@ import { Image } from '../entities/Image.entity';
 import { using } from 'rxjs/internal/observable/using';
 import { Item } from '../entities/item.entity';
 import { Product } from '../entities/product.entity';
+import { ImageList } from '../entities/ImageList.entity';
 
 declare var $: any;
 
 let gender_text: string;
-let size: string;
+let size: any;
+let size1: any;
 let color: string;
-let qty: number;
+let qty: any;
 
 @Component({
   selector: 'app-Tshirts',
@@ -31,7 +33,10 @@ export class TshirtComponent implements OnInit {
   public products: Product[] = [];
   public image_detail: Image[];
   public dim: Dimensions[];
-  public products1: Product[]
+  public products1: Product[]=[];
+  public custom_text: Product[];
+  public img_list: ImageList[];
+  public products_exist: Product[] = [];
   constructor(public router: Router, private httpClient: HttpClient, private _exampleService: ProductService, private _sharedservice: SharedService)
   //private productService: ProductService
   {
@@ -39,29 +44,34 @@ export class TshirtComponent implements OnInit {
 
 
   ngOnInit() {
-    this.httpClient.get('https://localhost:44302/' + 'api/Dimmasters/' + localStorage.getItem("ProdId")).subscribe(
-      (res: any) => {
-        this.dim = res
-        this.dim.forEach(e => {
-          var newOption = new Option(e.dimDescription, e.dimDescription, false, false);
-          $('#ddl_size').append(newOption).trigger('change');
-          var newOption_gender = new Option(e.gender, e.gender, false, false);
-          $('#ddl_gender').append(newOption_gender).trigger('change');
-          
-        })
-      }
-   );
+    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + localStorage.getItem("Prodl3Id")).subscribe
+      ((res: any) => {
+        this.img_list = res;
+      });
     $(document).ready(function () {
       $("#inner_div_basictshirts").hide();
       $("#outer_div_tshirts_cart").hide();
-      $("#inner_div_basictshirts img").click(function () {
+      $("#outer_div_customtshirts_cart").hide();
+      //$("#inner_div_basictshirts img").click(function (e) {
         
+      //  $("#outer_div_tshirts").hide();
+      //  $("#inner_div_basictshirts").hide();
+      //  $("#outer_div_tshirts_cart").show();
+      //})
+
+      $("#img_tshirt_modal").click(function () {
         $("#outer_div_tshirts").hide();
-        $("#inner_div_basictshirts").hide();
-        $("#outer_div_tshirts_cart").show();
+        $("#outer_div_customtshirts_cart").show();
+
       })
 
       $('#ddl_gender').select2({
+        closeOnSelect: true,
+        minimumResultsForSearch: -1,
+        placeholder: "Gender",
+      })
+
+      $('#ddl_gender1').select2({
         closeOnSelect: true,
         minimumResultsForSearch: -1,
         placeholder: "Gender",
@@ -73,13 +83,20 @@ export class TshirtComponent implements OnInit {
         placeholder: "Select Size",
       })
 
+      $('#ddl_size1').select2({
+        closeOnSelect: true,
+        minimumResultsForSearch: -1,
+        placeholder: "Select Size",
+      })
+
+
       $('#ddl_Color').select2({
         closeOnSelect: true,
         minimumResultsForSearch: -1,
         placeholder: "Select Colour",
       })
 
-      $('#ddl_Qty').select2({
+      $('#ddl_Qty1').select2({
         closeOnSelect: true,
         minimumResultsForSearch: -1,
         placeholder: "Qty",
@@ -175,6 +192,7 @@ export class TshirtComponent implements OnInit {
             onKeyup: function (e) {
               setTimeout(function () {
                 var plainText = $("#img_tshirt_write").summernote("code");
+                
                 //$("#sample").html(plainText);
                 $("#img_tshirt_write").show();
                 $("#img_tshirt_write").html(plainText);
@@ -264,91 +282,232 @@ export class TshirtComponent implements OnInit {
       gender_text = $('#ddl_gender :selected').text();
 
     });
+
+
+    $("#ddl_gender1").change(function () {
+      gender_text = $('#ddl_gender1 :selected').text();
+
+    });
+
     $("#ddl_size").change(function () {
       size = $('#ddl_size :selected').val();
 
     });
+
+    $("#ddl_size1").change(function () {
+
+      size1 = $('#ddl_size1 :selected').val();
+
+    });
+
     $("#ddl_Color").change(function () {
-      color = $('#ddl_Color :selected').text();;
+      color = $('#ddl_Color :selected').text();
 
     });
     $("#ddl_Qty").change(function () {
-      qty = $('#ddl_Qty :selected').text();;
+      qty = $('#ddl_Qty :selected').text();
 
     });
+
+    $("#ddl_Qty1").change(function () {
+      qty = $('#ddl_Qty1 :selected').text();
+
+    });
+
+  
+
+  }
+
+  imgclick(e,f,g) {
+
+    $("#inner_div_basictshirts").hide();
+    $("#outer_div_tshirts_cart").show();
+   // var src = "assets/VisitingCards/Blank-ID-Card-Horz.png";
+    localStorage.setItem('ModelId', e);
+    $("#img_selected_tshirt").attr("src", f);
+    $("#lbl_desc").val(g);
+    this.httpClient.get('https://localhost:44302/' + 'api/Dimmasters/' + localStorage.getItem("ModelId")).subscribe(
+      (res: any) => {
+        this.dim = res
+        this.dim.forEach(e => {
+          var newOption = new Option(e.dimDescription, e.dimDescription, false, false);
+          $('#ddl_size1').append('<option value="' + e.dimId + '">' + e.dimDescription + '</option>').trigger('change');
+          $('#ddl_size').append(newOption).trigger('change');
+          //  $('#ddl_size1').append(newOption).trigger('change');
+          var newOption_gender = new Option(e.gender, e.gender, false, false);
+          $('#ddl_gender').append(newOption_gender).trigger('change');
+          $('#ddl_gender1').append(newOption_gender).trigger('change');
+        })
+      }
+    );
   }
 
   AddToCart() {
-    this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails').subscribe((res: any) => {
-      this.products1 = res;
-   //   var t: Product = this.products1.forEach(e => { e.ProdModelId == 1 }),
-      //var item: Item = {
-      //  product:,
-      //  quantity: 1
-      //};
-    });
-  //  this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.products[0]).subscribe(res => { alert("post"); });
-
-
     function stringtonum(input: string) {
       var n = Number(input);
       return n;
     }
-    this.products=[ {
-      ProdId: stringtonum(localStorage.getItem('ProdId')),
-      ProdModelId: stringtonum(localStorage.getItem('ProdModelId')),
-      Gender: gender_text,
-      CustomContent: null,
-      DimIdSize: stringtonum(size),
-      OrderedBy: null,
-      DtCreate: null,
-      DtModify: null,
-      Quantity: 1,
-      IsCustomized: 0,
-      StatusCode: "C"
-    }];
+    if (sessionStorage.getItem("userid") != null) {
 
-    
-    let cart1: any = JSON.parse(localStorage.getItem('cart'));
-    var test: Product = cart1;
+      let n = stringtonum(size1);
 
-    this._exampleService.insertProduct(this.products[0]);
-    var id = 1;
-    if (id) {
-      var item: Item = {
-        product: this._exampleService.find(id),
-        quantity: 1
-      };
-
-      if (localStorage.getItem('cart') == "null") {
-        let cart: any = [];
-        cart.push(JSON.stringify(item));
-        localStorage.setItem('cart', JSON.stringify(cart));
-      }
-      else {
-        let cart: any = JSON.parse(localStorage.getItem('cart'));
-        let index: number = -1;
-        for (var i = 0; i < cart.length; i++) {
-          let item: Item = JSON.parse(cart[i]);
-          if (item.product.ProdId == id) {
-            index = i;
-            break;
+      var s = "l3menu";
+      this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + localStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
+        this.products1 = res;
+        this.products1.forEach(e => {
+          if (e.dimIdSize == n) {
+            this.products_exist.push(e);
           }
+        });
+        if (this.products_exist.length < 0) {
+          this.products = [{
+            ProdId: stringtonum(localStorage.getItem('ProdId')),
+            ProdModelId: stringtonum(localStorage.getItem('ModelId')),
+            Gender: gender_text,
+            CustomContent: null,
+            dimIdSize: stringtonum(size1),
+            OrderedBy: stringtonum(localStorage.getItem('userid')),
+            DtCreate: null,
+            DtModify: null,
+            quantity: stringtonum(qty),
+            IsCustomized: 0,
+            StatusCode: "C"
+          }];
+
+          this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.products[0]).subscribe(res => { alert("post"); });
         }
-        if (index == -1) {
-          cart.push(JSON.stringify(item));
-          localStorage.setItem('cart', JSON.stringify(cart));
-        } else {
-          let item: Item = JSON.parse(cart[index]);
-          item.quantity += 1;
-          cart[index] = JSON.stringify(item);
-          localStorage.setItem("cart", JSON.stringify(cart));
+        else {
+          if (stringtonum(size1) != this.products_exist[0].dimIdSize) {
+            var quantity = stringtonum(qty);
+            this.products = [{
+              detailId: this.products1[0].detailId,
+              ProdId: stringtonum(localStorage.getItem('ProdId')),
+              ProdModelId: stringtonum(localStorage.getItem('ModelId')),
+              Gender: gender_text,
+              CustomContent: null,
+              dimIdSize: stringtonum(size1),
+              OrderedBy: stringtonum(localStorage.getItem('userid')),
+              DtCreate: null,
+              DtModify: null,
+              quantity: quantity,
+              IsCustomized: 0,
+              StatusCode: "C"
+            }];
+          }
+          else {
+            var quantity = stringtonum(qty);
+            this.products = [{
+              detailId: this.products1[0].detailId,
+              ProdId: stringtonum(localStorage.getItem('ProdId')),
+              ProdModelId: stringtonum(localStorage.getItem('ModelId')),
+              Gender: gender_text,
+              CustomContent: null,
+              dimIdSize: stringtonum(size1),
+              OrderedBy: stringtonum(localStorage.getItem('userid')),
+              DtCreate: null,
+              DtModify: null,
+              quantity: this.products1[0].quantity + quantity,
+              IsCustomized: 0,
+              StatusCode: "C"
+            }];
+          }
+
+          this.httpClient.put('https://localhost:44302/' + 'api/Orderdetails/' + this.products1[0].detailId, this.products[0]).subscribe(res => { alert("put"); });
         }
-      }
+        let d = stringtonum(localStorage.getItem("cartcount"));
+        this._sharedservice.updateCartCount(d + this.products.length);
+
+      });
+      this.products_exist = [];
     }
-    this._sharedservice.updateCartCount(this.products.length);
-    this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.products[0]).subscribe(res => { alert("post"); });
+    else {
+      alert("Please Login to add product to cart");
+      this.router.navigateByUrl('/Login');
+    }
   }
+
+  AddToCart_custom() {
+    function stringtonum(input: string) {
+      var n = Number(input);
+      return n;
+    }
+
+    if (sessionStorage.getItem("userid") != null) {
+      let n = stringtonum(size);
+
+      var s = "l3menu";
+      this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + localStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
+        this.products1 = res;
+        this.products1.forEach(e => {
+          if (e.dimIdSize == n) {
+            this.products_exist.push(e);
+          }
+        });
+      });
+      if (this.products_exist.length < 0) {
+        this.custom_text = [{
+          ProdId: stringtonum(localStorage.getItem('ProdId')),
+          ProdModelId: stringtonum(localStorage.getItem('ModelId')),
+          Gender: gender_text,
+          CustomContent: $("#img_tshirt_write")[0].innerHTML,
+          dimIdSize: stringtonum(size),
+          OrderedBy: stringtonum(localStorage.getItem('userid')),
+          DtCreate: null,
+          DtModify: null,
+          quantity: stringtonum(qty),
+          IsCustomized: 1,
+          StatusCode: "C"
+        }];
+        this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.custom_text[0]).subscribe(res => { alert("post_custom"); });
+      }
+
+      else {
+        if (stringtonum(size) != this.products_exist[0].dimIdSize) {
+          var quantity = stringtonum(qty);
+          this.custom_text = [{
+            detailId: this.products1[0].detailId,
+            ProdId: stringtonum(localStorage.getItem('ProdId')),
+            ProdModelId: stringtonum(localStorage.getItem('ModelId')),
+            Gender: gender_text,
+            CustomContent: null,
+            dimIdSize: stringtonum(size),
+            OrderedBy: stringtonum(localStorage.getItem('userid')),
+            DtCreate: null,
+            DtModify: null,
+            quantity: quantity,
+            IsCustomized: 0,
+            StatusCode: "C"
+          }];
+        }
+        else {
+          var quantity = stringtonum(qty);
+          this.custom_text = [{
+            detailId: this.products1[0].detailId,
+            ProdId: stringtonum(localStorage.getItem('ProdId')),
+            ProdModelId: stringtonum(localStorage.getItem('ModelId')),
+            Gender: gender_text,
+            CustomContent: null,
+            dimIdSize: stringtonum(size),
+            OrderedBy: stringtonum(localStorage.getItem('userid')),
+            DtCreate: null,
+            DtModify: null,
+            quantity: this.products1[0].quantity + quantity,
+            IsCustomized: 0,
+            StatusCode: "C"
+          }];
+        }
+
+        this.httpClient.put('https://localhost:44302/' + 'api/Orderdetails/' + this.products1[0].detailId, this.custom_text[0]).subscribe(res => { alert("put"); });
+      }
+      let cartC = stringtonum(localStorage.getItem("cartcount"));
+      this._sharedservice.updateCartCount(cartC + this.custom_text.length);
+     
+    }
+    else {
+      alert("Please Login to add product to cart");
+      this.router.navigateByUrl('/Login');
+    }
+    }
   //AddToCart() {
 
   //  if (localStorage.getItem('cart') != "null") {
@@ -407,6 +566,10 @@ export class TshirtComponent implements OnInit {
   shopnow() {
     $("#outer_div_tshirts").prop("hidden", true);
     $("#inner_div_basictshirts").show();
+    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + localStorage.getItem("Prodl3Id")).subscribe
+      ((res: any) => {
+        this.img_list = res;
+      });
   }
   StartDesign() {
     $('#div_main').prop("hidden", true);
@@ -431,32 +594,26 @@ export class TshirtComponent implements OnInit {
   }
 }
 
-//export class Product {
-//  DetailId?: number;
-//  OrderId?: number;
-//  ProdId: number;
-//  ProdModelId: number;
-//  IsCustomized: number;
-//  Gender: string;
-//  DimIdSize: number;
-//  CustomContent: number;
-//  Quantity: number;
-//  StatusCode: string;
-//  OrderedBy: number;
-//  DtCreate: null;
-//  DtModify: null;
+export class Product_custom {
+  OrderId: number;
+  ProdId: number;
+  ProdModelId: number;
+  IsCustomized: number;
+  Gender: string;
+  DimIdSize: number;
+  CustomContent: number;
+  Quantity: number;
+  StatusCode: string;
+  OrderedBy?: number;
+  DtCreate: null;
+  DtModify: null;
 
-//  //id: string;
-//  //gender: string;
-//  //size: string;
-//  //color: string;
-//  //qty: number;
-//}
+}
 
 
 export class Dimensions {
 
-  DimId: number;
+  dimId: number;
   ProdId: number;
   ProdModelId: number;
   gender: string;
@@ -469,7 +626,7 @@ export class Dimensions {
 
 interface Cart {
   gender: string;
-  size: string;
+  size: number;
   color: string;
 }
 

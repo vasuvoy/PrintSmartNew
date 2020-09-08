@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace StickyHeaderMainMenu.Models
+namespace StickyHeaderMainMenu.Models1
 {
     public partial class VwGetproductlist
     {
@@ -15,7 +15,6 @@ namespace StickyHeaderMainMenu.Models
         public short? L3parentId { get; set; }
         public string L3prodDesc { get; set; }
         public string RouterLink { get; set; }
-
         public short? ModelId { get; set; }
     }
 }

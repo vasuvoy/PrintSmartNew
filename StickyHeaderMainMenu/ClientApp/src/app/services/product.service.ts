@@ -44,11 +44,11 @@ export class ProductService {
       ProdModelId: stringtonum(localStorage.getItem('ProdModelId')),
       Gender: products.Gender,
       CustomContent: null,
-      DimIdSize: null,
+      dimIdSize: null,
       OrderedBy: null,
       DtCreate: null,
       DtModify: null,
-      Quantity: 1,
+      quantity: 1,
       IsCustomized: 0,
       StatusCode: "C"
     });

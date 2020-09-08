@@ -7,7 +7,8 @@ import { ReturnStatement } from '@angular/compiler';
 })
 
 export class SharedService {
-  private CurrentCartCount = new BehaviorSubject(0);
+
+  private CurrentCartCount = new BehaviorSubject(stringtonum(localStorage.getItem("cartcount")));
 
   //private login_success = new BehaviorSubject < any > ({});
   private login_success = new BehaviorSubject('Sign In');
@@ -41,4 +42,9 @@ export class SharedService {
   loginSuccesschangepwd(success: any) {
     this.login_success_changepwd.next(success);
   }
+}
+
+function stringtonum(input: string) {
+  var n = Number(input);
+  return n;
 }

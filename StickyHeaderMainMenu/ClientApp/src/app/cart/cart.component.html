@@ -28,12 +28,31 @@
       
       <tbody>
         <tr *ngFor="let prod of productAddedTocart">
-          <td scope="row" width="200px"><img src="assets/Img/tshirt.jpg" width="150px" height="150px" /></td>
+          <td scope="row" width="100px" *ngIf="prod.isCustomized==1; else elseBlock">
+            <!--<img src="assets/Img/tshirt.jpg" style="width:150px;height:150px" />-->
+            <div style="position: relative; left: 0; top: 0;">
+              <img id="img_tshirt_modal" style="position: relative; left: 0; top: 0;width:150px" src="assets/Tshirt_Imgs/15.jpg" />
+
+              <!--<img id="img_tshirt_write" style="position: absolute; left: 65px; top: 100px;width:100px"
+    src="assets/Img/download.png" />-->
+              <!--<div id="text_div" style="line-height:0.6; position: absolute;border:dotted;border-color:red; left: 156px; top: 100px;width:100px">-->
+              <div id="outer_editor_div" style=" width:50px">
+                
+                <div id="img_tshirt_write" style="position: absolute; left:60px;top:50px;font-size:6px" innerHTML="{{prod.customContent}}">
+</div>
+              </div>
+              </div>
+          </td>
+          <ng-template #elseBlock>
+            <td scope="row" width="100px" >
+              <img src="assets/Img/tshirt.jpg" style="width:150px;height:150px" />
+              </td>
+</ng-template>
           <td >
           <div>
-            <span><span style="font-size:medium;color:blue">size:</span> {{prod.size}}</span><br />
-            <span><span style="font-size:medium;color:blue">color:</span> {{prod.color}}</span><br />
-            <span><span style="font-size:medium;color:blue">Qty:</span> {{prod.qty}}</span>
+            <span><span style="font-size:medium;color:blue">size:</span> {{prod.gender}}</span><br />
+            <!--<span><span style="font-size:medium;color:blue">color:</span> {{prod.color}}</span><br />-->
+            <span><span style="font-size:medium;color:blue">Qty:</span> {{prod.quantity}}</span>
             </div>
           </td>
         </tr>

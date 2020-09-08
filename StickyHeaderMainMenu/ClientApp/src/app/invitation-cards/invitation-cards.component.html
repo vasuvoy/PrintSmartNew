@@ -7,18 +7,15 @@
   <div id="div_invicards" style="width:500px !important;cursor:pointer">
     <div class="container" style="width:500px !important">
       <div class="row" style="width:800px !important">
-        <div class="col-sm">
-          <img src="assets/Img/INVITATIONCARD 1.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
-        </div>
-        <div class="col-sm">
-          <img src="assets/Img/INVITATIONCARD 2.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
-        </div>
-        <div class="col-sm">
-          <img src="assets/Img/INVITATIONCARD3.jpg"  style="border:1px solid;width:230px" alt="Los Angeles">
+        <div *ngFor="let img of img_list">
+          <div class="col-sm">
+            <img id="img_Invicards" (click)="imgclick()" src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
+          </div>
+          <br />
         </div>
       </div>
-      <br />
-      <div class="row" style="width:800px !important">
+
+      <!--<div class="row" style="width:800px !important">
         <div class="col-sm">
           <img src="assets/Img/INVITATIONCARD4.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
         </div>
@@ -28,11 +25,30 @@
         <div class="col-sm">
           <img src="assets/Img/INVITATIONCARD 6.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 
+  <div id="innerdiv_invicards">
+    <table style="text-align:center;background-image:url(assets/Img/INVITATIONCARD1_empty.jpg);background-size:cover;height:400px;width:450px" >
+     <tr >
+       <td>
+         <div id="div_bride" style="border:1px solid red;height:30px;width:208px;margin-top:120px;margin-left:100px">
+           <!-- <label style="margin-left:45px;color:white" id="lbl_bride"></label>-->
 
+           <label style="margin-left:45px;color:white" id="lbl_bride">BRIDE'S NAME</label>
+
+         </div>
+         <br />
+         <span style="color:white;margin-left:45px">&</span><br />
+         <div id="div_bride1" style="border:1px solid red;height:30px;width:208px;margin-left:120px">
+           <label id="lbl_groom" style="color:white;margin-left:45px">GROOM'S NAME</label>
+           </div>
+       </td>
+     </tr>
+
+    </table>
+  </div>
       <!-- Modal content-->
       <div class="modal" tabindex="-1" role="dialog" id="myModal">
         <div class="modal-dialog" role="document">

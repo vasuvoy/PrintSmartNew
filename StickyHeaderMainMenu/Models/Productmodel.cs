@@ -16,6 +16,8 @@ namespace StickyHeaderMainMenu.Models
         public string ModelCode { get; set; }
         public string ModelDesc { get; set; }
         public string ModelLink { get; set; }
+
+        public string RouterLink { get; set; }
         public byte? IsActive { get; set; }
         public DateTime? DtCreate { get; set; }
         public DateTime? DtModify { get; set; }

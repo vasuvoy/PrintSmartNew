@@ -34,7 +34,7 @@ export class IdCardsComponent implements OnInit {
       });
     });
 
-    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + localStorage.getItem("Prodl2Id")).subscribe
+    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + localStorage.getItem("Prodl3Id")).subscribe
       ((res: any) => {
         this.img_list = res;
       });
@@ -47,15 +47,33 @@ export class IdCardsComponent implements OnInit {
   }
 
   imgclick(e) {
-    debugger;
+
     $("#div_idcards").hide();
     $("#inner_div_idcards").show();
-    var src = e;
+    var src = "assets/VisitingCards/Blank-ID-Card-Horz.png";
 
     $("#img_selected_idcard").attr("src", src);
   }
 
-  myfun() { alert("ok"); }
+  myfun() {
+
+    $('#txt_name').summernote({
+      placeholder: 'write here...',
+      width: 450,
+      height: 200,
+      tooltip: false,
+      toolbar: [
+        // [groupName, [list of button]]
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']]
+      ],
+      callbacks: {
+        onKeyup: function (e) { }
+      }
+    });
+ 
+  }
 
   Submit() {
     
