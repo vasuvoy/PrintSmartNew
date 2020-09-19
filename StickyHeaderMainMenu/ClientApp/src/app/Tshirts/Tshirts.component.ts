@@ -44,11 +44,12 @@ export class TshirtComponent implements OnInit {
 
 
   ngOnInit() {
-    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + localStorage.getItem("Prodl3Id")).subscribe
+    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id")).subscribe
       ((res: any) => {
         this.img_list = res;
       });
     $(document).ready(function () {
+
       $("#inner_div_basictshirts").hide();
       $("#outer_div_tshirts_cart").hide();
       $("#outer_div_customtshirts_cart").hide();
@@ -90,11 +91,6 @@ export class TshirtComponent implements OnInit {
       })
 
 
-      $('#ddl_Color').select2({
-        closeOnSelect: true,
-        minimumResultsForSearch: -1,
-        placeholder: "Select Colour",
-      })
 
       $('#ddl_Qty1').select2({
         closeOnSelect: true,
@@ -300,10 +296,7 @@ export class TshirtComponent implements OnInit {
 
     });
 
-    $("#ddl_Color").change(function () {
-      color = $('#ddl_Color :selected').text();
 
-    });
     $("#ddl_Qty").change(function () {
       qty = $('#ddl_Qty :selected').text();
 
@@ -323,10 +316,10 @@ export class TshirtComponent implements OnInit {
     $("#inner_div_basictshirts").hide();
     $("#outer_div_tshirts_cart").show();
    // var src = "assets/VisitingCards/Blank-ID-Card-Horz.png";
-    localStorage.setItem('ModelId', e);
+    sessionStorage.setItem('ModelId', e);
     $("#img_selected_tshirt").attr("src", f);
-    $("#lbl_desc").val(g);
-    this.httpClient.get('https://localhost:44302/' + 'api/Dimmasters/' + localStorage.getItem("ModelId")).subscribe(
+    $("#lbl_desc").text(g);
+    this.httpClient.get('https://localhost:44302/' + 'api/Dimmasters/' + sessionStorage.getItem("ModelId")).subscribe(
       (res: any) => {
         this.dim = res
         this.dim.forEach(e => {
@@ -352,21 +345,21 @@ export class TshirtComponent implements OnInit {
       let n = stringtonum(size1);
 
       var s = "l3menu";
-      this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + localStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
+      this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + sessionStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
         this.products1 = res;
         this.products1.forEach(e => {
           if (e.dimIdSize == n) {
             this.products_exist.push(e);
           }
         });
-        if (this.products_exist.length < 0) {
+        if (this.products_exist.length == 0) {
           this.products = [{
-            ProdId: stringtonum(localStorage.getItem('ProdId')),
-            ProdModelId: stringtonum(localStorage.getItem('ModelId')),
+            ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+            ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
             Gender: gender_text,
             CustomContent: null,
             dimIdSize: stringtonum(size1),
-            OrderedBy: stringtonum(localStorage.getItem('userid')),
+            OrderedBy: stringtonum(sessionStorage.getItem('userid')),
             DtCreate: null,
             DtModify: null,
             quantity: stringtonum(qty),
@@ -381,12 +374,12 @@ export class TshirtComponent implements OnInit {
             var quantity = stringtonum(qty);
             this.products = [{
               detailId: this.products1[0].detailId,
-              ProdId: stringtonum(localStorage.getItem('ProdId')),
-              ProdModelId: stringtonum(localStorage.getItem('ModelId')),
+              ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+              ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
               Gender: gender_text,
               CustomContent: null,
               dimIdSize: stringtonum(size1),
-              OrderedBy: stringtonum(localStorage.getItem('userid')),
+              OrderedBy: stringtonum(sessionStorage.getItem('userid')),
               DtCreate: null,
               DtModify: null,
               quantity: quantity,
@@ -398,12 +391,12 @@ export class TshirtComponent implements OnInit {
             var quantity = stringtonum(qty);
             this.products = [{
               detailId: this.products1[0].detailId,
-              ProdId: stringtonum(localStorage.getItem('ProdId')),
-              ProdModelId: stringtonum(localStorage.getItem('ModelId')),
+              ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+              ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
               Gender: gender_text,
               CustomContent: null,
               dimIdSize: stringtonum(size1),
-              OrderedBy: stringtonum(localStorage.getItem('userid')),
+              OrderedBy: stringtonum(sessionStorage.getItem('userid')),
               DtCreate: null,
               DtModify: null,
               quantity: this.products1[0].quantity + quantity,
@@ -414,7 +407,7 @@ export class TshirtComponent implements OnInit {
 
           this.httpClient.put('https://localhost:44302/' + 'api/Orderdetails/' + this.products1[0].detailId, this.products[0]).subscribe(res => { alert("put"); });
         }
-        let d = stringtonum(localStorage.getItem("cartcount"));
+        let d = stringtonum(sessionStorage.getItem("cartcount"));
         this._sharedservice.updateCartCount(d + this.products.length);
 
       });
@@ -427,6 +420,7 @@ export class TshirtComponent implements OnInit {
   }
 
   AddToCart_custom() {
+
     function stringtonum(input: string) {
       var n = Number(input);
       return n;
@@ -436,7 +430,7 @@ export class TshirtComponent implements OnInit {
       let n = stringtonum(size);
 
       var s = "l3menu";
-      this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + localStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
+      this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + sessionStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
         this.products1 = res;
         this.products1.forEach(e => {
           if (e.dimIdSize == n) {
@@ -446,12 +440,12 @@ export class TshirtComponent implements OnInit {
       });
       if (this.products_exist.length < 0) {
         this.custom_text = [{
-          ProdId: stringtonum(localStorage.getItem('ProdId')),
-          ProdModelId: stringtonum(localStorage.getItem('ModelId')),
+          ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+          ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
           Gender: gender_text,
           CustomContent: $("#img_tshirt_write")[0].innerHTML,
           dimIdSize: stringtonum(size),
-          OrderedBy: stringtonum(localStorage.getItem('userid')),
+          OrderedBy: stringtonum(sessionStorage.getItem('userid')),
           DtCreate: null,
           DtModify: null,
           quantity: stringtonum(qty),
@@ -466,12 +460,12 @@ export class TshirtComponent implements OnInit {
           var quantity = stringtonum(qty);
           this.custom_text = [{
             detailId: this.products1[0].detailId,
-            ProdId: stringtonum(localStorage.getItem('ProdId')),
-            ProdModelId: stringtonum(localStorage.getItem('ModelId')),
+            ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+            ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
             Gender: gender_text,
             CustomContent: null,
             dimIdSize: stringtonum(size),
-            OrderedBy: stringtonum(localStorage.getItem('userid')),
+            OrderedBy: stringtonum(sessionStorage.getItem('userid')),
             DtCreate: null,
             DtModify: null,
             quantity: quantity,
@@ -483,12 +477,12 @@ export class TshirtComponent implements OnInit {
           var quantity = stringtonum(qty);
           this.custom_text = [{
             detailId: this.products1[0].detailId,
-            ProdId: stringtonum(localStorage.getItem('ProdId')),
-            ProdModelId: stringtonum(localStorage.getItem('ModelId')),
+            ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+            ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
             Gender: gender_text,
             CustomContent: null,
             dimIdSize: stringtonum(size),
-            OrderedBy: stringtonum(localStorage.getItem('userid')),
+            OrderedBy: stringtonum(sessionStorage.getItem('userid')),
             DtCreate: null,
             DtModify: null,
             quantity: this.products1[0].quantity + quantity,
@@ -499,7 +493,7 @@ export class TshirtComponent implements OnInit {
 
         this.httpClient.put('https://localhost:44302/' + 'api/Orderdetails/' + this.products1[0].detailId, this.custom_text[0]).subscribe(res => { alert("put"); });
       }
-      let cartC = stringtonum(localStorage.getItem("cartcount"));
+      let cartC = stringtonum(sessionStorage.getItem("cartcount"));
       this._sharedservice.updateCartCount(cartC + this.custom_text.length);
      
     }
@@ -566,7 +560,7 @@ export class TshirtComponent implements OnInit {
   shopnow() {
     $("#outer_div_tshirts").prop("hidden", true);
     $("#inner_div_basictshirts").show();
-    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + localStorage.getItem("Prodl3Id")).subscribe
+    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id")).subscribe
       ((res: any) => {
         this.img_list = res;
       });

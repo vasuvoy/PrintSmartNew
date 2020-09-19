@@ -192,26 +192,18 @@
         <br />
         <br />
         <select class="js-example-basic-single" id="ddl_gender" style="width:150px">
-          <option value=""></option>
+          <option value="F">F</option>
 
         </select>
         <br />
         <br />
         <select class="js-example-basic-single" id="ddl_size" style="width:150px">
-          <option value=""></option>
+          <option value="XS">Extra small</option>
 
         </select>
         <br />
         <br />
-        <select class="js-example-basic-single" id="ddl_Color" style="width:150px">
-          <option value="red">Red</option>
-          <option value="w">White</option>
-          <option value="b">Black</option>
-          <option value="y">Yellow</option>
-          <option value="g">Green</option>
-        </select>
-        <br />
-        <br />
+
         <select class="js-example-basic-single" id="ddl_Qty" style="width:150px">
           <option value=""></option>
           <option value="1">1</option>
@@ -243,6 +235,9 @@
       </div>
       <div class="col">
         <br />
+        <label style="font:bold" id="lbl_desc"></label>
+
+        <br />
         <br />
         <select class="js-example-basic-single" id="ddl_gender1" style="width:150px">
           <option value=""></option>
@@ -256,15 +251,7 @@
         </select>
         <br />
         <br />
-        <select class="js-example-basic-single" id="ddl_Color" style="width:150px">
-          <option value="red">Red</option>
-          <option value="w">White</option>
-          <option value="b">Black</option>
-          <option value="y">Yellow</option>
-          <option value="g">Green</option>
-        </select>
-        <br />
-        <br />
+
         <select class="js-example-basic-single" id="ddl_Qty1" style="width:150px">
           <option value=""></option>
           <option value="1">1</option>
@@ -273,8 +260,7 @@
         </select>
         <br />
         <br />
-        <textarea id="lbl_desc">xxxxx</textarea>
-        <br/>
+
         <button type="submit" class="btn btn-outline-success" (click)="AddToCart()" id="btn_AddtoCart"
                 style="background:lightseagreen;border-color:lightseagreen;color:white">
           Add to cart

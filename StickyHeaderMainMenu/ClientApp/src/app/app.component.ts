@@ -39,11 +39,13 @@ export class AppComponent implements OnInit {
   public testmodel: testModel[] = [];
   public count=0;
   constructor(private http: HttpClient, private _exampleService: ProductService, private router: Router, private _sharedservice: SharedService) {
-    localStorage.setItem("userid","");
+   // localStorage.setItem("userid","");
   }
   ngOnInit() {
-  
 
+    if (sessionStorage.getItem("userid") == null) {
+      sessionStorage.setItem("status_text","Sign In");
+    }
     //from db loading prod list dynamically
     this.http.get('https://localhost:44302/' + 'api/Products').subscribe(
       (res1: any) => {
@@ -189,8 +191,8 @@ export class AppComponent implements OnInit {
 
   //Sub menu hyperlink click event
   subMenuhyperlinkClick(e) {
-   // alert(e.target.innerText+e.target.id);
-    localStorage.setItem('Prodl3Id', e.target.id);
+    // alert(e.target.innerText+e.target.id);
+    sessionStorage.setItem('Prodl3Id', e.target.id);
 
     
   }
@@ -198,7 +200,7 @@ export class AppComponent implements OnInit {
   //main menu hyperlink click event
   MainMenuhyperlinkClick(e) {
 
-    localStorage.setItem('ProdId', e.target.id);
+    sessionStorage.setItem('ProdId', e.target.id);
   }
   isExpanded = false;
 

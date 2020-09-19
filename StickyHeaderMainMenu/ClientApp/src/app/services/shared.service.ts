@@ -8,15 +8,16 @@ import { ReturnStatement } from '@angular/compiler';
 
 export class SharedService {
 
-  private CurrentCartCount = new BehaviorSubject(stringtonum(localStorage.getItem("cartcount")));
+  private CurrentCartCount = new BehaviorSubject(stringtonum(sessionStorage.getItem("cartcount")));
 
   //private login_success = new BehaviorSubject < any > ({});
-  private login_success = new BehaviorSubject('Sign In');
+
+  private login_success = new BehaviorSubject(sessionStorage.getItem("status_text"));
   currentMessage = this.CurrentCartCount.asObservable();
   loginMessage = this.login_success.asObservable();
 
 
-  private login_success_username = new BehaviorSubject('');
+  private login_success_username = new BehaviorSubject(sessionStorage.getItem("user_name"));
   UserName = this.login_success_username.asObservable();
 
   private login_success_changepwd = new BehaviorSubject('');

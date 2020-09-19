@@ -4,6 +4,7 @@ import { user } from '../entities/user.entity';
 import { SharedService } from '../services/shared.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Session } from 'inspector';
 
 declare var $: any;
 declare var swal: any;
@@ -53,7 +54,7 @@ export class LoginComponent implements OnInit {
     let user_id = 0;
     let password = "";
     let email = "";
-    localStorage.setItem('emailid', user_name);
+    sessionStorage.setItem('emailid', user_name);
  
     if (user_name != "" && pwd != "") {
       this.httpClient.get<User_Details[]>('https://localhost:44302/' + 'api/Userdetail/' + user_name).subscribe(
@@ -66,19 +67,32 @@ export class LoginComponent implements OnInit {
             }
             else {
               let userid = this.userdetails[0].userId;
+              sessionStorage.setItem('user_name', this.userdetails[0].firstName);
               sessionStorage.setItem('userid', userid.toString());
-              localStorage.setItem('userid', userid.toString());
              // localStorage.setItem('Name', this.userdetails[0].FirstName);
               user_id = this.userdetails[0].userId;
               password = this.userdetails[0].pwd;
               email = this.userdetails[0].email;
               if (user_name == email && pwd == password) {
-                swal("Login success");
-                this.router.navigateByUrl('/Home');
+                //swal("Login success");
+                this.router.navigateByUrl('/');
+                sessionStorage.setItem("status_text","Sign Out");
                 this._sharedservice.loginSuccess("Sign Out");
                 this._sharedservice.loginSuccessUsername(this.userdetails[0].firstName);
                 this._sharedservice.loginSuccesschangepwd("Change Password");
-                
+
+
+                if (sessionStorage.getItem('userid') != null) {
+                  var s = "appPage";
+
+                  this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + sessionStorage.getItem('userid') + '/' + s).subscribe(
+                    (res: any) => {
+                      sessionStorage.setItem("cartcount", res.length);
+                      this._sharedservice.updateCartCount(res.length);
+
+                    });
+
+                }
               }
               else {
                 swal("Incorrect Passowrd");
@@ -86,17 +100,7 @@ export class LoginComponent implements OnInit {
             }
         });
     }
-    if (localStorage.getItem('userid') != null) {
-      var s = "appPage";
-
-      this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + localStorage.getItem('userid') + '/' + s).subscribe(
-        (res: any) => {
-          localStorage.setItem("cartcount", res.length);
-          this._sharedservice.updateCartCount(res.length);
-
-        });
-
-    }
+    
   }
 
   changepwd() { }

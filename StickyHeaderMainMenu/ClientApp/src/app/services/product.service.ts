@@ -34,24 +34,43 @@ export class ProductService {
     return -1;
   }
 
-  public insertProduct(products) {
+  public insertProduct(qty,detailid) {
     function stringtonum(input: string) {
       var n = Number(input);
       return n;
     }
-    this.products.push({
-      ProdId: stringtonum(localStorage.getItem('ProdId')),
-      ProdModelId: stringtonum(localStorage.getItem('ProdModelId')),
-      Gender: products.Gender,
-      CustomContent: null,
-      dimIdSize: null,
-      OrderedBy: null,
-      DtCreate: null,
-      DtModify: null,
-      quantity: 1,
-      IsCustomized: 0,
-      StatusCode: "C"
-    });
+    if (detailid == 0) {
+      this.products.push({
+
+        ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+        ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
+        Gender: null,
+        CustomContent: null,
+        dimIdSize: null,
+        OrderedBy: null,
+        DtCreate: null,
+        DtModify: null,
+        quantity: stringtonum(qty),
+        IsCustomized: 0,
+        StatusCode: "C"
+      });
+    }
+    else {
+      this.products.push({
+        detailId: detailid,
+        ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+        ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
+        Gender: null,
+        CustomContent: null,
+        dimIdSize: null,
+        OrderedBy: null,
+        DtCreate: null,
+        DtModify: null,
+        quantity: stringtonum(qty),
+        IsCustomized: 0,
+        StatusCode: "C"
+      });
+    }
   //this.products.push({ 'ProdId': ProdId, 'ProdModelId': , 'size': size, 'color': color, 'qty': qty })
     return this.products;
  

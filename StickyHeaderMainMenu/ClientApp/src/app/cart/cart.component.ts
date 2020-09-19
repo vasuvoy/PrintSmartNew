@@ -20,14 +20,14 @@ export class cartComponent implements OnInit {
   public img_list: ImageList[];
   constructor(private _exampleService: ProductService, private httpClient: HttpClient, private _sharedservice: SharedService) { }
   ngOnInit() {
-    this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/'+ localStorage.getItem("userid")+"/"+"cartpage").subscribe(
+    this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + sessionStorage.getItem("userid") + "/" + "cartpage").subscribe(
       (r: any) =>
       
       {
 
         this.productAddedTocart = r;
 
-        this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + localStorage.getItem("ModelId")).subscribe(
+        this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("ModelId")).subscribe(
           (r:any) =>
           {
           this.img_list = r;

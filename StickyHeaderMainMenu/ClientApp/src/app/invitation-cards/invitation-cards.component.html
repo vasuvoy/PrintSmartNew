@@ -9,88 +9,42 @@
       <div class="row" style="width:800px !important">
         <div *ngFor="let img of img_list">
           <div class="col-sm">
-            <img id="img_Invicards" (click)="imgclick()" src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
+            <img id="img_Invicards" (click)="imgclick(img.modelId,img.modelLink,img.modelDesc)" src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
           </div>
           <br />
         </div>
       </div>
 
-      <!--<div class="row" style="width:800px !important">
-        <div class="col-sm">
-          <img src="assets/Img/INVITATIONCARD4.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
-        </div>
-        <div class="col-sm">
-          <img src="assets/Img/INVITATIONCARD5.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
-        </div>
-        <div class="col-sm">
-          <img src="assets/Img/INVITATIONCARD 6.jpg" style="border:1px solid;width:230px" alt="Los Angeles">
-        </div>
-      </div>-->
     </div>
   </div>
 
-  <div id="innerdiv_invicards">
-    <table style="text-align:center;background-image:url(assets/Img/INVITATIONCARD1_empty.jpg);background-size:cover;height:400px;width:450px" >
-     <tr >
-       <td>
-         <div id="div_bride" style="border:1px solid red;height:30px;width:208px;margin-top:120px;margin-left:100px">
-           <!-- <label style="margin-left:45px;color:white" id="lbl_bride"></label>-->
+  <div class="container" id="innerdiv_invicards">
+    <div class="row">
+      <div class="col">
+        <div id="div_img_cart">
+          <img src="" id="img_selected_invicard" style="width:300px" alt="Los Angeles">
+        </div>
+      </div>
+      <div class="col">
+        <br />
+        <label style="font:bold" id="lbl_desc"></label>
+        <br/>
+        <br />
+        <select class="js-example-basic-single" id="ddl_Qty" style="width:150px">
+          <option value=""></option>
+          <option value="1">10</option>
+          <option value="2">20</option>
 
-           <label style="margin-left:45px;color:white" id="lbl_bride">BRIDE'S NAME</label>
-
-         </div>
-         <br />
-         <span style="color:white;margin-left:45px">&</span><br />
-         <div id="div_bride1" style="border:1px solid red;height:30px;width:208px;margin-left:120px">
-           <label id="lbl_groom" style="color:white;margin-left:45px">GROOM'S NAME</label>
-           </div>
-       </td>
-     </tr>
-
-    </table>
+        </select>
+        <br />
+        <br />
+        <button type="submit" class="btn btn-outline-success" (click)="AddToCart()" id="btn_AddtoCart"
+                style="background:lightseagreen;border-color:lightseagreen;color:white">
+          Add to cart
+        </button>
+      </div>
+    </div>
   </div>
-      <!-- Modal content-->
-      <div class="modal" tabindex="-1" role="dialog" id="myModal">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" style="color:lightseagreen">Invitation Card</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <img src="" id="img_selected_invicard" style="width:400px" alt="selected img" />
-              <div id="invi_summernote"></div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" >Add To Cart</button>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
-          <!--preview modal-->
-      <div class="modal fade" id="myPrvModal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <!--<div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Preview</h4>
-            </div>-->
-            <div class="modal-body">
-              <img src="" id="img_selected_invicard_preview" style="width:400px;position: relative; left: 0; top: 0;" alt="selected img" />
-              <div style="position: absolute; left: 175px; top: 200px">
-                <div id="div_preview" ></div>
-              </div>
-              </div>
-            <div class="modal-footer">
-
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
 </body>
 </html>
