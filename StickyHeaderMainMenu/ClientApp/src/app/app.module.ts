@@ -31,6 +31,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { NewAddressComponent } from './new-address/new-address.component';
 import { AddressListComponent } from './address-list/address-list.component';
 import { EditAddressComponent } from './edit-address/edit-address.component';
+import { VisitingCardsComponent } from './visiting-cards/visiting-cards.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { EditAddressComponent } from './edit-address/edit-address.component';
     ForgotpasswordComponent,
     NewAddressComponent,
     AddressListComponent,
-    EditAddressComponent
+    EditAddressComponent,
+    VisitingCardsComponent
     //FileUploadModule
   ],
   imports: [
@@ -94,7 +96,8 @@ import { EditAddressComponent } from './edit-address/edit-address.component';
       { path: 'forgotpassword', component: ForgotpasswordComponent },
       { path: 'new-address', component: NewAddressComponent },
       { path: 'address-list', component: AddressListComponent },
-      { path: 'edit-address/:id', component: EditAddressComponent }
+      { path: 'edit-address/:id', component: EditAddressComponent },
+      { path: 'visiting-cards', component: VisitingCardsComponent }
     ])
   ],
   providers: [],

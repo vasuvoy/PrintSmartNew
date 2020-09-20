@@ -39,6 +39,7 @@ export class ProductService {
       var n = Number(input);
       return n;
     }
+    this.products = [];
     if (detailid == 0) {
       this.products.push({
 
@@ -47,7 +48,7 @@ export class ProductService {
         Gender: null,
         CustomContent: null,
         dimIdSize: null,
-        OrderedBy: null,
+        OrderedBy: stringtonum(sessionStorage.getItem('userid')),
         DtCreate: null,
         DtModify: null,
         quantity: stringtonum(qty),
@@ -63,7 +64,7 @@ export class ProductService {
         Gender: null,
         CustomContent: null,
         dimIdSize: null,
-        OrderedBy: null,
+        OrderedBy: stringtonum(sessionStorage.getItem('userid')),
         DtCreate: null,
         DtModify: null,
         quantity: stringtonum(qty),

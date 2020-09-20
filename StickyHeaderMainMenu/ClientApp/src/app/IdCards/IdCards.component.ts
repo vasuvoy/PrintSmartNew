@@ -34,7 +34,7 @@ export class IdCardsComponent implements OnInit {
       });
     });
 
-    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + localStorage.getItem("Prodl3Id")).subscribe
+    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id")).subscribe
       ((res: any) => {
         this.img_list = res;
       });
