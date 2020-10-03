@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace StickyHeaderMainMenu.Models1
+namespace StickyHeaderMainMenu.Models
 {
     public partial class VwGetproductlist
     {

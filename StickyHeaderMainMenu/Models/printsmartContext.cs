@@ -25,7 +25,7 @@ namespace StickyHeaderMainMenu.Models
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Productmodel> Productmodel { get; set; }
         public virtual DbSet<Statusmaster> Statusmaster { get; set; }
-        public virtual DbSet<Vm> VwGetproductlist { get; set; }
+        public virtual DbSet<vm> VwGetproductlist { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
