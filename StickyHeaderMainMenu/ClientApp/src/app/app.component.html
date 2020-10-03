@@ -3,7 +3,7 @@
   <style>
     .dropdown-menu {
       min-width: 200px;
-      width: 450px;
+      width: 180px;
     }
 
       .dropdown-menu.columns-2 {
@@ -163,6 +163,7 @@
                     <a class="dropdown-item" (click)=" myaccount();" [routerLink]="">My Account</a>
                     <a class="dropdown-item" (click)=" myaddress();" [routerLink]="" href="#">My Address</a>
                     <a class="dropdown-item" id="changePwd" [routerLink]="['forgotpassword']" href="#">{{change_pwd}}</a>
+                    <a class="dropdown-item" (click)=" signout();" id="signout" href="#">{{signout_text}}</a>
                   </li>
                 </ul>
               </li>
@@ -190,7 +191,7 @@
             <!--sample&&&&&&&&&&&&&&&&&&&&&&(((((((((((((((((-->
             <li class="nav-item dropdown active">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Products </a>
-              <ul class="dropdown-menu" id="products_list" aria-labelledby="navbarDropdownMenuLink">
+              <ul class="dropdown-menu"  id="products_list" aria-labelledby="navbarDropdownMenuLink">
                 <div *ngFor="let prodli of prodlist_main">
                   <li class="dropdown-submenu"  *ngFor="let x of prodli.mainmodel">
 
@@ -206,7 +207,7 @@
                                 <ul class="multi-column-dropdown">
                                   <!--<span>{{c.l2prodDesc}}</span>-->
                                   <!--<div *ngIf="c.l2isHeader===1;then content else loggedOut">-->
-                                    <li style="font-size:small;color:black;">&nbsp;&nbsp;&nbsp;<strong>{{c.l2prodDesc}}</strong></li>
+                                    <li style="font-size:small;color:black;width:175px">&nbsp;&nbsp;&nbsp;<strong>{{c.l2prodDesc}}</strong></li>
                                   <!--</div>
                                   <ng-template #content>Pleasssss.</ng-template>-->
                                   <ng-template #loggedOut>Please friend, login.</ng-template>

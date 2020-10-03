@@ -76,19 +76,26 @@ export class LoginComponent implements OnInit {
               if (user_name == email && pwd == password) {
                 //swal("Login success");
                 this.router.navigateByUrl('/');
-                sessionStorage.setItem("status_text","Sign Out");
+                sessionStorage.setItem("status_text", "Sign Out");
+                sessionStorage.setItem("changepwd", "Change Password");
+                sessionStorage.setItem("signouttext", "Sign Out");
                 this._sharedservice.loginSuccess("Sign Out");
                 this._sharedservice.loginSuccessUsername(this.userdetails[0].firstName);
                 this._sharedservice.loginSuccesschangepwd("Change Password");
-
-
+                this._sharedservice.loginSuccesssignout("Sign Out");
                 if (sessionStorage.getItem('userid') != null) {
                   var s = "appPage";
 
                   this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + sessionStorage.getItem('userid') + '/' + s).subscribe(
                     (res: any) => {
-                      sessionStorage.setItem("cartcount", res.length);
-                      this._sharedservice.updateCartCount(res.length);
+                     // var numArr = [10, 20, 30, 40] // sums to value = 100
+                      var sum = 0;
+                      for (var i = 0; i < res.length; i++) {
+                        sum += res[i].quantity;
+                      }
+                      alert(sum);
+                      sessionStorage.setItem("cartcount", sum.toString());
+                      this._sharedservice.updateCartCount(sum);
 
                     });
 

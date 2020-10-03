@@ -25,7 +25,7 @@ namespace StickyHeaderMainMenu.Models
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Productmodel> Productmodel { get; set; }
         public virtual DbSet<Statusmaster> Statusmaster { get; set; }
-        public virtual DbSet<VwGetproductlist> VwGetproductlist { get; set; }
+        public virtual DbSet<Vm> VwGetproductlist { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -380,10 +380,8 @@ namespace StickyHeaderMainMenu.Models
                     .HasColumnName("L3ProdId")
                     .HasDefaultValueSql("'0'");
 
-                entity.Property(e => e.ModelId).HasDefaultValueSql("'0'");
-
                 entity.Property(e => e.RouterLink)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false);
             });
 

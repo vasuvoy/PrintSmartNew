@@ -4,7 +4,7 @@ import { ProductService } from './services/product.service';
 import { SharedService } from './services/shared.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { Location } from '@angular/common';
 
 declare var $: any;
 let count: number;
@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   login_text: string = "Sign In";
   login_username: string = "";
   change_pwd = "";
+  signout_text = "";
   
   //public products: Product[];
   public prodlist: Product_list[] = [];
@@ -38,7 +39,8 @@ export class AppComponent implements OnInit {
   public groubedByTeam_l3 = [];
   public testmodel: testModel[] = [];
   public count=0;
-  constructor(private http: HttpClient, private _exampleService: ProductService, private router: Router, private _sharedservice: SharedService) {
+  constructor(private http: HttpClient,
+    private _location: Location,private _exampleService: ProductService, private router: Router, private _sharedservice: SharedService) {
    // localStorage.setItem("userid","");
   }
   ngOnInit() {
@@ -153,9 +155,10 @@ export class AppComponent implements OnInit {
     // localStorage.setItem('cart', null);
 
     this._sharedservice.currentMessage.subscribe(msg => this.cartItemCount = msg);
-    this._sharedservice.loginMessage.subscribe(msg => this.login_text = msg);
+    this._sharedservice.loginMessage.subscribe(msg => this.login_text = sessionStorage.getItem('status_text'));
     this._sharedservice.UserName.subscribe(name => this.login_username = name);
-    this._sharedservice.changepwd.subscribe(changepwd => this.change_pwd = changepwd);
+    this._sharedservice.changepwd.subscribe(changepwd => this.change_pwd = sessionStorage.getItem('changepwd'));
+    this._sharedservice.loginMessage_signout.subscribe(signout => this.signout_text = sessionStorage.getItem('signouttext'));
     //function theFunction() {
 
     //  if (this.login_text == 'Sign Out') {
@@ -232,6 +235,13 @@ export class AppComponent implements OnInit {
     }
   }
 
+  signout() {
+    sessionStorage.removeItem("user_name");
+    sessionStorage.removeItem("changepwd");
+    sessionStorage.setItem("status_text", "Sign In");
+    sessionStorage.removeItem("signouttext");
+    this.router.navigateByUrl('/Login');
+  }
 }
 
 

@@ -27,11 +27,15 @@ export class cartComponent implements OnInit {
 
         this.productAddedTocart = r;
 
-        this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("ModelId")).subscribe(
-          (r:any) =>
-          {
-          this.img_list = r;
-          })
+        if (sessionStorage.getItem("ModelId") != null) {
+          this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("ModelId")).subscribe(
+            (r: any) => {
+              this.img_list = r;
+            })
+        }
+        else {
+
+        }
     });
     this._sharedservice.currentMessage.subscribe(msg => this.cartItemCount = msg);
  //   this.productAddedTocart = this._exampleService.getProductFromCart();

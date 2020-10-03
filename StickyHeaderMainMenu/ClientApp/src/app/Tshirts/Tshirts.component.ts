@@ -185,7 +185,7 @@ export class TshirtComponent implements OnInit {
             close: closebtn
           },
           callbacks: {
-            onKeyup: function (e) {
+            onKeydown: function (e) {
               setTimeout(function () {
                 var plainText = $("#img_tshirt_write").summernote("code");
                 
@@ -252,7 +252,7 @@ export class TshirtComponent implements OnInit {
                 console.log('clicked');
               });
             },
-            onKeyup: function (e) {
+            onkeyup: function (e) {
               setTimeout(function () {
                 var plainText = $("#img_tshirt_write1").summernote("code");
                 alert(plainText);
@@ -420,7 +420,7 @@ export class TshirtComponent implements OnInit {
   }
 
   AddToCart_custom() {
-
+    sessionStorage.setItem('ModelId', '15');//reference purpose...remove this on making this dynamic
     function stringtonum(input: string) {
       var n = Number(input);
       return n;
@@ -428,9 +428,9 @@ export class TshirtComponent implements OnInit {
 
     if (sessionStorage.getItem("userid") != null) {
       let n = stringtonum(size);
-
+      n = 2;//remove on makimg dynamic
       var s = "l3menu";
-      this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + sessionStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
+      this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + stringtonum(sessionStorage.getItem('ModelId')) + '/' + s).subscribe((res: any) => {
         this.products1 = res;
         this.products1.forEach(e => {
           if (e.dimIdSize == n) {
@@ -438,13 +438,13 @@ export class TshirtComponent implements OnInit {
           }
         });
       });
-      if (this.products_exist.length < 0) {
+      if (this.products_exist.length ==0) {
         this.custom_text = [{
           ProdId: stringtonum(sessionStorage.getItem('ProdId')),
           ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
           Gender: gender_text,
           CustomContent: $("#img_tshirt_write")[0].innerHTML,
-          dimIdSize: stringtonum(size),
+          dimIdSize: n,//stringtonum(size),
           OrderedBy: stringtonum(sessionStorage.getItem('userid')),
           DtCreate: null,
           DtModify: null,

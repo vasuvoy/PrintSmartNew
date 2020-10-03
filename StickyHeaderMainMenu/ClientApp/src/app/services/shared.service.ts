@@ -12,7 +12,8 @@ export class SharedService {
 
   //private login_success = new BehaviorSubject < any > ({});
 
-  private login_success = new BehaviorSubject(sessionStorage.getItem("status_text"));
+  private login_success = new BehaviorSubject('Sign In');
+
   currentMessage = this.CurrentCartCount.asObservable();
   loginMessage = this.login_success.asObservable();
 
@@ -22,6 +23,9 @@ export class SharedService {
 
   private login_success_changepwd = new BehaviorSubject('');
   changepwd = this.login_success_changepwd.asObservable();
+
+  private login_success_signout = new BehaviorSubject('');
+  loginMessage_signout = this.login_success_signout.asObservable();
 
   constructor() { }
     updateCartCount(count: number){
@@ -38,6 +42,10 @@ export class SharedService {
 
   loginSuccessUsername(success: any) {
     this.login_success_username.next(success);
+  }
+
+  loginSuccesssignout(success: any) {
+    this.login_success_signout.next(success);
   }
 
   loginSuccesschangepwd(success: any) {
