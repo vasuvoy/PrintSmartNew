@@ -12,7 +12,7 @@ export class Product {
   OrderedBy?: number;
   DtCreate: null;
   DtModify: null;
-
+  ModelLink?: string;
   //id: string;
   //gender: string;
   //size: string;

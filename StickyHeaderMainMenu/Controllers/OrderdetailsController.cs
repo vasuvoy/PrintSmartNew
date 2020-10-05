@@ -31,28 +31,41 @@ namespace StickyHeaderMainMenu.Controllers
         [HttpGet("{id}/{page}")]
         public async Task<ActionResult<IEnumerable<Orderdetail>>> GetOrderdetail(int id,string page)
         {
-          
+            var orderdetail=new List<StickyHeaderMainMenu.Models.Orderdetail>();
             if (page == "l3menu")
             {
-                var orderdetail = await _context.Orderdetail.Where(e => e.ProdModelId == id).ToListAsync();
+                 orderdetail = await _context.Orderdetail.Where(e => e.ProdModelId == id).ToListAsync();
                 if (orderdetail == null)
                 {
                     return NotFound();
                 }
 
-                return orderdetail;
+               // return orderdetail;
             }
-            else
+            if(page== "appPage")
             {
-                var orderdetail = await _context.Orderdetail.Where(e => e.OrderedBy == id).ToListAsync();
+                 orderdetail = await _context.Orderdetail.Where(e => e.OrderedBy == id).ToListAsync();
 
                 if (orderdetail == null)
                 {
                     return NotFound();
                 }
 
-                return orderdetail;
+               // return orderdetail;
             }
+            if (page == "cartpage")
+            {
+                 orderdetail = _context.Orderdetail.FromSqlRaw
+                ("CALL GetUserCart" + "(" + id + ")").ToList();
+                //("call GetUserCart({0})", id).ToList();
+                if (orderdetail == null)
+                {
+                    return NotFound();
+                }
+
+                
+            }
+            return orderdetail;
         }
 
         // PUT: api/Orderdetails/5

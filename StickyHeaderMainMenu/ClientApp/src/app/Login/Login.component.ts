@@ -89,13 +89,13 @@ export class LoginComponent implements OnInit {
                   this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + sessionStorage.getItem('userid') + '/' + s).subscribe(
                     (res: any) => {
                      // var numArr = [10, 20, 30, 40] // sums to value = 100
-                      var sum = 0;
-                      for (var i = 0; i < res.length; i++) {
-                        sum += res[i].quantity;
-                      }
-                      alert(sum);
-                      sessionStorage.setItem("cartcount", sum.toString());
-                      this._sharedservice.updateCartCount(sum);
+                      //var sum = 0;
+                      //for (var i = 0; i < res.length; i++) {
+                      //  sum += res[i].quantity;
+                      //}
+                     // alert(sum);
+                      sessionStorage.setItem("cartcount", res.length);
+                      this._sharedservice.updateCartCount(res.length);
 
                     });
 

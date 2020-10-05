@@ -25,7 +25,7 @@ namespace StickyHeaderMainMenu.Models
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Productmodel> Productmodel { get; set; }
         public virtual DbSet<Statusmaster> Statusmaster { get; set; }
-        public virtual DbSet<vm> VwGetproductlist { get; set; }
+        public virtual DbSet<VwGetproductlist> VwGetproductlist { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -310,9 +310,9 @@ namespace StickyHeaderMainMenu.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.RouterLink)
-                   .HasMaxLength(50)
-                   .IsUnicode(false);
+                //entity.Property(e => e.RouterLink)
+                //   .HasMaxLength(50)
+                //   .IsUnicode(false);
 
                 entity.HasOne(d => d.Prod)
                     .WithMany(p => p.Productmodel)

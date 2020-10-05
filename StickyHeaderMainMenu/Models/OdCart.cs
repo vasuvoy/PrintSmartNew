@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace StickyHeaderMainMenu.Models
 {
-    public partial class Orderdetail
+    public class OdCart
     {
         public int DetailId { get; set; }
         public int? OrderId { get; set; }
@@ -18,6 +20,9 @@ namespace StickyHeaderMainMenu.Models
         public int? OrderedBy { get; set; }
         public DateTime? DtCreate { get; set; }
         public DateTime? DtModify { get; set; }
+
+        public string ModelLink { get; set; }
+
         public virtual Dimmaster DimIdSizeNavigation { get; set; }
         public virtual Product Prod { get; set; }
         public virtual Productmodel ProdModel { get; set; }
