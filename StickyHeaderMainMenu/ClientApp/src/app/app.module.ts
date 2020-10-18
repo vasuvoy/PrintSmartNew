@@ -32,6 +32,7 @@ import { NewAddressComponent } from './new-address/new-address.component';
 import { AddressListComponent } from './address-list/address-list.component';
 import { EditAddressComponent } from './edit-address/edit-address.component';
 import { VisitingCardsComponent } from './visiting-cards/visiting-cards.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { VisitingCardsComponent } from './visiting-cards/visiting-cards.componen
     NewAddressComponent,
     AddressListComponent,
     EditAddressComponent,
-    VisitingCardsComponent
+    VisitingCardsComponent,
+    AdminComponent
     //FileUploadModule
   ],
   imports: [
@@ -97,7 +99,8 @@ import { VisitingCardsComponent } from './visiting-cards/visiting-cards.componen
       { path: 'new-address', component: NewAddressComponent },
       { path: 'address-list', component: AddressListComponent },
       { path: 'edit-address/:id', component: EditAddressComponent },
-      { path: 'visiting-cards', component: VisitingCardsComponent }
+      { path: 'visiting-cards', component: VisitingCardsComponent },
+      { path: 'admin', component: AdminComponent }
     ])
   ],
   providers: [],

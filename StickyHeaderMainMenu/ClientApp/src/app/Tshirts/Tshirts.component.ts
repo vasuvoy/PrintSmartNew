@@ -368,6 +368,9 @@ export class TshirtComponent implements OnInit {
           }];
 
           this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.products[0]).subscribe(res => { alert("post"); });
+          let d = stringtonum(sessionStorage.getItem("cartcount"));
+          this._sharedservice.updateCartCount(d + this.products.length);
+          alert("product added to cart");
         }
         else {
           if (stringtonum(size1) != this.products_exist[0].dimIdSize) {
@@ -386,6 +389,9 @@ export class TshirtComponent implements OnInit {
               IsCustomized: 0,
               StatusCode: "C"
             }];
+                   let d = stringtonum(sessionStorage.getItem("cartcount"));
+            this._sharedservice.updateCartCount(d + this.products.length);
+          alert("product added to cart");
           }
           else {
             var quantity = stringtonum(qty);
@@ -403,13 +409,15 @@ export class TshirtComponent implements OnInit {
               IsCustomized: 0,
               StatusCode: "C"
             }];
+            let d = stringtonum(sessionStorage.getItem("cartcount"));
+            this._sharedservice.updateCartCount(d);
+            alert("product added to cart");
           }
 
           this.httpClient.put('https://localhost:44302/' + 'api/Orderdetails/' + this.products1[0].detailId, this.products[0]).subscribe(res => { alert("put"); });
+   
         }
-        let d = stringtonum(sessionStorage.getItem("cartcount"));
-        this._sharedservice.updateCartCount(d + this.products.length);
-
+      
       });
       this.products_exist = [];
     }

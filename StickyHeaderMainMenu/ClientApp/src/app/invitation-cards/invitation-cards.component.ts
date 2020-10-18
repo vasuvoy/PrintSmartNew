@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Images } from '../entities/Images.entity';
 import { Product } from '../entities/Product.entity';
 import { ProductService } from '../services/product.service';
+import { SharedService } from '../services/shared.service';
 declare var $: any;
 let qty: any;
 let qty_update: any;
@@ -22,7 +23,7 @@ export class InvitationCardsComponent implements OnInit {
   public products_get: Product[] = [];
   arr: string[];
   s: string[];
-  constructor(private httpClient: HttpClient, private prod_service: ProductService) { }
+  constructor(private httpClient: HttpClient, private prod_service: ProductService, private _sharedservice: SharedService) { }
 
   ngOnInit() {
     $(document).ready(function () {
@@ -175,12 +176,17 @@ export class InvitationCardsComponent implements OnInit {
 
         this.prod = this.prod_service.insertProduct(qty, detailid);
         this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.prod[0]).subscribe(res => { alert("invi post"); });
+        let d = stringtonum(sessionStorage.getItem("cartcount"));
+        this._sharedservice.updateCartCount(d + this.prod.length);
       }
       else {
         detailid = 1;
         qty_update = this.products_get[0].quantity + stringtonum(qty);
         this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId);
         this.httpClient.put('https://localhost:44302/' + 'api/Orderdetails/' + this.products_get[0].detailId, this.prod[0]).subscribe(res => { alert("invi put"); });
+        let d = stringtonum(sessionStorage.getItem("cartcount"));
+        this._sharedservice.updateCartCount(d);
+        alert("product added to cart");
       }
       });
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using StickyHeaderMainMenu.Models;
 
 namespace StickyHeaderMainMenu.Models
 {
@@ -37,6 +38,8 @@ namespace StickyHeaderMainMenu.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<OdCart>().HasKey(e => e.DetailId)
+                    .HasName("PRIMARY");
 
             modelBuilder.Entity<Secqmaster>(entity =>
             {
@@ -390,5 +393,7 @@ namespace StickyHeaderMainMenu.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<StickyHeaderMainMenu.Models.OdCart> OdCart { get; set; }
     }
 }

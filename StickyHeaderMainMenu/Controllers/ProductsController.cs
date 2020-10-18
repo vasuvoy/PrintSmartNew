@@ -34,14 +34,24 @@ namespace StickyHeaderMainMenu.Controllers
         }
 
         // GET: api/Products/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(byte id)
+        [HttpGet("{prd_level}/{prodid}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProduct(string prd_level,int prodid)
         {
-            var product = await _context.Product.FindAsync(id);
+            var product= new List<StickyHeaderMainMenu.Models.Product>(); 
+             if (prd_level == "p1")
+             {
+             product= await _context.Product.ToListAsync();
+            //}
+            //var product = await _context.Product.FindAsync(id);
 
-            if (product == null)
+            //if (product == null)
+            //{
+            //    return NotFound();
+            }
+
+            if (prd_level == "p2")
             {
-                return NotFound();
+                 product = await _context.Product.Where(e => e.ParentId ==prodid).ToListAsync();
             }
 
             return product;

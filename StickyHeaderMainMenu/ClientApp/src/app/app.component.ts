@@ -40,7 +40,8 @@ export class AppComponent implements OnInit {
   public testmodel: testModel[] = [];
   public count=0;
   constructor(private http: HttpClient,
-    private _location: Location,private _exampleService: ProductService, private router: Router, private _sharedservice: SharedService) {
+    private _location: Location, private _exampleService: ProductService,
+    private router: Router, private _sharedservice: SharedService) {
    // localStorage.setItem("userid","");
   }
   ngOnInit() {
@@ -49,6 +50,7 @@ export class AppComponent implements OnInit {
       sessionStorage.setItem("status_text","Sign In");
     }
     //from db loading prod list dynamically
+
     this.http.get('https://localhost:44302/' + 'api/Products').subscribe(
       (res1: any) => {
         this.prodView = res1;

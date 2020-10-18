@@ -23,9 +23,9 @@ namespace StickyHeaderMainMenu.Models
 
         public string ModelLink { get; set; }
 
-        public virtual Dimmaster DimIdSizeNavigation { get; set; }
-        public virtual Product Prod { get; set; }
-        public virtual Productmodel ProdModel { get; set; }
-        public virtual Statusmaster StatusCodeNavigation { get; set; }
+        //public virtual Dimmaster DimIdSizeNavigation { get; set; }
+        //public virtual Product Prod { get; set; }
+        //public virtual Productmodel ProdModel { get; set; }
+        //public virtual Statusmaster StatusCodeNavigation { get; set; }
     }
 }

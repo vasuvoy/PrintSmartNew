@@ -18,6 +18,8 @@ namespace StickyHeaderMainMenu.Models
         public int? OrderedBy { get; set; }
         public DateTime? DtCreate { get; set; }
         public DateTime? DtModify { get; set; }
+
+
         public virtual Dimmaster DimIdSizeNavigation { get; set; }
         public virtual Product Prod { get; set; }
         public virtual Productmodel ProdModel { get; set; }

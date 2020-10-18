@@ -32,6 +32,7 @@ namespace StickyHeaderMainMenu.Controllers
         public async Task<ActionResult<IEnumerable<Orderdetail>>> GetOrderdetail(int id,string page)
         {
             var orderdetail=new List<StickyHeaderMainMenu.Models.Orderdetail>();
+          //  var orderdetail1 = new List<StickyHeaderMainMenu.Models.OdCart>();
             if (page == "l3menu")
             {
                  orderdetail = await _context.Orderdetail.Where(e => e.ProdModelId == id).ToListAsync();
@@ -40,7 +41,7 @@ namespace StickyHeaderMainMenu.Controllers
                     return NotFound();
                 }
 
-               // return orderdetail;
+                return orderdetail;
             }
             if(page== "appPage")
             {
@@ -51,19 +52,13 @@ namespace StickyHeaderMainMenu.Controllers
                     return NotFound();
                 }
 
-               // return orderdetail;
+                return orderdetail;
             }
             if (page == "cartpage")
             {
-                 orderdetail = _context.Orderdetail.FromSqlRaw
-                ("CALL GetUserCart" + "(" + id + ")").ToList();
-                //("call GetUserCart({0})", id).ToList();
-                if (orderdetail == null)
-                {
-                    return NotFound();
-                }
+          
 
-                
+              // return orderdetail1;
             }
             return orderdetail;
         }

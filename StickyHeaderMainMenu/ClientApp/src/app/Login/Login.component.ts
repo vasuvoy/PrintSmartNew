@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
                 if (sessionStorage.getItem('userid') != null) {
                   var s = "appPage";
 
-                  this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + sessionStorage.getItem('userid') + '/' + s).subscribe(
+                  this.httpClient.get('https://localhost:44302/' + 'api/OdCarts/' + sessionStorage.getItem("userid")).subscribe(
                     (res: any) => {
                      // var numArr = [10, 20, 30, 40] // sums to value = 100
                       //var sum = 0;
