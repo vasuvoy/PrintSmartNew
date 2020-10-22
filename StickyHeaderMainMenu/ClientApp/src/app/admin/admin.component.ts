@@ -1,9 +1,14 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Productmodel } from '../app.component';
+
 
 declare var $: any;
 let prodid: any;
 let p: ProductList[];
+let prodid_l3 = "";
+let prod_desc = "";
+let selected_filename = "";
 
 @Component({
   selector: 'app-admin',
@@ -12,7 +17,8 @@ let p: ProductList[];
 })
 export class AdminComponent implements OnInit {
   public prod_lst: ProductList[];
-
+  selectedfile: File = null;
+  public s: Productmodel[] = [];
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -40,7 +46,7 @@ export class AdminComponent implements OnInit {
     var page = "admin";
     var prd_level = "p1";
     let prodid = 0;
-
+    
     this.http.get('https://localhost:44302/' + 'api/Products/' + prd_level + '/' + prodid).subscribe(
       (res1: any) => {
         p = res1;
@@ -68,24 +74,40 @@ export class AdminComponent implements OnInit {
       p.forEach(g => {
         if (g.parentId == prodid) {
           $('#ddl_prodl3').append('<option value="' + g.prodId + '">' + g.prodDesc + '</option>');
+
         }
       });
     });
 
-    //handleFileInput(file: FileList) {
-    //  this.fileupload = file.item(0);
-    //  var image_type = file.item(0).type;
-    //  alert(image_type);
-    //}
-    }
-    
-  firstDropDownChanged(e) {
-    alert("sdSD");
+    $("#ddl_prodl3").change(function () {
+      prodid_l3 = $('#ddl_prodl3 :selected').val();
+      prod_desc = $('#ddl_prodl3 :selected').text();
+    });
   }
 
+  OnFileSelect(event) {
+    this.selectedfile = event.target.files[0];
+    let formData: FormData = new FormData();
+    selected_filename = this.selectedfile.name;
+    formData.append('file',this.selectedfile, this.selectedfile.name);
+ 
+    this.http.post('https://localhost:44302/' + 'api/FileUpload', formData).subscribe(e => {  });
+
+   
 
 
-}
+  }
+
+  save() {
+    function stringtonum(input: string) {
+      var n = Number(input);
+      return n;
+    }
+    //inserting into prod model
+    var test: Prod_model = { ProdId: stringtonum(prodid_l3), ModelCode: "sv", ModelDesc: prod_desc, ModelLink: "assets/" + selected_filename, DtCreate: null, DtModify: null, IsActive: 1 };
+    this.http.post('https://localhost:44302/' + 'api/Productmodels', test).subscribe(e => { alert("insert") });
+  }
+ }
 
 export class ProductList {
   prodId: number;
@@ -97,4 +119,16 @@ export class ProductList {
   dtCreate: null;
   dtModify: null;
   RouterLink: string;
+}
+export class Prod_model {
+
+  ProdId: number;
+  ModelCode: string;
+  ModelDesc: string;
+  ModelLink: string;
+  IsActive: number;
+  DtCreate: null;
+
+  DtModify: null;
+
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+  <div id="div_WC" style="width:500px !important;cursor:pointer">
+    <div class="container" style="width:500px !important">
+      <div class="row" style="width:800px !important">
+        <div *ngFor="let img of img_list">
+          <div class="col-sm">
+            <img id="img_WC" (click)="imgclick(img.modelId,img.modelLink,img.modelDesc)" src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
+          </div>
+          <br />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container" id="innerdiv_WC">
+    <div class="row">
+      <div class="col">
+        <div id="div_img_cart">
+          <img src="" id="img_selected_WC" style="width:300px" alt="Los Angeles">
+        </div>
+      </div>
+      <div class="col">
+        <br />
+        <label style="font:bold" id="lbl_desc"></label>
+        <br />
+        <br />
+        <select class="js-example-basic-single" id="ddl_Qty" style="width:150px">
+          <option value=""></option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+
+        </select>
+        <br />
+        <br />
+        <button type="submit" class="btn btn-outline-success" (click)="AddToCart()" id="btn_AddtoCart"
+                style="background:lightseagreen;border-color:lightseagreen;color:white">
+          Add to cart
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

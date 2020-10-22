@@ -20,7 +20,7 @@
           </h3>
         </div>
         <div>
-          <select class="js-example-basic-single" id="ddl_prodl1" (change)="firstDropDownChanged($event)" style="width:150px">
+          <select class="js-example-basic-single" id="ddl_prodl1"  style="width:150px">
             <option></option>
 
           </select>
@@ -42,7 +42,9 @@
           <input type="file"
                  id="file"
                  accept=".jpeg,.jpg"
-                 >
+                 (change)="OnFileSelect($event)" >
+          <br/>
+          <button type="button" (click)="save()">Save</button>
         </div>
       </div>
       
