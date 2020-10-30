@@ -285,6 +285,10 @@ namespace StickyHeaderMainMenu.Models
                 entity.Property(e => e.ProdDesc)
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.Property(e => e.ModelFolder)
+           .HasMaxLength(20)
+           .IsUnicode(false);
             });
 
             modelBuilder.Entity<Productmodel>(entity =>
@@ -322,6 +326,10 @@ namespace StickyHeaderMainMenu.Models
                     .HasForeignKey(d => d.ProdId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProdId_ProductModel");
+
+                entity.Property(e => e.ModelFolder)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Statusmaster>(entity =>

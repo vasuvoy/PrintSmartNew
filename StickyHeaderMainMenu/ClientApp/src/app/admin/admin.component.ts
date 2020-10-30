@@ -9,6 +9,10 @@ let p: ProductList[];
 let prodid_l3 = "";
 let prod_desc = "";
 let selected_filename = "";
+let modelfolder_name = "";
+let model_count;
+let formData: FormData;
+let filename = "";
 
 @Component({
   selector: 'app-admin',
@@ -19,6 +23,9 @@ export class AdminComponent implements OnInit {
   public prod_lst: ProductList[];
   selectedfile: File = null;
   public s: Productmodel[] = [];
+
+
+
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -40,8 +47,9 @@ export class AdminComponent implements OnInit {
       $('#ddl_prodl3').select2({
         closeOnSelect: true,
         minimumResultsForSearch: -1,
-        placeholder: "Select Product",
+        placeholder: "Select Sub Product",
       });
+
     });
     var page = "admin";
     var prd_level = "p1";
@@ -61,8 +69,13 @@ export class AdminComponent implements OnInit {
       });
    
     $("#ddl_prodl1").change(function () {
+      $("#ddl_prodl2").empty();
+      $('#ddl_prodl2').append('<option />');
       prodid = $('#ddl_prodl1 :selected').val();
       p.forEach(g => {
+        if (g.prodId == prodid) {
+          modelfolder_name = g.modelFolder
+        }
         if (g.parentId == prodid) {
           $('#ddl_prodl2').append('<option value="' + g.prodId + '">' +g.prodDesc + '</option>');
             }
@@ -71,6 +84,8 @@ export class AdminComponent implements OnInit {
 
     $("#ddl_prodl2").change(function () {
       prodid = $('#ddl_prodl2 :selected').val();
+      $("#ddl_prodl3").empty();
+      $('#ddl_prodl3').append('<option />');
       p.forEach(g => {
         if (g.parentId == prodid) {
           $('#ddl_prodl3').append('<option value="' + g.prodId + '">' + g.prodDesc + '</option>');
@@ -79,21 +94,45 @@ export class AdminComponent implements OnInit {
       });
     });
 
-    $("#ddl_prodl3").change(function () {
+    $("#ddl_prodl3").change(function (e) {
+
       prodid_l3 = $('#ddl_prodl3 :selected').val();
       prod_desc = $('#ddl_prodl3 :selected').text();
+
     });
+
+
   }
 
   OnFileSelect(event) {
-    this.selectedfile = event.target.files[0];
-    let formData: FormData = new FormData();
-    selected_filename = this.selectedfile.name;
-    formData.append('file',this.selectedfile, this.selectedfile.name);
- 
-    this.http.post('https://localhost:44302/' + 'api/FileUpload', formData).subscribe(e => {  });
 
-   
+
+    //event.target.files[0].name = selected_filename;
+    this.selectedfile = event.target.files[0];
+   // alert(this.selectedfile.name);
+    const oldFileItem: File = event.target.files[0];
+    this.http.get('https://localhost:44302/' + 'api/Productmodels/' + prodid_l3).subscribe((e: any) => {
+      model_count = e.length;
+      selected_filename = $("#modle_code")[0].value + '_' + model_count + '.jpg';// this.selectedfile.name;
+      // alert(selected_filename);
+      const newFile: File = new File([event.target.files[0]], selected_filename, { type: oldFileItem.type });
+      filename = newFile.name;
+      let formData: FormData = new FormData();
+      formData.append('file', newFile, newFile.name);
+      formData.append('folderName', modelfolder_name);
+      
+      // let params = { 'formdata': formData, 'foldername': 'example' }
+      this.http.post('https://localhost:44302/' + 'api/FileUpload', formData).subscribe(e => {  });
+    });
+
+    
+
+    //sessionStorage.setItem("folder", modelfolder_name);
+    
+    //if (selected_filename != "") {
+     
+
+    //}
 
 
   }
@@ -103,9 +142,11 @@ export class AdminComponent implements OnInit {
       var n = Number(input);
       return n;
     }
+  
+  
     //inserting into prod model
-    var test: Prod_model = { ProdId: stringtonum(prodid_l3), ModelCode: "sv", ModelDesc: prod_desc, ModelLink: "assets/" + selected_filename, DtCreate: null, DtModify: null, IsActive: 1 };
-    this.http.post('https://localhost:44302/' + 'api/Productmodels', test).subscribe(e => { alert("insert") });
+    var test: Prod_model = { ProdId: stringtonum(prodid_l3), ModelCode: $("#modle_code")[0].value, ModelDesc: prod_desc, ModelLink: "assets/" + modelfolder_name+"/" + filename, DtCreate: null, DtModify: null, IsActive: 1 };
+    this.http.post('https://localhost:44302/' + 'api/Productmodels', test).subscribe(e => { alert("Image Uploaded") });
   }
  }
 
@@ -119,6 +160,7 @@ export class ProductList {
   dtCreate: null;
   dtModify: null;
   RouterLink: string;
+  modelFolder: string;
 }
 export class Prod_model {
 

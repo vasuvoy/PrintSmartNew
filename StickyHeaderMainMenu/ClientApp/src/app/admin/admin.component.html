@@ -11,44 +11,80 @@
 </head>
 <body>
 
-  <div class="container" >
-    <div class="row">
-      <div class="col">
-        <div>
-          <h3>
-            Admin
-          </h3>
-        </div>
-        <div>
-          <select class="js-example-basic-single" id="ddl_prodl1"  style="width:150px">
-            <option></option>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header" style="color:lightseagreen;font-size:medium"><b>Admin</b></div>
+          <div class="card-body">
+            <form id="Admin" action="" method="post">
 
-          </select>
-          <br />
-          <br />
-          <select class="js-example-basic-single" id="ddl_prodl2" style="width:150px">
-            <option></option>
+              <table class="table borderless">
+                <tbody>
+                  <tr>
+                    <td><label class="lbl_style" for="ddl_prodl1">Select Product</label></td>
+                    &nbsp;
+                    <td>
+                      <select class="js-example-basic-single" id="ddl_prodl1" style="width:150px">
+                        <option></option>
 
-          </select>
-          <br />
-          <br />
-          <select class="js-example-basic-single" id="ddl_prodl3" style="width:150px">
-            <option></option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label class="lbl_style" for="ddl_prodl2">Select Product Header</label></td>
+                    &nbsp;&nbsp;
+                    <td>
+                      <select class="js-example-basic-single" id="ddl_prodl2" style="width:150px">
+                        <option></option>
 
-          </select>
-          <br />
-          <br />
-          <label for="file">Picture Upload</label>
-          <input type="file"
-                 id="file"
-                 accept=".jpeg,.jpg"
-                 (change)="OnFileSelect($event)" >
-          <br/>
-          <button type="button" (click)="save()">Save</button>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label class="lbl_style" for="text">Select Sub-Product</label></td>
+                    &nbsp;&nbsp;
+                    <td>
+                      <select class="js-example-basic-single" id="ddl_prodl3" style="width:150px">
+                        <option></option>
+
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label class="lbl_style" for="text">Enter Model Code</label></td>
+                    &nbsp;&nbsp;
+                    <td>
+                      <input class="e-input" id="modle_code" style="width:150px" type="text" placeholder="Enter Model Code" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label class="lbl_style" for="text">Select Image</label></td>
+                    &nbsp;&nbsp;
+                    <td>
+                      <input type="file"
+                             id="file"
+                             accept=".jpeg,.jpg"
+                             (change)="OnFileSelect($event)">
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+
+              <div class="col-md-6 offset-md-4">
+                <button class="btn btn-primary" type="button" (click)="save()">Save</button>
+                
+              </div>
+            </form>
+          </div>
+
         </div>
       </div>
-      
     </div>
   </div>
-  </body>
+
+  
+</body>
 </html>
