@@ -4,6 +4,8 @@ import { Images } from '../entities/Images.entity';
 import { Product } from '../entities/Product.entity';
 import { ProductService } from '../services/product.service';
 import { SharedService } from '../services/shared.service';
+import { pricedetail } from '../entities/pricedetail.entity';
+
 declare var $: any;
 let qty: any;
 let qty_update: any;
@@ -23,6 +25,7 @@ export class InvitationCardsComponent implements OnInit {
   public products_get: Product[] = [];
   arr: string[];
   s: string[];
+  public price_detail: pricedetail[];
   constructor(private httpClient: HttpClient, private prod_service: ProductService, private _sharedservice: SharedService) { }
 
   ngOnInit() {
@@ -105,6 +108,18 @@ export class InvitationCardsComponent implements OnInit {
     $("#img_selected_invicard").attr("src", f);
     $("#lbl_desc").text(g);
     sessionStorage.setItem('ModelId', e);
+    this.httpClient.get('https://localhost:44302/' + 'api/Pricedetails/' + e).subscribe((res: any) => {
+      this.price_detail = res;
+      $("#lbl_price").text(this.price_detail[0].maxRetailPrice);
+      $("#lbl_price").attr("style", "text-decoration:line-through");
+      var numVal1 = this.price_detail[0].maxRetailPrice;
+      var numVal2 = this.price_detail[0].percentDisc / 100;
+      var totalValue = numVal1 - (numVal1 * numVal2);
+      $("#sp_disc").text("("+this.price_detail[0].percentDisc + "%"+")");
+      $("#lbl_sellingprice").text(totalValue);
+     // document.getElementById("total").value = totalValue.toFixed(2);
+    });
+
     //this.position_lbl = [{ bottom: 190, left: 168, label_text: "BRIDE NAME", position: "relative" }];
     //this.position_lbl.push({ bottom: 150, left: 168, label_text: "GROOM NAME", position:"relative" });
     //$("#innerdiv_invicards").show();
@@ -173,16 +188,17 @@ export class InvitationCardsComponent implements OnInit {
 
       
       if (this.products_get.length == 0) {
-
-        this.prod = this.prod_service.insertProduct(qty, detailid);
+        //new product
+        this.prod = this.prod_service.insertProduct(qty, detailid, stringtonum($("#lbl_price").text()));
         this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.prod[0]).subscribe(res => { alert("invi post"); });
         let d = stringtonum(sessionStorage.getItem("cartcount"));
         this._sharedservice.updateCartCount(d + this.prod.length);
       }
       else {
+        //update existing product
         detailid = 1;
         qty_update = this.products_get[0].quantity + stringtonum(qty);
-        this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId);
+        this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId, stringtonum($("#lbl_price").text()));
         this.httpClient.put('https://localhost:44302/' + 'api/Orderdetails/' + this.products_get[0].detailId, this.prod[0]).subscribe(res => { alert("invi put"); });
         let d = stringtonum(sessionStorage.getItem("cartcount"));
         this._sharedservice.updateCartCount(d);

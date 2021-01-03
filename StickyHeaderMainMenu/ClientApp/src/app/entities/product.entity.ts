@@ -1,18 +1,21 @@
 export class Product {
   detailId?: number;
   OrderId?: number;
-  ProdId: number;
-  ProdModelId: number;
+ // ProdId: number;
+  modelId: number;
   IsCustomized: number;
   Gender: string;
-  dimIdSize?: number;
+  DimIdSize?: number;
   CustomContent: number;
   quantity: number;
+  itemPrice: number;
+  discAmount: number;
+  netAmount: number;
   StatusCode: string;
   OrderedBy?: number;
   DtCreate: null;
   DtModify: null;
-  ModelLink?: string;
+  //ModelLink?: string;
   //id: string;
   //gender: string;
   //size: string;

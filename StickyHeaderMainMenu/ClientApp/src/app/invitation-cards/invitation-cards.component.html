@@ -28,7 +28,7 @@
       <div class="col">
         <br />
         <label style="font:bold" id="lbl_desc"></label>
-        <br/>
+        <br />
         <br />
         <select class="js-example-basic-single" id="ddl_Qty" style="width:150px">
           <option value=""></option>
@@ -37,6 +37,13 @@
 
         </select>
         <br />
+        <br />
+        <label style="font-size:15px">Selling Price</label>&nbsp;
+        <label style="font-size:15px" id="lbl_price"></label><br />
+
+        <label style="font-size:15px">Price</label>&nbsp;
+        <label style="font-size:15px" id="lbl_sellingprice"></label><span style="font-size:15px" id="sp_disc"></span><br />
+        <!-- <label style="font:bold" id="lbl_disc"></label><br />-->
         <br />
         <button type="submit" class="btn btn-outline-success" (click)="AddToCart()" id="btn_AddtoCart"
                 style="background:lightseagreen;border-color:lightseagreen;color:white">

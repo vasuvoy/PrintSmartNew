@@ -27,14 +27,14 @@ export class ProductService {
 
   private getSelectedIndex(id: number) {
     for (var i = 0; i < this.products.length; i++) {
-      if (this.products[i].ProdId == id) {
+      if (this.products[i].modelId == id) {
         return i;
       }
     }
     return -1;
   }
 
-  public insertProduct(qty,detailid) {
+  public insertProduct(qty,detailid,price) {
     function stringtonum(input: string) {
       var n = Number(input);
       return n;
@@ -43,33 +43,39 @@ export class ProductService {
     if (detailid == 0) {
       this.products.push({
 
-        ProdId: stringtonum(sessionStorage.getItem('ProdId')),
-        ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
+       // ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+        modelId: stringtonum(sessionStorage.getItem('ModelId')),
         Gender: null,
         CustomContent: null,
-        dimIdSize: null,
+        DimIdSize: null,
         OrderedBy: stringtonum(sessionStorage.getItem('userid')),
         DtCreate: null,
         DtModify: null,
         quantity: stringtonum(qty),
         IsCustomized: 0,
-        StatusCode: "C"
+        StatusCode: "C",
+        itemPrice: price,
+        discAmount: 0,
+        netAmount:price
       });
     }
     else {
       this.products.push({
         detailId: detailid,
-        ProdId: stringtonum(sessionStorage.getItem('ProdId')),
-        ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
+       // ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+        modelId: stringtonum(sessionStorage.getItem('ModelId')),
         Gender: null,
         CustomContent: null,
-        dimIdSize: null,
+        DimIdSize: null,
         OrderedBy: stringtonum(sessionStorage.getItem('userid')),
         DtCreate: null,
         DtModify: null,
         quantity: stringtonum(qty),
         IsCustomized: 0,
-        StatusCode: "C"
+        StatusCode: "C",
+        itemPrice: price,
+        discAmount: 0,
+        netAmount: price
       });
     }
   //this.products.push({ 'ProdId': ProdId, 'ProdModelId': , 'size': size, 'color': color, 'qty': qty })

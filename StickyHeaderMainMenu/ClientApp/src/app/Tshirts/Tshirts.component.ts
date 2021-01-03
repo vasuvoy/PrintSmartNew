@@ -348,23 +348,26 @@ export class TshirtComponent implements OnInit {
       this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + sessionStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
         this.products1 = res;
         this.products1.forEach(e => {
-          if (e.dimIdSize == n) {
+          if (e.DimIdSize == n) {
             this.products_exist.push(e);
           }
         });
         if (this.products_exist.length == 0) {
           this.products = [{
-            ProdId: stringtonum(sessionStorage.getItem('ProdId')),
-            ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
+           // ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+            modelId: stringtonum(sessionStorage.getItem('ModelId')),
             Gender: gender_text,
             CustomContent: null,
-            dimIdSize: stringtonum(size1),
+            DimIdSize: stringtonum(size1),
             OrderedBy: stringtonum(sessionStorage.getItem('userid')),
             DtCreate: null,
             DtModify: null,
             quantity: stringtonum(qty),
             IsCustomized: 0,
-            StatusCode: "C"
+            StatusCode: "C",
+            itemPrice: 500,
+            discAmount: 0,
+            netAmount:500
           }];
 
           this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.products[0]).subscribe(res => { alert("post"); });
@@ -373,21 +376,24 @@ export class TshirtComponent implements OnInit {
           alert("product added to cart");
         }
         else {
-          if (stringtonum(size1) != this.products_exist[0].dimIdSize) {
+          if (stringtonum(size1) != this.products_exist[0].DimIdSize) {
             var quantity = stringtonum(qty);
             this.products = [{
               detailId: this.products1[0].detailId,
-              ProdId: stringtonum(sessionStorage.getItem('ProdId')),
-              ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
+             // ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+              modelId: stringtonum(sessionStorage.getItem('ModelId')),
               Gender: gender_text,
               CustomContent: null,
-              dimIdSize: stringtonum(size1),
+              DimIdSize: stringtonum(size1),
               OrderedBy: stringtonum(sessionStorage.getItem('userid')),
               DtCreate: null,
               DtModify: null,
               quantity: quantity,
               IsCustomized: 0,
-              StatusCode: "C"
+              StatusCode: "C",
+              netAmount: 500,
+              discAmount: 0,
+              itemPrice:500
             }];
                    let d = stringtonum(sessionStorage.getItem("cartcount"));
             this._sharedservice.updateCartCount(d + this.products.length);
@@ -397,17 +403,20 @@ export class TshirtComponent implements OnInit {
             var quantity = stringtonum(qty);
             this.products = [{
               detailId: this.products1[0].detailId,
-              ProdId: stringtonum(sessionStorage.getItem('ProdId')),
-              ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
+             // ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+              modelId: stringtonum(sessionStorage.getItem('ModelId')),
               Gender: gender_text,
               CustomContent: null,
-              dimIdSize: stringtonum(size1),
+              DimIdSize: stringtonum(size1),
               OrderedBy: stringtonum(sessionStorage.getItem('userid')),
               DtCreate: null,
               DtModify: null,
               quantity: this.products1[0].quantity + quantity,
               IsCustomized: 0,
-              StatusCode: "C"
+              StatusCode: "C",
+              itemPrice: 900,
+              netAmount: 800,
+              discAmount:0
             }];
             let d = stringtonum(sessionStorage.getItem("cartcount"));
             this._sharedservice.updateCartCount(d);
@@ -441,61 +450,70 @@ export class TshirtComponent implements OnInit {
       this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + stringtonum(sessionStorage.getItem('ModelId')) + '/' + s).subscribe((res: any) => {
         this.products1 = res;
         this.products1.forEach(e => {
-          if (e.dimIdSize == n) {
+          if (e.DimIdSize == n) {
             this.products_exist.push(e);
           }
         });
       });
       if (this.products_exist.length ==0) {
         this.custom_text = [{
-          ProdId: stringtonum(sessionStorage.getItem('ProdId')),
-          ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
+         // ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+          modelId: stringtonum(sessionStorage.getItem('ModelId')),
           Gender: gender_text,
           CustomContent: $("#img_tshirt_write")[0].innerHTML,
-          dimIdSize: n,//stringtonum(size),
+          DimIdSize: n,//stringtonum(size),
           OrderedBy: stringtonum(sessionStorage.getItem('userid')),
           DtCreate: null,
           DtModify: null,
           quantity: stringtonum(qty),
           IsCustomized: 1,
-          StatusCode: "C"
+          StatusCode: "C",
+          itemPrice: 900,
+          netAmount: 800,
+          discAmount: 0
         }];
         this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.custom_text[0]).subscribe(res => { alert("post_custom"); });
       }
 
       else {
-        if (stringtonum(size) != this.products_exist[0].dimIdSize) {
+        if (stringtonum(size) != this.products_exist[0].DimIdSize) {
           var quantity = stringtonum(qty);
           this.custom_text = [{
             detailId: this.products1[0].detailId,
-            ProdId: stringtonum(sessionStorage.getItem('ProdId')),
-            ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
+          //  ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+            modelId: stringtonum(sessionStorage.getItem('ModelId')),
             Gender: gender_text,
             CustomContent: null,
-            dimIdSize: stringtonum(size),
+            DimIdSize: stringtonum(size),
             OrderedBy: stringtonum(sessionStorage.getItem('userid')),
             DtCreate: null,
             DtModify: null,
             quantity: quantity,
             IsCustomized: 0,
-            StatusCode: "C"
+            StatusCode: "C",
+            itemPrice: 900,
+            netAmount: 800,
+            discAmount: 0
           }];
         }
         else {
           var quantity = stringtonum(qty);
           this.custom_text = [{
             detailId: this.products1[0].detailId,
-            ProdId: stringtonum(sessionStorage.getItem('ProdId')),
-            ProdModelId: stringtonum(sessionStorage.getItem('ModelId')),
+            //ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+            modelId: stringtonum(sessionStorage.getItem('ModelId')),
             Gender: gender_text,
             CustomContent: null,
-            dimIdSize: stringtonum(size),
+            DimIdSize: stringtonum(size),
             OrderedBy: stringtonum(sessionStorage.getItem('userid')),
             DtCreate: null,
             DtModify: null,
             quantity: this.products1[0].quantity + quantity,
             IsCustomized: 0,
-            StatusCode: "C"
+            StatusCode: "C",
+            itemPrice: 900,
+            netAmount: 800,
+            discAmount: 0
           }];
         }
 

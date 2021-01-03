@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace StickyHeaderMainMenu.Models
+namespace StickyHeaderMainMenu.Models1
 {
     public partial class Productmodel
     {
@@ -19,7 +19,7 @@ namespace StickyHeaderMainMenu.Models
         public byte? IsActive { get; set; }
         public DateTime? DtCreate { get; set; }
         public DateTime? DtModify { get; set; }
-        //public string ModelFolder { get; set; }
+        public string ModelFolder { get; set; }
 
         public virtual Product Prod { get; set; }
         public virtual ICollection<Dimmaster> Dimmaster { get; set; }

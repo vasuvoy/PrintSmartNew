@@ -192,34 +192,45 @@
             <li class="nav-item dropdown active">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Products </a>
               <ul class="dropdown-menu"  id="products_list" aria-labelledby="navbarDropdownMenuLink">
-                <div *ngFor="let prodli of prodlist_main">
+                <div *ngFor="let prodli of prodlist_main" >
                   <li class="dropdown-submenu"  *ngFor="let x of prodli.mainmodel">
 
                     <a class="dropdown-item" href="#"  (mouseover)="MainMenuhyperlinkClick($event)" id="{{x.ProdId}}">{{x.ProdDesc}}&nbsp;&nbsp;<i *ngIf="x.productModel.length>0"  class="right"></i></a>
 
-                    <ul class="dropdown-menu multi-column columns-3" *ngIf="x.productModel.length>0" >
-                      <div class="row" >
-                        <div class="col-sm-4" style="width:530px;overflow-wrap:break-word">
-                          <div *ngFor="let b of x.productModel" style="width:520px;overflow-wrap:break-word">
-                            <div class="col-sm-4">
-                              <div *ngFor="let c of b.prdmodel ">
-                                <!--<div style="width:800px !important;">-->
-                                <ul class="multi-column-dropdown">
-                                  <!--<span>{{c.l2prodDesc}}</span>-->
-                                  <!--<div *ngIf="c.l2isHeader===1;then content else loggedOut">-->
-                                    <li style="font-size:small;color:black;width:175px">&nbsp;&nbsp;&nbsp;<strong>{{c.l2prodDesc}}</strong></li>
-                                  <!--</div>
-                                  <ng-template #content>Pleasssss.</ng-template>-->
-                                  <ng-template #loggedOut>Please friend, login.</ng-template>
-                                  <div *ngFor="let d of c.testmodel" style="width:200px;overflow-wrap:break-word;word-wrap: break-word">
-                                    <div *ngFor="let e of d.testmodel" style="width:200px;overflow-wrap:break-word;word-wrap: break-word">
-                                      <li id="{{e.L3ProdId}}"><a href="#" [routerLink]="[e.RouterLink]"  (click)="subMenuhyperlinkClick($event)" id="{{e.l3prodId}}">{{e.l3prodDesc}}</a></li>
-                                      <!--<li><a href="#">Classic Visiting Card</a></li>
-      <li><a href="#">Square Visiting Card</a></li>-->
-                                    </div>
-                                  </div>
-                                </ul>
-                                <!--</div>-->
+                    <ul class="dropdown-menu multi-column " *ngIf="x.productModel.length>0" >
+                      <div class="row"   >
+                        <div > 
+                          <div *ngFor="let b of x.productModel" >
+                            <div  >
+                              <div *ngFor="let c of b.prdmodel" style="column-count:2;float:left">
+
+                                
+                                
+                       <ul class="multi-column-dropdown"  *ngIf="c.l2isHeader==0; else ex">
+
+
+                           <li style="font-size:small;color:black;column-count:1">&nbsp;&nbsp;&nbsp;{{c.l2prodDesc}}</li>
+
+
+                       </ul>
+                                <ng-template #ex>
+    <ul class="multi-column-dropdown" >
+      <div  >
+        <li style="font-size:small;color:black;width:230px">&nbsp;&nbsp;&nbsp;<strong>{{c.l2prodDesc}}</strong></li>
+        <ng-template #content>Pleasssss.</ng-template>
+        <ng-template #loggedOut>Please friend, login.</ng-template>
+        <div *ngFor="let d of c.testmodel" style="overflow-wrap:break-word;word-wrap: break-word">
+ 
+          <div *ngFor="let e of d.testmodel" style="width:300px;overflow-wrap:break-word;word-wrap: break-word">
+
+            <li id="{{e.L3ProdId}}" style="width:230px"><a href="#" [routerLink]="[e.RouterLink]" (click)="subMenuhyperlinkClick($event)" id="{{e.l3prodId}}">{{e.l3prodDesc}}</a></li>
+
+          </div>
+        </div>
+      </div>
+    </ul>
+  </ng-template>
+
                               </div>
                             </div>
                           </div>

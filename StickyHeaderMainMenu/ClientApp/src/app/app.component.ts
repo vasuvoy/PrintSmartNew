@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   login_username: string = "";
   change_pwd = "";
   signout_text = "";
-  
+  isheader = " ";
   //public products: Product[];
   public prodlist: Product_list[] = [];
   public prodlist_main: mainmodel[] = [];
@@ -95,7 +95,8 @@ export class AppComponent implements OnInit {
 
           var output = [];
 
-          for (let key in this.groubedByTeam_l2) {
+         
+            for (let key in this.groubedByTeam_l2) {
 
             if (count == 0) {
               //  if (this.groubedByTeam_l2[key].length == 1) {
@@ -121,7 +122,7 @@ export class AppComponent implements OnInit {
               // this.test_l2prod = [{ l2prodDesc: "", testmodel: this.test }];
               // }
               // else {
-              this.test_l2prod = [{ l2prodDesc: this.groubedByTeam_l2[key][0].l2prodDesc, testmodel: this.test }];
+              this.test_l2prod = [{ l2prodDesc: this.groubedByTeam_l2[key][0].l2prodDesc, testmodel: this.test, l2isHeader: this.groubedByTeam_l2[key][0].l2isHeader }];
               //}
               this.test_l2prod1.push({ prdmodel: this.test_l2prod });
               this.prodlist = [{
@@ -258,6 +259,7 @@ export class Product_list {
 
 export class Productmodel {
   l2prodDesc?: string;
+  l2isHeader?: number;
   testmodel?: testModel[];
 
   //modelDesc: string;
@@ -273,6 +275,7 @@ export class testModel {
   l2prodDesc?: string;
   RouterLink?: string;
   ModelId?: number;
+  l2isHeader?: number;
 }
 
 export class l2model {

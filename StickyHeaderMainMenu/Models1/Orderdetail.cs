@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace StickyHeaderMainMenu.Models
+namespace StickyHeaderMainMenu.Models1
 {
     public partial class Orderdetail
     {

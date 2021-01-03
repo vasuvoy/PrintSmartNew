@@ -74,7 +74,7 @@ export class AdminComponent implements OnInit {
       prodid = $('#ddl_prodl1 :selected').val();
       p.forEach(g => {
         if (g.prodId == prodid) {
-          modelfolder_name = g.modelFolder
+          modelfolder_name = g.routerLink
         }
         if (g.parentId == prodid) {
           $('#ddl_prodl2').append('<option value="' + g.prodId + '">' +g.prodDesc + '</option>');
@@ -159,7 +159,7 @@ export class ProductList {
   sequenceId: number;
   dtCreate: null;
   dtModify: null;
-  RouterLink: string;
+  routerLink: string;
   modelFolder: string;
 }
 export class Prod_model {

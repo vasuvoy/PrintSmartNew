@@ -50,6 +50,7 @@
     <None Remove="ClientApp\src\app\entities\Image.entity.ts" />
     <None Remove="ClientApp\src\app\entities\Images.entity.ts" />
     <None Remove="ClientApp\src\app\entities\item.entity.ts" />
+    <None Remove="ClientApp\src\app\entities\pricedetail.entity.ts" />
     <None Remove="ClientApp\src\app\entities\product.entity.ts" />
     <None Remove="ClientApp\src\app\entities\user.entity.ts" />
     <None Remove="ClientApp\src\app\entities\Userdetail.entity.ts" />
@@ -70,6 +71,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\entities\Image.entity.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\Images.entity.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\entities\pricedetail.entity.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\Userdetail.entity.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\IdCards\IdCards.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\sample.service.ts" />

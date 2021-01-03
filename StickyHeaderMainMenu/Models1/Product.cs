@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace StickyHeaderMainMenu.Models
+namespace StickyHeaderMainMenu.Models1
 {
     public partial class Product
     {
@@ -20,7 +20,7 @@ namespace StickyHeaderMainMenu.Models
         public DateTime? DtCreate { get; set; }
         public DateTime? DtModify { get; set; }
         public string RouterLink { get; set; }
-        //public string ModelFolder { get; set; }
+        public string ModelFolder { get; set; }
 
         public virtual ICollection<Dimmaster> Dimmaster { get; set; }
         public virtual ICollection<Productmodel> Productmodel { get; set; }
