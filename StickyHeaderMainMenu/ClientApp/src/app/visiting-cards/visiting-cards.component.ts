@@ -15,7 +15,7 @@ export class VisitingCardsComponent implements OnInit {
   constructor(public router: Router, private httpClient: HttpClient) { }
 
   ngOnInit() {
-    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id")).subscribe
+    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("Prodl2Id")).subscribe
       ((res: any) => {
         this.img_list = res;
       });

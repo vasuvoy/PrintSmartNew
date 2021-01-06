@@ -122,7 +122,7 @@ export class AppComponent implements OnInit {
               // this.test_l2prod = [{ l2prodDesc: "", testmodel: this.test }];
               // }
               // else {
-              this.test_l2prod = [{ l2prodDesc: this.groubedByTeam_l2[key][0].l2prodDesc, testmodel: this.test, l2isHeader: this.groubedByTeam_l2[key][0].l2isHeader }];
+              this.test_l2prod = [{ l2prodId: this.groubedByTeam_l2[key][0].l2prodId, l2routerLink: this.groubedByTeam_l2[key][0].routerLink, l2prodDesc: this.groubedByTeam_l2[key][0].l2prodDesc, testmodel: this.test, l2isHeader: this.groubedByTeam_l2[key][0].l2isHeader }];
               //}
               this.test_l2prod1.push({ prdmodel: this.test_l2prod });
               this.prodlist = [{
@@ -203,6 +203,13 @@ export class AppComponent implements OnInit {
     
   }
 
+  subL2MenuhyperlinkClick(e) {
+    // alert(e.target.innerText+e.target.id);
+    sessionStorage.setItem('Prodl2Id', e.target.id);
+
+
+  }
+
   //main menu hyperlink click event
   MainMenuhyperlinkClick(e) {
 
@@ -260,8 +267,9 @@ export class Product_list {
 export class Productmodel {
   l2prodDesc?: string;
   l2isHeader?: number;
+  l2routerLink?: string;
   testmodel?: testModel[];
-
+  l2prodId?: number;
   //modelDesc: string;
  // modelIdLink: string;
   //isActive: number;
@@ -292,5 +300,6 @@ export class prod_View {
   modelId: number;
   modelCode: string;
   modelDesc: string;
+  routerLink: string;
 }
 

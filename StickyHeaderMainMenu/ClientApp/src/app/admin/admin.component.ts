@@ -5,6 +5,7 @@ import { Productmodel } from '../app.component';
 
 declare var $: any;
 let prodid: any;
+let prodid_l2:any;
 let p: ProductList[];
 let prodid_l3 = "";
 let prod_desc = "";
@@ -83,11 +84,11 @@ export class AdminComponent implements OnInit {
     });
 
     $("#ddl_prodl2").change(function () {
-      prodid = $('#ddl_prodl2 :selected').val();
+      prodid_l2 = $('#ddl_prodl2 :selected').val();
       $("#ddl_prodl3").empty();
       $('#ddl_prodl3').append('<option />');
       p.forEach(g => {
-        if (g.parentId == prodid) {
+        if (g.parentId == prodid_l2) {
           $('#ddl_prodl3').append('<option value="' + g.prodId + '">' + g.prodDesc + '</option>');
 
         }
@@ -111,19 +112,39 @@ export class AdminComponent implements OnInit {
     this.selectedfile = event.target.files[0];
    // alert(this.selectedfile.name);
     const oldFileItem: File = event.target.files[0];
-    this.http.get('https://localhost:44302/' + 'api/Productmodels/' + prodid_l3).subscribe((e: any) => {
-      model_count = e.length;
-      selected_filename = $("#modle_code")[0].value + '_' + model_count + '.jpg';// this.selectedfile.name;
-      // alert(selected_filename);
-      const newFile: File = new File([event.target.files[0]], selected_filename, { type: oldFileItem.type });
-      filename = newFile.name;
-      let formData: FormData = new FormData();
-      formData.append('file', newFile, newFile.name);
-      formData.append('folderName', modelfolder_name);
-      
-      // let params = { 'formdata': formData, 'foldername': 'example' }
-      this.http.post('https://localhost:44302/' + 'api/FileUpload', formData).subscribe(e => {  });
-    });
+    if (prodid_l3 != "") {
+      this.http.get('https://localhost:44302/' + 'api/Productmodels/' + prodid_l3).subscribe((e: any) => {
+        model_count = e.length;
+        selected_filename = $("#modle_code")[0].value + '_' + model_count + '.jpg';// this.selectedfile.name;
+        // alert(selected_filename);
+        const newFile: File = new File([event.target.files[0]], selected_filename, { type: oldFileItem.type });
+        filename = newFile.name;
+        let formData: FormData = new FormData();
+        formData.append('file', newFile, newFile.name);
+        formData.append('folderName', modelfolder_name);
+
+        // let params = { 'formdata': formData, 'foldername': 'example' }
+        this.http.post('https://localhost:44302/' + 'api/FileUpload', formData).subscribe(e => { });
+
+
+      });
+    }
+    else {
+      this.http.get('https://localhost:44302/' + 'api/Productmodels/' + prodid_l2).subscribe((e: any) => {
+        model_count = e.length;
+        selected_filename = $("#modle_code")[0].value + '_' + model_count + '.jpg';// this.selectedfile.name;
+        // alert(selected_filename);
+        const newFile: File = new File([event.target.files[0]], selected_filename, { type: oldFileItem.type });
+        filename = newFile.name;
+        let formData: FormData = new FormData();
+        formData.append('file', newFile, newFile.name);
+        formData.append('folderName', modelfolder_name);
+
+        // let params = { 'formdata': formData, 'foldername': 'example' }
+        this.http.post('https://localhost:44302/' + 'api/FileUpload', formData).subscribe(e => { });
+
+      });
+    }
 
     
 
@@ -143,11 +164,16 @@ export class AdminComponent implements OnInit {
       return n;
     }
   
-  
-    //inserting into prod model
-    var test: Prod_model = { ProdId: stringtonum(prodid_l3), ModelCode: $("#modle_code")[0].value, ModelDesc: prod_desc, ModelLink: "assets/" + modelfolder_name+"/" + filename, DtCreate: null, DtModify: null, IsActive: 1 };
-    this.http.post('https://localhost:44302/' + 'api/Productmodels', test).subscribe(e => { alert("Image Uploaded") });
-  }
+    if (prodid_l3 != "") {
+      //inserting into prod model
+      var test: Prod_model = { ProdId: stringtonum(prodid_l3), ModelCode: $("#modle_code")[0].value, ModelDesc: prod_desc, ModelLink: "assets/" + modelfolder_name + "/" + filename, DtCreate: null, DtModify: null, IsActive: 1 };
+      this.http.post('https://localhost:44302/' + 'api/Productmodels', test).subscribe(e => { alert("Image Uploaded") });
+    }
+    else {
+      var test: Prod_model = { ProdId: stringtonum(prodid_l2), ModelCode: $("#modle_code")[0].value, ModelDesc: prod_desc, ModelLink: "assets/" + modelfolder_name + "/" + filename, DtCreate: null, DtModify: null, IsActive: 1 };
+      this.http.post('https://localhost:44302/' + 'api/Productmodels', test).subscribe(e => { alert("Image Uploaded") });
+    }
+    }
  }
 
 export class ProductList {
