@@ -15,12 +15,8 @@ namespace StickyHeaderMainMenu.Models1
         {
         }
 
-        public virtual DbSet<Dimmaster> Dimmaster { get; set; }
-        public virtual DbSet<Orderdetail> Orderdetail { get; set; }
-        public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<Productmodel> Productmodel { get; set; }
-        public virtual DbSet<Statusmaster> Statusmaster { get; set; }
+        public virtual DbSet<Productmaterial> Productmaterial { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,114 +29,6 @@ namespace StickyHeaderMainMenu.Models1
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Dimmaster>(entity =>
-            {
-                entity.HasKey(e => e.DimId)
-                    .HasName("PRIMARY");
-
-                entity.ToTable("dimmaster");
-
-                entity.HasIndex(e => e.ProdId)
-                    .HasName("FK_ProdId_DimMaster");
-
-                entity.HasIndex(e => e.ProdModelId)
-                    .HasName("FK_ProdModelId_DimMaster");
-
-                entity.Property(e => e.DimDescription)
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DtCreate).HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                entity.Property(e => e.Gender)
-                    .HasMaxLength(1)
-                    .IsFixedLength();
-
-                entity.Property(e => e.IsActive).HasColumnType("tinyint(1)");
-
-                entity.HasOne(d => d.Prod)
-                    .WithMany(p => p.Dimmaster)
-                    .HasForeignKey(d => d.ProdId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProdId_DimMaster");
-
-                entity.HasOne(d => d.ProdModel)
-                    .WithMany(p => p.Dimmaster)
-                    .HasForeignKey(d => d.ProdModelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProdModelId_DimMaster");
-            });
-
-            modelBuilder.Entity<Orderdetail>(entity =>
-            {
-                entity.HasKey(e => e.DetailId)
-                    .HasName("PRIMARY");
-
-                entity.ToTable("orderdetail");
-
-                entity.HasIndex(e => e.DimIdsize)
-                    .HasName("FK_DimIDSize_OrderDetail");
-
-                entity.HasIndex(e => e.ModelId)
-                    .HasName("FK_ModelID_OrderDetail");
-
-                entity.HasIndex(e => e.StatusCode)
-                    .HasName("FK_StatusCode_OrderDetail");
-
-                entity.Property(e => e.DetailId).HasColumnName("DetailID");
-
-                entity.Property(e => e.DimIdsize).HasColumnName("DimIDSize");
-
-                entity.Property(e => e.DtCreate).HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                entity.Property(e => e.Gender)
-                    .HasMaxLength(1)
-                    .IsFixedLength();
-
-                entity.Property(e => e.IsCustomized).HasColumnType("tinyint(1)");
-
-                entity.Property(e => e.ModelId).HasColumnName("ModelID");
-
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
-
-                entity.Property(e => e.OrderedBy).HasColumnType("mediumint");
-
-                entity.Property(e => e.StatusCode)
-                    .HasMaxLength(1)
-                    .IsFixedLength();
-
-                entity.HasOne(d => d.DimIdsizeNavigation)
-                    .WithMany(p => p.Orderdetail)
-                    .HasForeignKey(d => d.DimIdsize)
-                    .HasConstraintName("FK_DimIDSize_OrderDetail");
-
-                entity.HasOne(d => d.Model)
-                    .WithMany(p => p.Orderdetail)
-                    .HasForeignKey(d => d.ModelId)
-                    .HasConstraintName("FK_ModelID_OrderDetail");
-
-                entity.HasOne(d => d.StatusCodeNavigation)
-                    .WithMany(p => p.Orderdetail)
-                    .HasForeignKey(d => d.StatusCode)
-                    .HasConstraintName("FK_StatusCode_OrderDetail");
-            });
-
-            modelBuilder.Entity<Orders>(entity =>
-            {
-                entity.HasKey(e => e.OrderId)
-                    .HasName("PRIMARY");
-
-                entity.ToTable("orders");
-
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
-
-                entity.Property(e => e.DtCreate).HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                entity.Property(e => e.OrderedBy).HasColumnType("mediumint");
-
-                entity.Property(e => e.TotMrpamount).HasColumnName("TotMRPAmount");
-            });
-
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.ProdId)
@@ -154,10 +42,6 @@ namespace StickyHeaderMainMenu.Models1
 
                 entity.Property(e => e.IsHeader).HasColumnType("tinyint(1)");
 
-                entity.Property(e => e.ModelFolder)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.ProdDesc)
                     .HasMaxLength(255)
                     .IsUnicode(false);
@@ -167,61 +51,29 @@ namespace StickyHeaderMainMenu.Models1
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Productmodel>(entity =>
+            modelBuilder.Entity<Productmaterial>(entity =>
             {
-                entity.HasKey(e => e.ModelId)
+                entity.HasKey(e => e.MatId)
                     .HasName("PRIMARY");
 
-                entity.ToTable("productmodel");
+                entity.ToTable("productmaterial");
 
                 entity.HasIndex(e => e.ProdId)
-                    .HasName("FK_ProdId_ProductModel");
+                    .HasName("FK_ProdID_ProductMaterial");
 
                 entity.Property(e => e.DtCreate).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(e => e.IsActive).HasColumnType("tinyint(1)");
 
-                entity.Property(e => e.ModelCode)
-                    .HasMaxLength(2)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ModelDesc)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ModelFolder)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ModelLink)
-                    .HasMaxLength(255)
+                entity.Property(e => e.MatDescription)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Prod)
-                    .WithMany(p => p.Productmodel)
+                    .WithMany(p => p.Productmaterial)
                     .HasForeignKey(d => d.ProdId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProdId_ProductModel");
-            });
-
-            modelBuilder.Entity<Statusmaster>(entity =>
-            {
-                entity.HasKey(e => e.StatusCode)
-                    .HasName("PRIMARY");
-
-                entity.ToTable("statusmaster");
-
-                entity.Property(e => e.StatusCode)
-                    .HasMaxLength(1)
-                    .IsFixedLength();
-
-                entity.Property(e => e.DtCreate).HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                entity.Property(e => e.IsActive).HasColumnType("tinyint(1)");
-
-                entity.Property(e => e.StatusDescription)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                    .HasConstraintName("FK_ProdID_ProductMaterial");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -11,7 +11,7 @@
         <div class="row" style="width:800px !important">
           <div *ngFor="let img of img_list">
             <div class="col-sm">
-              <img id="img_idcards" (click)="imgclick(img.modelLink)" src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
+              <img id="img_idcards" (click)="imgclick(img.modelId,img.modelLink,img.modelDesc)" src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
             </div>
             <br />
           </div>
@@ -21,8 +21,29 @@
 
       </div>
     </div>
-  </div>
-  
+    </div>
+    <!--inner div-->
+    <div class="container" id="innerdiv_viscards">
+      <div class="row">
+        <div class="col">
+          <div id="div_img_cart">
+            <img src="" id="img_selected_viscard" style="width:300px" alt="Los Angeles">
+          </div>
+        </div>
+        <div class="col">
+          <br />
+          <label style="font:bold" id="lbl_desc"></label>
+          <br />
+          <br />
+          <select class="js-example-basic-single" id="ddl_prodmat" style="width:150px">
+            <option value=""></option>
+
+
+          </select>
+        </div>
+        </div>
+      </div>
+
 
 </body>
 </html>

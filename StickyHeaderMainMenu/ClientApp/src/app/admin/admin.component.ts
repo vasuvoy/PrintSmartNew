@@ -85,12 +85,16 @@ export class AdminComponent implements OnInit {
 
     $("#ddl_prodl2").change(function () {
       prodid_l2 = $('#ddl_prodl2 :selected').val();
+
       $("#ddl_prodl3").empty();
       $('#ddl_prodl3').append('<option />');
       p.forEach(g => {
         if (g.parentId == prodid_l2) {
           $('#ddl_prodl3').append('<option value="' + g.prodId + '">' + g.prodDesc + '</option>');
 
+        }
+        else {
+          $('#ddl_prodl3').hide();
         }
       });
     });

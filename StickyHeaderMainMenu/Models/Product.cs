@@ -9,6 +9,7 @@ namespace StickyHeaderMainMenu.Models
         {
             Dimmaster = new HashSet<Dimmaster>();
             Productmodel = new HashSet<Productmodel>();
+            Productmaterial = new HashSet<Productmaterial>();
         }
 
         public short ProdId { get; set; }
@@ -24,5 +25,8 @@ namespace StickyHeaderMainMenu.Models
 
         public virtual ICollection<Dimmaster> Dimmaster { get; set; }
         public virtual ICollection<Productmodel> Productmodel { get; set; }
+
+        public virtual ICollection<Productmaterial> Productmaterial { get; set; }
+
     }
 }

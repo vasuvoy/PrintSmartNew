@@ -16,6 +16,7 @@ namespace StickyHeaderMainMenu.Models
         {
         }
 
+        public virtual DbSet<Productmaterial> Productmaterial { get; set; }
         public virtual DbSet<Secqmaster> Secqmaster { get; set; }
         public virtual DbSet<Useraddress> Useraddress { get; set; }
         public virtual DbSet<Userdetail> Userdetail { get; set; }
@@ -40,6 +41,31 @@ namespace StickyHeaderMainMenu.Models
         {
             modelBuilder.Entity<OdCart>().HasKey(e => e.DetailId)
                     .HasName("PRIMARY");
+
+            modelBuilder.Entity<Productmaterial>(entity =>
+            {
+                entity.HasKey(e => e.MatId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("productmaterial");
+
+                entity.HasIndex(e => e.ProdId)
+                    .HasName("FK_ProdID_ProductMaterial");
+
+                entity.Property(e => e.DtCreate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.IsActive).HasColumnType("tinyint(1)");
+
+                entity.Property(e => e.MatDescription)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Prod)
+                    .WithMany(p => p.Productmaterial)
+                    .HasForeignKey(d => d.ProdId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProdID_ProductMaterial");
+            });
 
             modelBuilder.Entity<Secqmaster>(entity =>
             {
