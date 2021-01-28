@@ -28,6 +28,9 @@ namespace StickyHeaderMainMenu.Models
         public virtual DbSet<Productmodel> Productmodel { get; set; }
         public virtual DbSet<Statusmaster> Statusmaster { get; set; }
         public virtual DbSet<VwGetproductlist> VwGetproductlist { get; set; }
+
+        public virtual DbSet<Productservice> Productservice { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -39,6 +42,25 @@ namespace StickyHeaderMainMenu.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Productservice>(entity =>
+            {
+                entity.HasKey(e => e.ServId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("productservice");
+
+                entity.HasIndex(e => e.ProdId)
+                    .HasName("FK_ProdID_ProductService");
+
+                entity.Property(e => e.DtCreate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.IsActive).HasColumnType("tinyint(1)");
+
+                entity.Property(e => e.ServDescription)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<OdCart>().HasKey(e => e.DetailId)
                     .HasName("PRIMARY");
 
@@ -236,18 +258,20 @@ namespace StickyHeaderMainMenu.Models
 
                 entity.ToTable("orderdetail");
 
-                entity.HasIndex(e => e.DimIdsize)
-                    .HasName("FK_DimIDSize_OrderDetail");
+                entity.HasIndex(e => e.DimId)
+                    .HasName("FK_DimId_OrderDetail");
+
+                entity.HasIndex(e => e.MatId)
+                    .HasName("FK_MatId_OrderDetail");
 
                 entity.HasIndex(e => e.ModelId)
-                    .HasName("FK_ModelID_OrderDetail");
+                    .HasName("FK_ModelId_OrderDetail");
+
+                entity.HasIndex(e => e.ServId)
+                    .HasName("FK_ServId_OrderDetail");
 
                 entity.HasIndex(e => e.StatusCode)
                     .HasName("FK_StatusCode_OrderDetail");
-
-                entity.Property(e => e.DetailId).HasColumnName("DetailID");
-
-                entity.Property(e => e.DimIdsize).HasColumnName("DimIDSize");
 
                 entity.Property(e => e.DtCreate).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
@@ -257,25 +281,26 @@ namespace StickyHeaderMainMenu.Models
 
                 entity.Property(e => e.IsCustomized).HasColumnType("tinyint(1)");
 
-                entity.Property(e => e.ModelId).HasColumnName("ModelID");
-
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
-
                 entity.Property(e => e.OrderedBy).HasColumnType("mediumint");
 
                 entity.Property(e => e.StatusCode)
                     .HasMaxLength(1)
                     .IsFixedLength();
 
-                entity.HasOne(d => d.DimIdsizeNavigation)
+                entity.HasOne(d => d.Dim)
                     .WithMany(p => p.Orderdetail)
-                    .HasForeignKey(d => d.DimIdsize)
-                    .HasConstraintName("FK_DimIDSize_OrderDetail");
+                    .HasForeignKey(d => d.DimId)
+                    .HasConstraintName("FK_DimId_OrderDetail");
 
                 entity.HasOne(d => d.Model)
                     .WithMany(p => p.Orderdetail)
                     .HasForeignKey(d => d.ModelId)
-                    .HasConstraintName("FK_ModelID_OrderDetail");
+                    .HasConstraintName("FK_ModelId_OrderDetail");
+
+                entity.HasOne(d => d.Serv)
+                    .WithMany(p => p.Orderdetail)
+                    .HasForeignKey(d => d.ServId)
+                    .HasConstraintName("FK_ServId_OrderDetail");
 
                 entity.HasOne(d => d.StatusCodeNavigation)
                     .WithMany(p => p.Orderdetail)

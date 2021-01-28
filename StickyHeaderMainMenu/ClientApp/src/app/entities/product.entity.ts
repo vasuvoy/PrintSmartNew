@@ -5,7 +5,9 @@ export class Product {
   modelId: number;
   IsCustomized: number;
   Gender: string;
-  DimIdSize?: number;
+  DimId?: number;
+  MatId?: number;
+  ServId?: number;
   CustomContent: number;
   quantity: number;
   itemPrice: number;
@@ -15,7 +17,7 @@ export class Product {
   OrderedBy?: number;
   DtCreate: null;
   DtModify: null;
-  //ModelLink?: string;
+  ModelLink?: string;
   //id: string;
   //gender: string;
   //size: string;

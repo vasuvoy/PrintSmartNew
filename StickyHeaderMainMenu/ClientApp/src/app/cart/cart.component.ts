@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { ImageList } from '../entities/ImageList.entity';
 
 declare var $: any;
-
+let cartpage = "";
 
 @Component({
   selector: 'app-cart',
@@ -26,9 +26,20 @@ export class cartComponent implements OnInit {
       {
 
         this.productAddedTocart = r;
-
+        this.productAddedTocart.forEach(r => {
+          this.productAddedTocart[r.ModelLink] == "ss";
+        })
+        cartpage = "cart";
+        this.productAddedTocart.forEach(res => {
+          //this.productAddedTocart[0].modelId
+          // alert(res.modelId);
+          this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + res.modelId + '/' + cartpage).subscribe(
+            (r: any) => {
+              this.img_list.push(r);
+            })
+        })
         if (sessionStorage.getItem("ModelId") != null) {
-          this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("ModelId")).subscribe(
+          this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("ModelId")+ '/' + cartpage).subscribe(
             (r: any) => {
               this.img_list = r;
             })

@@ -28,16 +28,23 @@ namespace StickyHeaderMainMenu.Controllers
         }
 
         // GET: api/Productmodels/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Productmodel>>> GetProductmodel(int id)
+        [HttpGet("{id}/{cartpage}")]
+        public async Task<ActionResult<IEnumerable<Productmodel>>> GetProductmodel(int id,string cartpage)
         {
-            var productmodel = _context.Productmodel.Where(e=>e.ProdId==id).ToList();
-
-            if (productmodel == null)
+            var productmodel = new List<StickyHeaderMainMenu.Models.Productmodel>();
+            if (cartpage == "cart")
             {
-                return NotFound();
+                productmodel = _context.Productmodel.Where(e => e.ModelId == id).ToList();
             }
+            else
+            {
+                 productmodel = _context.Productmodel.Where(e => e.ProdId == id).ToList();
 
+                if (productmodel == null)
+                {
+                    return NotFound();
+                }
+            }
             return productmodel;
         }
 

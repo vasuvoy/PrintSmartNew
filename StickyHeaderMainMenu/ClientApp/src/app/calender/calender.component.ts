@@ -65,7 +65,7 @@ export class CalenderComponent implements OnInit {
 
         if (this.products_get.length == 0) {
 
-          this.prod = this.prod_service.insertProduct(qty, detailid,300);
+          this.prod = this.prod_service.insertProduct(qty, detailid,300,0);
           this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.prod[0]).subscribe(res => { alert("invi post"); });
           let d = stringtonum(sessionStorage.getItem("cartcount"));
           this._sharedservice.updateCartCount(d + this.prod.length);
@@ -73,7 +73,7 @@ export class CalenderComponent implements OnInit {
         else {
           detailid = 1;
           qty_update = this.products_get[0].quantity + stringtonum(qty);
-          this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId,300);
+          this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId,300,0);
           this.httpClient.put('https://localhost:44302/' + 'api/Orderdetails/' + this.products_get[0].detailId, this.prod[0]).subscribe(res => { alert("invi put"); });
           let d = stringtonum(sessionStorage.getItem("cartcount"));
           this._sharedservice.updateCartCount(d);

@@ -34,7 +34,7 @@ export class ProductService {
     return -1;
   }
 
-  public insertProduct(qty,detailid,price) {
+  public insertProduct(qty,detailid,price,prodmat) {
     function stringtonum(input: string) {
       var n = Number(input);
       return n;
@@ -47,7 +47,8 @@ export class ProductService {
         modelId: stringtonum(sessionStorage.getItem('ModelId')),
         Gender: null,
         CustomContent: null,
-        DimIdSize: null,
+        DimId: null,
+        MatId:prodmat,
         OrderedBy: stringtonum(sessionStorage.getItem('userid')),
         DtCreate: null,
         DtModify: null,
@@ -66,7 +67,7 @@ export class ProductService {
         modelId: stringtonum(sessionStorage.getItem('ModelId')),
         Gender: null,
         CustomContent: null,
-        DimIdSize: null,
+        DimId: null,
         OrderedBy: stringtonum(sessionStorage.getItem('userid')),
         DtCreate: null,
         DtModify: null,

@@ -348,7 +348,7 @@ export class TshirtComponent implements OnInit {
       this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + sessionStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
         this.products1 = res;
         this.products1.forEach(e => {
-          if (e.DimIdSize == n) {
+          if (e.DimId == n) {
             this.products_exist.push(e);
           }
         });
@@ -358,7 +358,7 @@ export class TshirtComponent implements OnInit {
             modelId: stringtonum(sessionStorage.getItem('ModelId')),
             Gender: gender_text,
             CustomContent: null,
-            DimIdSize: stringtonum(size1),
+            DimId: stringtonum(size1),
             OrderedBy: stringtonum(sessionStorage.getItem('userid')),
             DtCreate: null,
             DtModify: null,
@@ -376,7 +376,7 @@ export class TshirtComponent implements OnInit {
           alert("product added to cart");
         }
         else {
-          if (stringtonum(size1) != this.products_exist[0].DimIdSize) {
+          if (stringtonum(size1) != this.products_exist[0].DimId) {
             var quantity = stringtonum(qty);
             this.products = [{
               detailId: this.products1[0].detailId,
@@ -384,7 +384,7 @@ export class TshirtComponent implements OnInit {
               modelId: stringtonum(sessionStorage.getItem('ModelId')),
               Gender: gender_text,
               CustomContent: null,
-              DimIdSize: stringtonum(size1),
+              DimId: stringtonum(size1),
               OrderedBy: stringtonum(sessionStorage.getItem('userid')),
               DtCreate: null,
               DtModify: null,
@@ -407,7 +407,7 @@ export class TshirtComponent implements OnInit {
               modelId: stringtonum(sessionStorage.getItem('ModelId')),
               Gender: gender_text,
               CustomContent: null,
-              DimIdSize: stringtonum(size1),
+              DimId: stringtonum(size1),
               OrderedBy: stringtonum(sessionStorage.getItem('userid')),
               DtCreate: null,
               DtModify: null,
@@ -450,7 +450,7 @@ export class TshirtComponent implements OnInit {
       this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + stringtonum(sessionStorage.getItem('ModelId')) + '/' + s).subscribe((res: any) => {
         this.products1 = res;
         this.products1.forEach(e => {
-          if (e.DimIdSize == n) {
+          if (e.DimId == n) {
             this.products_exist.push(e);
           }
         });
@@ -461,7 +461,7 @@ export class TshirtComponent implements OnInit {
           modelId: stringtonum(sessionStorage.getItem('ModelId')),
           Gender: gender_text,
           CustomContent: $("#img_tshirt_write")[0].innerHTML,
-          DimIdSize: n,//stringtonum(size),
+          DimId: n,//stringtonum(size),
           OrderedBy: stringtonum(sessionStorage.getItem('userid')),
           DtCreate: null,
           DtModify: null,
@@ -476,7 +476,7 @@ export class TshirtComponent implements OnInit {
       }
 
       else {
-        if (stringtonum(size) != this.products_exist[0].DimIdSize) {
+        if (stringtonum(size) != this.products_exist[0].DimId) {
           var quantity = stringtonum(qty);
           this.custom_text = [{
             detailId: this.products1[0].detailId,
@@ -484,7 +484,7 @@ export class TshirtComponent implements OnInit {
             modelId: stringtonum(sessionStorage.getItem('ModelId')),
             Gender: gender_text,
             CustomContent: null,
-            DimIdSize: stringtonum(size),
+            DimId: stringtonum(size),
             OrderedBy: stringtonum(sessionStorage.getItem('userid')),
             DtCreate: null,
             DtModify: null,
@@ -504,7 +504,7 @@ export class TshirtComponent implements OnInit {
             modelId: stringtonum(sessionStorage.getItem('ModelId')),
             Gender: gender_text,
             CustomContent: null,
-            DimIdSize: stringtonum(size),
+            DimId: stringtonum(size),
             OrderedBy: stringtonum(sessionStorage.getItem('userid')),
             DtCreate: null,
             DtModify: null,

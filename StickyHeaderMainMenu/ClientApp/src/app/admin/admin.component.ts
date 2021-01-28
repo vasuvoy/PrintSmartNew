@@ -117,7 +117,7 @@ export class AdminComponent implements OnInit {
    // alert(this.selectedfile.name);
     const oldFileItem: File = event.target.files[0];
     if (prodid_l3 != "") {
-      this.http.get('https://localhost:44302/' + 'api/Productmodels/' + prodid_l3).subscribe((e: any) => {
+      this.http.get('https://localhost:44302/' + 'api/Productmodels/' + prodid_l3+'/'+"adminpage").subscribe((e: any) => {
         model_count = e.length;
         selected_filename = $("#modle_code")[0].value + '_' + model_count + '.jpg';// this.selectedfile.name;
         // alert(selected_filename);
