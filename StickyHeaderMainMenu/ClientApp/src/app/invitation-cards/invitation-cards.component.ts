@@ -27,7 +27,9 @@ export class InvitationCardsComponent implements OnInit {
   arr: string[];
   s: string[];
   public price_detail: pricedetail[];
-  constructor(private httpClient: HttpClient, private prod_service: ProductService, private _sharedservice: SharedService) { }
+  constructor(private httpClient: HttpClient, private prod_service: ProductService, private _sharedservice: SharedService)
+  {
+  }
 
   ngOnInit() {
     $(document).ready(function () {

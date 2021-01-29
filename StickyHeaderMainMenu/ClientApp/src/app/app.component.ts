@@ -2,9 +2,13 @@ import { Component, OnInit, HostListener  } from '@angular/core';
 //import { Product } from './entities/product.entity';
 import { ProductService } from './services/product.service';
 import { SharedService } from './services/shared.service';
-import { Router } from '@angular/router';
+
 import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
+import { Router, NavigationEnd } from '@angular/router';
+
+
+
 
 declare var $: any;
 let count: number;
@@ -14,7 +18,7 @@ let count: number;
   providers: [ProductService]
 })
 export class AppComponent implements OnInit {
- 
+  navigationSubscription;
   cartItemCount: number = 0;
   login_text: string = "Sign In";
   login_username: string = "";
@@ -38,12 +42,19 @@ export class AppComponent implements OnInit {
   public groubedByTeam_l2 = [];
   public groubedByTeam_l3 = [];
   public testmodel: testModel[] = [];
-  public count=0;
+  public count = 0;
   constructor(private http: HttpClient,
     private _location: Location, private _exampleService: ProductService,
     private router: Router, private _sharedservice: SharedService) {
+    //this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    //  return false;
+    //};
+
+    
    // localStorage.setItem("userid","");
   }
+
+  
   ngOnInit() {
 
     if (sessionStorage.getItem("userid") == null) {
@@ -195,13 +206,16 @@ export class AppComponent implements OnInit {
   
   }
 
+ 
   //Sub menu hyperlink click event
   subMenuhyperlinkClick(e) {
-    // alert(e.target.innerText+e.target.id);
-    sessionStorage.setItem('Prodl3Id', e.target.id);
+    //location.reload();
 
-    
+    sessionStorage.setItem('Prodl3Id', e.target.id);
+    this.router.navigate(e.target.href);
   }
+
+ 
 
   subL2MenuhyperlinkClick(e) {
     // alert(e.target.innerText+e.target.id);
@@ -253,7 +267,6 @@ export class AppComponent implements OnInit {
     this.router.navigateByUrl('/Login');
   }
 }
-
 
 
 export class Product_list {

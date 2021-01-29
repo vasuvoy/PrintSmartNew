@@ -134,7 +134,7 @@ export class AdminComponent implements OnInit {
       });
     }
     else {
-      this.http.get('https://localhost:44302/' + 'api/Productmodels/' + prodid_l2).subscribe((e: any) => {
+      this.http.get('https://localhost:44302/' + 'api/Productmodels/' + prodid_l2 + '/' + "adminpage").subscribe((e: any) => {
         model_count = e.length;
         selected_filename = $("#modle_code")[0].value + '_' + model_count + '.jpg';// this.selectedfile.name;
         // alert(selected_filename);
