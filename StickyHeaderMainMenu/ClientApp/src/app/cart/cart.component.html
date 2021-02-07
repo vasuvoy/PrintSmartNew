@@ -23,6 +23,7 @@
 
     </tr>
   </table>-->
+
   <div class="table-responsive">
     <table class="table">
       
@@ -50,8 +51,11 @@
 </ng-template>
           <td >
             <div>
-              <span><span style="font-size:medium;color:blue">size:</span> {{prod.gender}}</span><br />
-              <!--<span><span style="font-size:medium;color:blue">color:</span> {{prod.color}}</span><br />-->
+              <span ng-if="prod.gender==null; else sizeblock"></span>
+              <ng-template #sizeblock>
+                <span><span style="font-size:medium;color:blue">size:</span> {{prod.gender}}</span><br />
+              </ng-template>
+  <!--<span><span style="font-size:medium;color:blue">color:</span> {{prod.color}}</span><br />-->
               <span><span style="font-size:medium;color:blue">Qty:</span> {{prod.quantity}}</span><br />
               <span><span style="font-size:medium;color:blue">Price:</span> {{prod.itemPrice}}</span>
             </div>

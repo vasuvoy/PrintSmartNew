@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   change_pwd = "";
   signout_text = "";
   isheader = " ";
+  mySubscription;
   //public products: Product[];
   public prodlist: Product_list[] = [];
   public prodlist_main: mainmodel[] = [];
@@ -46,12 +47,13 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient,
     private _location: Location, private _exampleService: ProductService,
     private router: Router, private _sharedservice: SharedService) {
-    //this.router.routeReuseStrategy.shouldReuseRoute = function () {
-    //  return false;
-    //};
-
-    
-   // localStorage.setItem("userid","");
+    //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    //this.mySubscription = this.router.events.subscribe((event) => {
+    //  if (event instanceof NavigationEnd) {
+    //    // Trick the Router into believing it's last link wasn't previously loaded
+    //    this.router.navigated = false;
+    //  }
+   // }); 
   }
 
   
@@ -212,7 +214,10 @@ export class AppComponent implements OnInit {
     //location.reload();
 
     sessionStorage.setItem('Prodl3Id', e.target.id);
-    this.router.navigate(e.target.href);
+    this.router.navigate([this.router.url])
+    //   this.router.navigate(e.target.href);
+    //alert(this._location.path());
+  
   }
 
  

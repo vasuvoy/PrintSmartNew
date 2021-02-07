@@ -198,45 +198,52 @@
                     <a class="dropdown-item" href="#"  (mouseover)="MainMenuhyperlinkClick($event)" id="{{x.ProdId}}">{{x.ProdDesc}}&nbsp;&nbsp;<i *ngIf="x.productModel.length>0"  class="right"></i></a>
 
                     <ul class="dropdown-menu multi-column " *ngIf="x.productModel.length>0" >
-                      <div class="row"   >
-                        <div > 
-                          <div *ngFor="let b of x.productModel" >
-                            <div  >
-                              <div *ngFor="let c of b.prdmodel" style="column-count:2;float:left">
-
-                                
-                                
-                       <ul class="multi-column-dropdown"  *ngIf="c.l2isHeader==0; else ex">
+     
+                        <div class="row" >
+                          <div style="column-count:2">
+                            <div *ngFor="let b of x.productModel" >
+                              <div>
+                                <div *ngFor="let c of b.prdmodel">
 
 
-                           <li style="font-size:small;color:black;column-count:1" id="{{c.l2prodId}}" >
-                         <a href="#" [routerLink]="[c.l2routerLink]" (click)="subL2MenuhyperlinkClick($event)" id="{{c.l2prodId}}">{{c.l2prodDesc}}</a></li>
+
+                                  <ul class="multi-column-dropdown" *ngIf="c.l2isHeader==0; else ex">
 
 
-                       </ul>
-                                <ng-template #ex>
-    <ul class="multi-column-dropdown" >
-      <div  >
-        <li style="font-size:small;color:black;width:230px">&nbsp;&nbsp;&nbsp;<strong>{{c.l2prodDesc}}</strong></li>
-        <ng-template #content>Pleasssss.</ng-template>
-        <ng-template #loggedOut>Please friend, login.</ng-template>
-        <div *ngFor="let d of c.testmodel" style="overflow-wrap:break-word;word-wrap: break-word">
- 
-          <div *ngFor="let e of d.testmodel" style="width:300px;overflow-wrap:break-word;word-wrap: break-word">
+                                    <li style="font-size:small;color:black;" id="{{c.l2prodId}}">
+                                      <a href="#" [routerLink]="[c.l2routerLink]" (click)="subL2MenuhyperlinkClick($event)" id="{{c.l2prodId}}">{{c.l2prodDesc}}</a>
+                                    </li>
+                            
 
-            <li id="{{e.L3ProdId}}" style="width:230px">
-            <a href="#" [routerLink]="[e.RouterLink]" (click)="subMenuhyperlinkClick($event)" id="{{e.l3prodId}}">{{e.l3prodDesc}}</a></li>
+                                  </ul>
+                                  <ng-template #ex>
+                                    <ul class="multi-column-dropdown">
+                                      <!--<div  >-->
+                                      <li style="font-size:small;color:black;width:230px">&nbsp;&nbsp;&nbsp;<strong>{{c.l2prodDesc}}</strong></li>
+                                      <ng-template #content>Pleasssss.</ng-template>
+                                      <ng-template #loggedOut>Please friend, login.</ng-template>
+                                      <div *ngFor="let d of c.testmodel" style="overflow-wrap:break-word;word-wrap: break-word">
 
-          </div>
-        </div>
-      </div>
-    </ul>
-  </ng-template>
+                                        <div *ngFor="let e of d.testmodel" style="width:300px;overflow-wrap:break-word;word-wrap: break-word">
+
+                                          <li id="{{e.L3ProdId}}">
+                                            <a href="#" [routerLink]="[e.RouterLink]" (click)="subMenuhyperlinkClick($event)" id="{{e.l3prodId}}">{{e.l3prodDesc}}</a>
+                                          </li>
+
+                                        </div>
+                                      </div>
+
+                                      <!--</div>  -->
+                                    </ul>
+                                  </ng-template>
+
+                                </div>
 
                               </div>
+
                             </div>
                           </div>
-                        </div>
+                        
                       </div>
                     </ul>
         

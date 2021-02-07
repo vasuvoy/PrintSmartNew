@@ -7,7 +7,7 @@
 <body>
   <div>
     <div id="div_idcards" style="width:500px !important;cursor:pointer">
-      <div class="container" style="width:500px !important">
+      <div class="container" style="width:500px !important;height:500px">
         <div class="row" style="width:800px !important">
           <div *ngFor="let img of img_list">
             <div class="col-sm">
@@ -35,11 +35,37 @@
           <label style="font:bold" id="lbl_desc"></label>
           <br />
           <br />
+          <select class="js-example-basic-single" id="ddl_Qty" style="width:150px">
+            <option value=""></option>
+            <option value="1">10</option>
+            <option value="2">20</option>
+
+          </select>
+          <br />
+          <br />
           <select class="js-example-basic-single" id="ddl_prodmat" style="width:150px">
             <option value=""></option>
 
 
           </select>
+          <br />
+          <br />
+          <select hidden class="js-example-basic-single" id="ddl_prodser" style="width:150px">
+            <option value=""></option>
+          </select>
+          <br />
+          <br />
+
+          <label style="font-size:15px">Selling Price</label>&nbsp;
+          <label style="font-size:15px" id="lbl_price"></label><br />
+
+          <label style="font-size:15px">Price</label>&nbsp;
+          <label style="font-size:15px" id="lbl_sellingprice"></label><span style="font-size:15px" id="sp_disc"></span><br />
+          <br />
+          <button type="submit" class="btn btn-outline-success" (click)="AddToCart()" id="btn_AddtoCart"
+                  style="background:lightseagreen;border-color:lightseagreen;color:white">
+            Add to cart
+          </button>
         </div>
         </div>
       </div>
