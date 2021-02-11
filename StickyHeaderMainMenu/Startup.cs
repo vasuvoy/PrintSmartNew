@@ -63,6 +63,7 @@ namespace StickyHeaderMainMenu
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseDefaultFiles();
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
