@@ -5,6 +5,7 @@ import { SharedService } from '../services/shared.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Session } from 'inspector';
+import { ProductService } from '../services/product.service';
 
 declare var $: any;
 declare var swal: any;
@@ -20,8 +21,8 @@ export class LoginComponent implements OnInit {
   userdetails: User_Details[];
   cartItemCount: number = 0;
   constructor(private user_service: LoginService,
-    private _sharedservice: SharedService, private httpClient: HttpClient,
-    private router: Router) { }
+    private _sharedservice: SharedService, private httpClient: HttpClient, private prod_service: ProductService
+    ,private router: Router) { }
 
   ngOnInit() {
     $(document).ready(function () {
@@ -57,7 +58,7 @@ export class LoginComponent implements OnInit {
     sessionStorage.setItem('emailid', user_name);
  
     if (user_name != "" && pwd != "") {
-      this.httpClient.get<User_Details[]>('https://localhost:44302/' + 'api/Userdetail/' + user_name).subscribe(
+      this.httpClient.get<User_Details[]>(this.prod_service.getUrl()+ 'api/Userdetail/' + user_name).subscribe(
         result => {
           this.userdetails = result
           var email_exists = result.findIndex(em_exists => em_exists.email == user_name);
@@ -86,7 +87,7 @@ export class LoginComponent implements OnInit {
                 if (sessionStorage.getItem('userid') != null) {
                   var s = "appPage";
 
-                  this.httpClient.get('https://localhost:44302/' + 'api/OdCarts/' + sessionStorage.getItem("userid")).subscribe(
+                  this.httpClient.get(this.prod_service.getUrl()+ 'api/OdCarts/' + sessionStorage.getItem("userid")).subscribe(
                     (res: any) => {
                      // var numArr = [10, 20, 30, 40] // sums to value = 100
                       //var sum = 0;

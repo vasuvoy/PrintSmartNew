@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { privateDecrypt } from 'crypto';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ProductService } from '../services/product.service';
 
 declare var $: any;
 
@@ -12,7 +13,7 @@ declare var $: any;
 export class NewAddressComponent implements OnInit {
   //user_address: newAddress[]=[];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private prod_service: ProductService) { }
 
   ngOnInit() {
     $(document).ready(function () {
@@ -40,7 +41,7 @@ export class NewAddressComponent implements OnInit {
       IsDefault: $("#isdefaul")[0].checked, AddressType: stringtonum($('#ddl_addtype').val())
     }
     if (userid != undefined) {
-      this.http.post('https://localhost:44302/' + 'api/UserAddresses', user_address, { headers }).subscribe(r=>alert("address ok"));
+      this.http.post(this.prod_service.getUrl() + 'api/UserAddresses', user_address, { headers }).subscribe(r=>alert("address ok"));
     }
     else { }
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { strict } from 'assert';
+import { ProductService } from '../services/product.service';
 
 declare var $: any;
 
@@ -14,13 +15,13 @@ export class AddressListComponent implements OnInit {
   public address_list: User_Address_list[]=[];
   public address_list1: User_Address_list[]=[];
   userid = localStorage.getItem("userid");
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private prod_service: ProductService) { }
   ex = [];
   public objectKeys = Object.keys;
   ngOnInit() {
 
    // const action = "addr_list";
-    this.http.get('https://localhost:44302/' + 'api/Useraddresses/' + this.userid, { params: {action:"addr_lst"} }).subscribe(
+    this.http.get(this.prod_service.getUrl()  + 'api/Useraddresses/' + this.userid, { params: {action:"addr_lst"} }).subscribe(
       (res: any[]) => {
         for (var i = 0; i <= (res.length / 2); i++) {
           this.address_list.push({
@@ -83,11 +84,11 @@ export class AddressListComponent implements OnInit {
 
 }
   deladdr(addr: User_Address_list) {
-    this.http.delete('https://localhost:44302/' + 'api/UserAddresses/' + addr.addrId).subscribe(x => this.setUsersList());
+    this.http.delete(this.prod_service.getUrl()  + 'api/UserAddresses/' + addr.addrId).subscribe(x => this.setUsersList());
   }
 
   private setUsersList() {
-    this.http.get('https://localhost:44302/' + 'api/Useraddresses/' + this.userid, { params: { action: "addr_lst" } }).subscribe((x:any[]) => {
+    this.http.get(this.prod_service.getUrl()  + 'api/Useraddresses/' + this.userid, { params: { action: "addr_lst" } }).subscribe((x:any[]) => {
       this.address_list = x;
     })
   }

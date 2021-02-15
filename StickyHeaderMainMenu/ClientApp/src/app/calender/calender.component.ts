@@ -37,7 +37,7 @@ export class CalenderComponent implements OnInit {
       });
 
     });
-    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id")).subscribe
+    this.httpClient.get(this.prod_service.getUrl()  + 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id")).subscribe
       ((res: any) => {
         this.img_list = res;
       });
@@ -59,14 +59,14 @@ export class CalenderComponent implements OnInit {
         return n;
       }
       var s = "l3menu";
-      this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + sessionStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
+      this.httpClient.get(this.prod_service.getUrl()  + 'api/Orderdetails/' + sessionStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
         this.products_get = res;
 
 
         if (this.products_get.length == 0) {
 
           this.prod = this.prod_service.insertProduct(qty, detailid,300,0);
-          this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.prod[0]).subscribe(res => { alert("invi post"); });
+          this.httpClient.post(this.prod_service.getUrl()  + 'api/Orderdetails', this.prod[0]).subscribe(res => { alert("invi post"); });
           let d = stringtonum(sessionStorage.getItem("cartcount"));
           this._sharedservice.updateCartCount(d + this.prod.length);
         }
@@ -74,7 +74,7 @@ export class CalenderComponent implements OnInit {
           detailid = 1;
           qty_update = this.products_get[0].quantity + stringtonum(qty);
           this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId,300,0);
-          this.httpClient.put('https://localhost:44302/' + 'api/Orderdetails/' + this.products_get[0].detailId, this.prod[0]).subscribe(res => { alert("invi put"); });
+          this.httpClient.put(this.prod_service.getUrl() + 'api/Orderdetails/' + this.products_get[0].detailId, this.prod[0]).subscribe(res => { alert("invi put"); });
           let d = stringtonum(sessionStorage.getItem("cartcount"));
           this._sharedservice.updateCartCount(d);
           alert("product added to cart");

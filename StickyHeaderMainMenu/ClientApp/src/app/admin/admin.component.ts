@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Productmodel } from '../app.component';
+import { ProductService } from '../services/product.service';
 
 
 declare var $: any;
@@ -27,7 +28,7 @@ export class AdminComponent implements OnInit {
 
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private prod_service: ProductService) { }
 
   ngOnInit() {
 
@@ -56,7 +57,7 @@ export class AdminComponent implements OnInit {
     var prd_level = "p1";
     let prodid = 0;
     
-    this.http.get('https://localhost:44302/' + 'api/Products/' + prd_level + '/' + prodid).subscribe(
+    this.http.get(this.prod_service.getUrl()  + 'api/Products/' + prd_level + '/' + prodid).subscribe(
       (res1: any) => {
         p = res1;
         this.prod_lst = res1;
@@ -75,7 +76,7 @@ export class AdminComponent implements OnInit {
       prodid = $('#ddl_prodl1 :selected').val();
       p.forEach(g => {
         if (g.prodId == prodid) {
-          modelfolder_name = g.routerLink
+          modelfolder_name = g.prodDesc
         }
         if (g.parentId == prodid) {
           $('#ddl_prodl2').append('<option value="' + g.prodId + '">' +g.prodDesc + '</option>');
@@ -117,7 +118,7 @@ export class AdminComponent implements OnInit {
    // alert(this.selectedfile.name);
     const oldFileItem: File = event.target.files[0];
     if (prodid_l3 != "") {
-      this.http.get('https://localhost:44302/' + 'api/Productmodels/' + prodid_l3+'/'+"adminpage").subscribe((e: any) => {
+      this.http.get(this.prod_service.getUrl() + 'api/Productmodels/' + prodid_l3+'/'+"adminpage").subscribe((e: any) => {
         model_count = e.length;
         selected_filename = $("#modle_code")[0].value + '_' + model_count + '.jpg';// this.selectedfile.name;
         // alert(selected_filename);
@@ -128,13 +129,13 @@ export class AdminComponent implements OnInit {
         formData.append('folderName', modelfolder_name);
 
         // let params = { 'formdata': formData, 'foldername': 'example' }
-        this.http.post('https://localhost:44302/' + 'api/FileUpload', formData).subscribe(e => { });
+        this.http.post(this.prod_service.getUrl()  + 'api/FileUpload', formData).subscribe(e => { });
 
 
       });
     }
     else {
-      this.http.get('https://localhost:44302/' + 'api/Productmodels/' + prodid_l2 + '/' + "adminpage").subscribe((e: any) => {
+      this.http.get(this.prod_service.getUrl()  + 'api/Productmodels/' + prodid_l2 + '/' + "adminpage").subscribe((e: any) => {
         model_count = e.length;
         selected_filename = $("#modle_code")[0].value + '_' + model_count + '.jpg';// this.selectedfile.name;
         // alert(selected_filename);
@@ -145,7 +146,7 @@ export class AdminComponent implements OnInit {
         formData.append('folderName', modelfolder_name);
 
         // let params = { 'formdata': formData, 'foldername': 'example' }
-        this.http.post('https://localhost:44302/' + 'api/FileUpload', formData).subscribe(e => { });
+        this.http.post(this.prod_service.getUrl()  + 'api/FileUpload', formData).subscribe(e => { });
 
       });
     }
@@ -171,11 +172,11 @@ export class AdminComponent implements OnInit {
     if (prodid_l3 != "") {
       //inserting into prod model
       var test: Prod_model = { ProdId: stringtonum(prodid_l3), ModelCode: $("#modle_code")[0].value, ModelDesc: prod_desc, ModelLink: "assets/" + modelfolder_name + "/" + filename, DtCreate: null, DtModify: null, IsActive: 1 };
-      this.http.post('https://localhost:44302/' + 'api/Productmodels', test).subscribe(e => { alert("Image Uploaded") });
+      this.http.post(this.prod_service.getUrl()  + 'api/Productmodels', test).subscribe(e => { alert("Image Uploaded") });
     }
     else {
       var test: Prod_model = { ProdId: stringtonum(prodid_l2), ModelCode: $("#modle_code")[0].value, ModelDesc: prod_desc, ModelLink: "assets/" + modelfolder_name + "/" + filename, DtCreate: null, DtModify: null, IsActive: 1 };
-      this.http.post('https://localhost:44302/' + 'api/Productmodels', test).subscribe(e => { alert("Image Uploaded") });
+      this.http.post(this.prod_service.getUrl()  + 'api/Productmodels', test).subscribe(e => { alert("Image Uploaded") });
     }
     }
  }

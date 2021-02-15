@@ -5,6 +5,8 @@ import { Product } from '../entities/Product.entity';
 import { ProductService } from '../services/product.service';
 import { SharedService } from '../services/shared.service';
 import { pricedetail } from '../entities/pricedetail.entity';
+import { Configuration } from 'jasmine-spec-reporter/built/configuration';
+import { LoginService } from '../services/login.service';
 
 declare var $: any;
 let qty: any;
@@ -26,12 +28,15 @@ export class InvitationCardsComponent implements OnInit {
   public products_get: Product[] = [];
   arr: string[];
   s: string[];
+  public url: string;
   public price_detail: pricedetail[];
-  constructor(private httpClient: HttpClient, private prod_service: ProductService, private _sharedservice: SharedService)
+
+  constructor(public httpClient: HttpClient, private prod_service: ProductService, private _sharedservice: SharedService)
   {
   }
 
   ngOnInit() {
+
     $(document).ready(function () {
       $("#innerdiv_invicards").hide();
       $("#ddl_prodser").hide();
@@ -98,9 +103,9 @@ export class InvitationCardsComponent implements OnInit {
 
 
 
+    alert(this.prod_service.getUrl());
 
-
-    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id")+'/'+"invi").subscribe
+    this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id")+'/'+"invi").subscribe
       ((res: any) => {
         this.img_list = res;
       });
@@ -118,7 +123,7 @@ export class InvitationCardsComponent implements OnInit {
     }
     else
       levelid = stringtonum(sessionStorage.getItem("Prodl2Id"));
-    this.httpClient.get('https://localhost:44302/' + 'api/Productmaterials/' + levelid).subscribe
+    this.httpClient.get(this.prod_service.getUrl()  + 'api/Productmaterials/' + levelid).subscribe
       ((res: any) => {
        // this.prod_mat = res;
         res.forEach(e => {
@@ -134,7 +139,9 @@ export class InvitationCardsComponent implements OnInit {
       });
 
     //check for product service dropdown
-    this.httpClient.get('https://localhost:44302/' + 'api/Productservices/' + levelid).subscribe
+
+
+    this.httpClient.get(this.prod_service.getUrl() + 'api/Productservices/' + levelid).subscribe
       ((r: any) => {
         if (r.length == 0)
           $("#ddl_prodser").hide();
@@ -148,7 +155,7 @@ export class InvitationCardsComponent implements OnInit {
     $("#img_selected_invicard").attr("src", f);
     $("#lbl_desc").text(g);
     sessionStorage.setItem('ModelId', e);
-    this.httpClient.get('https://localhost:44302/' + 'api/Pricedetails/' + e).subscribe((res: any) => {
+    this.httpClient.get(this.prod_service.getUrl()  + 'api/Pricedetails/' + e).subscribe((res: any) => {
       this.price_detail = res;
       $("#lbl_price").text(this.price_detail[0].maxRetailPrice);
       $("#lbl_price").attr("style", "text-decoration:line-through");
@@ -223,14 +230,15 @@ export class InvitationCardsComponent implements OnInit {
         return n;
       }
       var s = "l3menu";
-      this.httpClient.get('https://localhost:44302/' + 'api/Orderdetails/' + sessionStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
+      this.httpClient.get(this.prod_service.getUrl()  + 'api/Orderdetails/' + sessionStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
         this.products_get = res;
 
       
       if (this.products_get.length == 0) {
         //new product
         this.prod = this.prod_service.insertProduct(qty, detailid, stringtonum($("#lbl_price").text()), stringtonum($("#ddl_prodmat").val()));
-        this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.prod[0]).subscribe(res => { alert("invi post"); });
+
+        this.httpClient.post(this.prod_service.getUrl() + 'api/Orderdetails', this.prod[0]).subscribe(res => { alert("invi post"); });
         let d = stringtonum(sessionStorage.getItem("cartcount"));
         this._sharedservice.updateCartCount(d + this.prod.length);
       }
@@ -239,7 +247,7 @@ export class InvitationCardsComponent implements OnInit {
         detailid = 1;
         qty_update = this.products_get[0].quantity + stringtonum(qty);
         this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId, stringtonum($("#lbl_price").text()), stringtonum($("#ddl_prodmat").text()));
-        this.httpClient.put('https://localhost:44302/' + 'api/Orderdetails/' + this.products_get[0].detailId, this.prod[0]).subscribe(res => { alert("invi put"); });
+        this.httpClient.put(this.prod_service.getUrl()  + 'api/Orderdetails/' + this.products_get[0].detailId, this.prod[0]).subscribe(res => { alert("invi put"); });
         let d = stringtonum(sessionStorage.getItem("cartcount"));
         this._sharedservice.updateCartCount(d);
         alert("product added to cart");

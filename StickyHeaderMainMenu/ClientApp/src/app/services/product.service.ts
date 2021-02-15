@@ -5,8 +5,8 @@ import { Product } from '../entities/product.entity';
 @Injectable()
 export class ProductService {
 
-  private products: Product[]=[];
-
+  private products: Product[] = [];
+  public url: string;
   constructor() {
 
   }
@@ -15,6 +15,11 @@ export class ProductService {
     let prodlength = this.products.length;
     return prodlength;
   }
+
+  public getUrl() {
+    this.url = 'https://localhost:44302/';
+    return this.url;
+}
 
 
   findAll(): Product[] {

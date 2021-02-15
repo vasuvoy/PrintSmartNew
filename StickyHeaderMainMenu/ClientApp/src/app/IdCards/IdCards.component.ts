@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { HttpRequest, HttpClient } from '@angular/common/http';
 import { Item } from '../entities/item.entity';
+import { ProductService } from '../services/product.service';
 
 declare var $: any;
 
@@ -16,7 +17,7 @@ export class IdCardsComponent implements OnInit {
   fileupload: File = null;
   //fileToUpload: File = null;
   public img_list: visitingcardsimg_list[] = [];
-  constructor(public router: Router, private httpClient: HttpClient)
+  constructor(public router: Router, private httpClient: HttpClient, private prod_service: ProductService)
   //private productService: ProductService
   {
   }
@@ -34,7 +35,7 @@ export class IdCardsComponent implements OnInit {
       });
     });
 
-    this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id")).subscribe
+    this.httpClient.get(this.prod_service.getUrl()+ 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id")).subscribe
       ((res: any) => {
         this.img_list = res;
       });

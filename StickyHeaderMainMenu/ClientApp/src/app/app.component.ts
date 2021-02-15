@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
   public testmodel: testModel[] = [];
   public count = 0;
   constructor(private http: HttpClient,
-    private _location: Location, private _exampleService: ProductService,
+    private _location: Location, private prod_service: ProductService,
     private router: Router, private _sharedservice: SharedService) {
     //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     //this.mySubscription = this.router.events.subscribe((event) => {
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
     }
     //from db loading prod list dynamically
 
-    this.http.get('https://localhost:44302/' + 'api/Products').subscribe(
+    this.http.get(this.prod_service.getUrl() + 'api/Products').subscribe(
       (res1: any) => {
         this.prodView = res1;
 
@@ -214,9 +214,8 @@ export class AppComponent implements OnInit {
     //location.reload();
 
     sessionStorage.setItem('Prodl3Id', e.target.id);
-    this.router.navigate([this.router.url])
-    //   this.router.navigate(e.target.href);
-    //alert(this._location.path());
+    //this.router.navigate([this.router.url])
+  // this.router.navigate(e.target.href);
   
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProductService } from '../services/product.service';
 
 declare var $: any;
 
@@ -9,7 +10,7 @@ declare var $: any;
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(public router: Router)
+  constructor(public router: Router, private prod_service: ProductService)
   //private productService: ProductService
   {
 

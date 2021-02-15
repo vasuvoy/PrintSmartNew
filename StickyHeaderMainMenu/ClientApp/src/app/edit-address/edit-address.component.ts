@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { ProductService } from '../services/product.service';
 
 declare var $: any;
 @Component({
@@ -13,7 +14,7 @@ export class EditAddressComponent implements OnInit {
   addrId = this.route.snapshot.params['id'];
   selectedAddr: User_Address_list[];
   editForm: FormGroup;
-  constructor(private route: ActivatedRoute, private http: HttpClient, private formbuilder: FormBuilder) { }
+  constructor(private route: ActivatedRoute, private prod_service: ProductService, private http: HttpClient, private formbuilder: FormBuilder) { }
 
   ngOnInit() {
     //const addrId = this.route.snapshot.params['id'];
@@ -22,7 +23,7 @@ export class EditAddressComponent implements OnInit {
   get editFormData() { return this.editForm.controls; }
 
   private setForm(addrId: number) {
-    this.http.get('https://localhost:44302/' + 'api/Useraddresses/' + addrId).subscribe((x: any[]) => {
+    this.http.get(this.prod_service.getUrl() + 'api/Useraddresses/' + addrId).subscribe((x: any[]) => {
       this.selectedAddr = x
       this.editForm = this.formbuilder.group({
         firstname: [this.selectedAddr[0].name],
@@ -57,7 +58,7 @@ export class EditAddressComponent implements OnInit {
       IsDefault: $("#isdefaul")[0].checked, AddressType: stringtonum($('#ddl_addtype').val()),
       AddrId: stringtonum(this.addrId)
     }
-    this.http.put('https://localhost:44302/' + 'api/UserAddresses/' + this.addrId, user_address_update).subscribe(res => { alert("addr updtead"); });
+    this.http.put(this.prod_service.getUrl() + 'api/UserAddresses/' + this.addrId, user_address_update).subscribe(res => { alert("addr updtead"); });
   }
 }
 interface User_Address_list {

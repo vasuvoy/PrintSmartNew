@@ -18,7 +18,7 @@ export class cartComponent implements OnInit {
   cartItemCount: number = 0;
   productAddedTocart: Product[];
   public img_list: ImageList[];
-  constructor(private _exampleService: ProductService, private httpClient: HttpClient, private _sharedservice: SharedService) { }
+  constructor(private prod_service: ProductService, private httpClient: HttpClient, private _sharedservice: SharedService) { }
   ngOnInit() {
     //this.httpClient.get('https://localhost:44302/' + 'api/OdCarts/' + sessionStorage.getItem("userid")).subscribe(
     //  (r: any) =>
@@ -49,13 +49,13 @@ export class cartComponent implements OnInit {
     //    }
     //});
 
-    this.httpClient.get('https://localhost:44302/' + 'api/OdCarts/' + sessionStorage.getItem("userid")).subscribe(
+    this.httpClient.get(this.prod_service.getUrl()  + 'api/OdCarts/' + sessionStorage.getItem("userid")).subscribe(
       (r: any) => {
 
         this.productAddedTocart = r;
 
         if (sessionStorage.getItem("ModelId") != null) {
-          this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("ModelId") + '/' + "cart").subscribe(
+          this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + sessionStorage.getItem("ModelId") + '/' + "cart").subscribe(
             (r: any) => {
               this.img_list = r;
             })

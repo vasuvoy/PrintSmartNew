@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { error } from '@angular/compiler/src/util';
 import { threadId } from 'worker_threads';
 import { Router } from '@angular/router';
+import { ProductService } from '../services/product.service';
 
 declare var $: any;
 declare var swal: any;
@@ -17,7 +18,7 @@ export class ForgotpasswordComponent implements OnInit {
   userdetails: User_Details[];
 
   userdetails_put: User_Details[];
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private prod_service: ProductService) { }
 
   ngOnInit() {
     $(document).ready(function () {
@@ -30,7 +31,7 @@ export class ForgotpasswordComponent implements OnInit {
     });
 
     //HTTPGET Request
-    this.http.get<secqus>('https://localhost:44302/' + 'api/Secqmasters').subscribe(
+    this.http.get<secqus>(this.prod_service.getUrl() + 'api/Secqmasters').subscribe(
       (res: any) => {
         //this.secq.push(res);
         this.secq = res;
@@ -53,7 +54,7 @@ export class ForgotpasswordComponent implements OnInit {
     }
 
     let user_name = $("#email").val();
-    this.http.get('https://localhost:44302/' + 'api/Userdetail/' + user_name).subscribe(
+    this.http.get(this.prod_service.getUrl() + 'api/Userdetail/' + user_name).subscribe(
       result => {
        // delete result[0]["secQid"];
         //delete result[0]["secQ"];
@@ -77,7 +78,7 @@ export class ForgotpasswordComponent implements OnInit {
           //  Isactive: 1, SecQid: 3, SecQa: null, DtCreate: null, DtModify: null
           //};
 
-          this.http.put('https://localhost:44302/' + 'api/Userdetail/' + user_name, userdetails_updated).subscribe(res => {
+          this.http.put(this.prod_service.getUrl() + 'api/Userdetail/' + user_name, userdetails_updated).subscribe(res => {
             alert("Password changed sucessfully");
             this.router.navigateByUrl('/Login');});
         }

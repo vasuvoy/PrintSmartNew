@@ -199,9 +199,57 @@
 
                     <ul class="dropdown-menu multi-column " *ngIf="x.productModel.length>0" >
      
-                        <div class="row" >
-                          <div style="column-count:2">
-                            <div *ngFor="let b of x.productModel" >
+                      <div class="row">
+                        <div *ngIf="x.productModel.length>2; else second" style="column-count:2">
+                          <div *ngFor="let b of x.productModel">
+
+                            <div>
+                              <div *ngFor="let c of b.prdmodel" >
+
+
+
+                                <ul class="multi-column-dropdown" *ngIf="c.l2isHeader==0; else ex">
+
+
+                                  <li style="font-size:small;color:black;" id="{{c.l2prodId}}">
+                                    <a href="#" [routerLink]="[c.l2routerLink]" (click)="subL2MenuhyperlinkClick($event)" id="{{c.l2prodId}}">{{c.l2prodDesc}}</a>
+                                  </li>
+
+
+                                </ul>
+                                <ng-template #ex>
+                                  <ul class="multi-column-dropdown">
+                                    <!--<div  >-->
+                                    <li style="font-size:small;color:black;width:230px">&nbsp;&nbsp;&nbsp;<strong>{{c.l2prodDesc}}</strong></li>
+                                    <ng-template #content>Pleasssss.</ng-template>
+                                    <ng-template #loggedOut>Please friend, login.</ng-template>
+                                    <div *ngFor="let d of c.testmodel" style="overflow-wrap:break-word;word-wrap: break-word;">
+
+                                      <div *ngFor="let e of d.testmodel" style="width:300px;overflow-wrap:break-word;word-wrap: break-word;">
+
+                                        <li id="{{e.L3ProdId}}">
+                                          <a href="#" [routerLink]="[e.RouterLink]" (click)="subMenuhyperlinkClick($event)" id="{{e.l3prodId}}">{{e.l3prodDesc}}</a>
+                                        </li>
+
+                                      </div>
+                                    </div>
+
+                                    <!--</div>  -->
+                                  </ul>
+                                </ng-template>
+
+                              </div>
+
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <!-- added on feb13 -->
+                        <ng-template #second>
+                          <div style="column-count:1">
+                            <div *ngFor="let b of x.productModel">
+
                               <div>
                                 <div *ngFor="let c of b.prdmodel">
 
@@ -213,7 +261,7 @@
                                     <li style="font-size:small;color:black;" id="{{c.l2prodId}}">
                                       <a href="#" [routerLink]="[c.l2routerLink]" (click)="subL2MenuhyperlinkClick($event)" id="{{c.l2prodId}}">{{c.l2prodDesc}}</a>
                                     </li>
-                            
+
 
                                   </ul>
                                   <ng-template #ex>
@@ -243,7 +291,7 @@
 
                             </div>
                           </div>
-                        
+                          </ng-template>
                       </div>
                     </ul>
         

@@ -5,6 +5,7 @@ import { getLocaleDateTimeFormat } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserdetailService } from '../services/userdetail.service';
 import { error } from 'protractor';
+import { ProductService } from '../services/product.service';
 
 
 //import { Userdetail } from 'StickyHeaderMainmenu/printsmart/Userdetail';
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit {
   test1: Array<any>;
   myAppUrl: string = "";
 
-  constructor(private httpClient: HttpClient, private router: Router, private _userdetailService: UserdetailService,
+  constructor(private httpClient: HttpClient, private prod_service: ProductService, private router: Router, private _userdetailService: UserdetailService,
     @Inject('BASE_URL') baseUrl: string) { this.myAppUrl = baseUrl; }
   ngOnInit() {
     $(function () {
@@ -32,7 +33,7 @@ export class RegisterComponent implements OnInit {
     
 
     //--------HTTPGET REQUEST--------
-    this.httpClient.get<secqus>('https://localhost:44302/' + 'api/Secqmasters').subscribe(
+    this.httpClient.get<secqus>(this.prod_service.getUrl() + 'api/Secqmasters').subscribe(
       (res:any) => {
         //this.secq.push(res);
         this.secq = res;
@@ -152,7 +153,7 @@ export class RegisterComponent implements OnInit {
       var n = Number(input);
       return n;
     }
-    this.httpClient.get<User_Details[]>('https://localhost:44302/' + 'api/Userdetail').subscribe(res => {
+    this.httpClient.get<User_Details[]>(this.prod_service.getUrl() + 'api/Userdetail').subscribe(res => {
       var email_exists = res.findIndex(em_exists => em_exists.email == $("#email")[0].value);
       if (email_exists == -1) {
         var test: User_Details = {
@@ -167,7 +168,7 @@ export class RegisterComponent implements OnInit {
         //   Isactive: null, SecQid: 3, SecQa: null, DtCreate: null, DtModify: null
         //};
 
-        this.httpClient.post('https://localhost:44302/' + 'api/Userdetail', test, { headers }).subscribe(res => {
+        this.httpClient.post(this.prod_service.getUrl() + 'api/Userdetail', test, { headers }).subscribe(res => {
           alert("Registration successfull"); this.router.navigateByUrl('/Login'); 
         });
         return false;
