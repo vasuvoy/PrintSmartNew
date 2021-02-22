@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
               if (user_name == email && pwd == password) {
                 //swal("Login success");
                 this.router.navigateByUrl('/');
-                sessionStorage.setItem("status_text", "Sign Out");
+                sessionStorage.setItem("status_text", "");
                 sessionStorage.setItem("changepwd", "Change Password");
                 sessionStorage.setItem("signouttext", "Sign Out");
                 this._sharedservice.loginSuccess("Sign Out");
