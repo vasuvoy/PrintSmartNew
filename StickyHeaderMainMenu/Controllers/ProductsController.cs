@@ -28,9 +28,9 @@ namespace StickyHeaderMainMenu.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<VwGetproductlist>>> GetProduct()
         {
-           // return await _context.Product.ToListAsync();
-            var login_record = _context.VwGetproductlist.FromSqlRaw("select * from vw_getproductlist").ToList();
-            return login_record;
+           return await _context.VwGetproductlist.ToListAsync();
+           // var login_record = _context.VwGetproductlist.FromSqlRaw("select * from vw_getproductlist").ToList();
+          //  return login_record;
         }
 
         // GET: api/Products/5

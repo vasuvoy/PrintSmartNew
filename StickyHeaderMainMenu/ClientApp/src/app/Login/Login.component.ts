@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
             }
             else {
               let userid = this.userdetails[0].userId;
+              localStorage.setItem('ex_username', this.userdetails[0].firstName);
               sessionStorage.setItem('user_name', this.userdetails[0].firstName);
               sessionStorage.setItem('userid', userid.toString());
              // localStorage.setItem('Name', this.userdetails[0].FirstName);

@@ -169,7 +169,7 @@ export class AppComponent implements OnInit {
 
 
     // localStorage.setItem('cart', null);
-
+    $("#ex_lbl").text(localStorage.getItem('ex_username'));
     this._sharedservice.currentMessage.subscribe(msg => this.cartItemCount = msg);
     this._sharedservice.loginMessage.subscribe(msg => this.login_text = sessionStorage.getItem('status_text'));
     this._sharedservice.UserName.subscribe(name => this.login_username = name);
