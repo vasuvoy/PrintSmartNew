@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
     let user_id = 0;
     let password = "";
     let email = "";
-    sessionStorage.setItem('emailid', user_name);
+    localStorage.setItem('emailid', user_name);
  
     if (user_name != "" && pwd != "") {
       this.httpClient.get<User_Details[]>(this.prod_service.getUrl()+ 'api/Userdetail/' + user_name).subscribe(
@@ -68,9 +68,9 @@ export class LoginComponent implements OnInit {
             }
             else {
               let userid = this.userdetails[0].userId;
-              localStorage.setItem('ex_username', this.userdetails[0].firstName);
-              sessionStorage.setItem('user_name', this.userdetails[0].firstName);
-              sessionStorage.setItem('userid', userid.toString());
+            //  localStorage.setItem('ex_username', this.userdetails[0].firstName);
+              localStorage.setItem('user_name', this.userdetails[0].firstName);
+              localStorage.setItem('userid', userid.toString());
              // localStorage.setItem('Name', this.userdetails[0].FirstName);
               user_id = this.userdetails[0].userId;
               password = this.userdetails[0].pwd;
@@ -78,17 +78,17 @@ export class LoginComponent implements OnInit {
               if (user_name == email && pwd == password) {
                 //swal("Login success");
                 this.router.navigateByUrl('/');
-                sessionStorage.setItem("status_text", "");
-                sessionStorage.setItem("changepwd", "Change Password");
-                sessionStorage.setItem("signouttext", "Sign Out");
+                localStorage.setItem("status_text", "");
+                localStorage.setItem("changepwd", "Change Password");
+                localStorage.setItem("signouttext", "Sign Out");
                 this._sharedservice.loginSuccess("Sign Out");
                 this._sharedservice.loginSuccessUsername(this.userdetails[0].firstName);
                 this._sharedservice.loginSuccesschangepwd("Change Password");
                 this._sharedservice.loginSuccesssignout("Sign Out");
-                if (sessionStorage.getItem('userid') != null) {
+                if (localStorage.getItem('userid') != null) {
                   var s = "appPage";
 
-                  this.httpClient.get(this.prod_service.getUrl()+ 'api/OdCarts/' + sessionStorage.getItem("userid")).subscribe(
+                  this.httpClient.get(this.prod_service.getUrl() + 'api/OdCarts/' + localStorage.getItem("userid")).subscribe(
                     (res: any) => {
                      // var numArr = [10, 20, 30, 40] // sums to value = 100
                       //var sum = 0;
@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
                       //  sum += res[i].quantity;
                       //}
                      // alert(sum);
-                      sessionStorage.setItem("cartcount", res.length);
+                      localStorage.setItem("cartcount", res.length);
                       this._sharedservice.updateCartCount(res.length);
 
                     });

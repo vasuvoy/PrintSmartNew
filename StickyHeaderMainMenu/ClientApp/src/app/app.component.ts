@@ -44,9 +44,12 @@ export class AppComponent implements OnInit {
   public groubedByTeam_l3 = [];
   public testmodel: testModel[] = [];
   public count = 0;
+
+
   constructor(private http: HttpClient,
     private _location: Location, private prod_service: ProductService,
     private router: Router, private _sharedservice: SharedService) {
+
     //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     //this.mySubscription = this.router.events.subscribe((event) => {
     //  if (event instanceof NavigationEnd) {
@@ -59,8 +62,13 @@ export class AppComponent implements OnInit {
   
   ngOnInit() {
 
-    if (sessionStorage.getItem("userid") == null) {
-      sessionStorage.setItem("status_text","Sign In");
+
+    window.onunload = () => {
+      // Clear the local storage
+      window.localStorage.clear()
+    }
+    if (localStorage.getItem("userid") == null) {
+      localStorage.setItem("status_text","Sign In");
     }
     //from db loading prod list dynamically
 
@@ -169,12 +177,12 @@ export class AppComponent implements OnInit {
 
 
     // localStorage.setItem('cart', null);
-    $("#ex_lbl").text(localStorage.getItem('ex_username'));
+  //  $("#ex_lbl").text(localStorage.getItem('ex_username'));
     this._sharedservice.currentMessage.subscribe(msg => this.cartItemCount = msg);
-    this._sharedservice.loginMessage.subscribe(msg => this.login_text = sessionStorage.getItem('status_text'));
+    this._sharedservice.loginMessage.subscribe(msg => this.login_text = localStorage.getItem('status_text'));
     this._sharedservice.UserName.subscribe(name => this.login_username = name);
-    this._sharedservice.changepwd.subscribe(changepwd => this.change_pwd = sessionStorage.getItem('changepwd'));
-    this._sharedservice.loginMessage_signout.subscribe(signout => this.signout_text = sessionStorage.getItem('signouttext'));
+    this._sharedservice.changepwd.subscribe(changepwd => this.change_pwd = localStorage.getItem('changepwd'));
+    this._sharedservice.loginMessage_signout.subscribe(signout => this.signout_text = localStorage.getItem('signouttext'));
     //function theFunction() {
 
     //  if (this.login_text == 'Sign Out') {
@@ -264,10 +272,11 @@ export class AppComponent implements OnInit {
   }
 
   signout() {
-    sessionStorage.removeItem("user_name");
-    sessionStorage.removeItem("changepwd");
-    sessionStorage.setItem("status_text", "Sign In");
-    sessionStorage.removeItem("signouttext");
+    localStorage.removeItem("user_name");
+    localStorage.removeItem("changepwd");
+    localStorage.setItem("status_text", "Sign In");
+    localStorage.removeItem("signouttext");
+    localStorage.removeItem("cartcount");
     this.router.navigateByUrl('/Login');
   }
 }

@@ -340,7 +340,7 @@ export class TshirtComponent implements OnInit {
       var n = Number(input);
       return n;
     }
-    if (sessionStorage.getItem("userid") != null) {
+    if (localStorage.getItem("userid") != null) {
 
       let n = stringtonum(size1);
 
@@ -359,7 +359,7 @@ export class TshirtComponent implements OnInit {
             Gender: gender_text,
             CustomContent: null,
             DimId: stringtonum(size1),
-            OrderedBy: stringtonum(sessionStorage.getItem('userid')),
+            OrderedBy: stringtonum(localStorage.getItem('userid')),
             DtCreate: null,
             DtModify: null,
             quantity: stringtonum(qty),
@@ -371,7 +371,7 @@ export class TshirtComponent implements OnInit {
           }];
 
           this.httpClient.post('https://localhost:44302/' + 'api/Orderdetails', this.products[0]).subscribe(res => { alert("post"); });
-          let d = stringtonum(sessionStorage.getItem("cartcount"));
+          let d = stringtonum(localStorage.getItem("cartcount"));
           this._sharedservice.updateCartCount(d + this.products.length);
           alert("product added to cart");
         }
@@ -385,7 +385,7 @@ export class TshirtComponent implements OnInit {
               Gender: gender_text,
               CustomContent: null,
               DimId: stringtonum(size1),
-              OrderedBy: stringtonum(sessionStorage.getItem('userid')),
+              OrderedBy: stringtonum(localStorage.getItem('userid')),
               DtCreate: null,
               DtModify: null,
               quantity: quantity,
@@ -395,7 +395,7 @@ export class TshirtComponent implements OnInit {
               discAmount: 0,
               itemPrice:500
             }];
-                   let d = stringtonum(sessionStorage.getItem("cartcount"));
+            let d = stringtonum(localStorage.getItem("cartcount"));
             this._sharedservice.updateCartCount(d + this.products.length);
           alert("product added to cart");
           }
@@ -408,7 +408,7 @@ export class TshirtComponent implements OnInit {
               Gender: gender_text,
               CustomContent: null,
               DimId: stringtonum(size1),
-              OrderedBy: stringtonum(sessionStorage.getItem('userid')),
+              OrderedBy: stringtonum(localStorage.getItem('userid')),
               DtCreate: null,
               DtModify: null,
               quantity: this.products1[0].quantity + quantity,
@@ -418,7 +418,7 @@ export class TshirtComponent implements OnInit {
               netAmount: 800,
               discAmount:0
             }];
-            let d = stringtonum(sessionStorage.getItem("cartcount"));
+            let d = stringtonum(localStorage.getItem("cartcount"));
             this._sharedservice.updateCartCount(d);
             alert("product added to cart");
           }
@@ -443,7 +443,7 @@ export class TshirtComponent implements OnInit {
       return n;
     }
 
-    if (sessionStorage.getItem("userid") != null) {
+    if (localStorage.getItem("userid") != null) {
       let n = stringtonum(size);
       n = 2;//remove on makimg dynamic
       var s = "l3menu";
@@ -462,7 +462,7 @@ export class TshirtComponent implements OnInit {
           Gender: gender_text,
           CustomContent: $("#img_tshirt_write")[0].innerHTML,
           DimId: n,//stringtonum(size),
-          OrderedBy: stringtonum(sessionStorage.getItem('userid')),
+          OrderedBy: stringtonum(localStorage.getItem('userid')),
           DtCreate: null,
           DtModify: null,
           quantity: stringtonum(qty),
@@ -485,7 +485,7 @@ export class TshirtComponent implements OnInit {
             Gender: gender_text,
             CustomContent: null,
             DimId: stringtonum(size),
-            OrderedBy: stringtonum(sessionStorage.getItem('userid')),
+            OrderedBy: stringtonum(localStorage.getItem('userid')),
             DtCreate: null,
             DtModify: null,
             quantity: quantity,
@@ -505,7 +505,7 @@ export class TshirtComponent implements OnInit {
             Gender: gender_text,
             CustomContent: null,
             DimId: stringtonum(size),
-            OrderedBy: stringtonum(sessionStorage.getItem('userid')),
+            OrderedBy: stringtonum(localStorage.getItem('userid')),
             DtCreate: null,
             DtModify: null,
             quantity: this.products1[0].quantity + quantity,
@@ -519,7 +519,7 @@ export class TshirtComponent implements OnInit {
 
         this.httpClient.put('https://localhost:44302/' + 'api/Orderdetails/' + this.products1[0].detailId, this.custom_text[0]).subscribe(res => { alert("put"); });
       }
-      let cartC = stringtonum(sessionStorage.getItem("cartcount"));
+      let cartC = stringtonum(localStorage.getItem("cartcount"));
       this._sharedservice.updateCartCount(cartC + this.custom_text.length);
      
     }

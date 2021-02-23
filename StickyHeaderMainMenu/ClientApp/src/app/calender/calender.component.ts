@@ -53,7 +53,7 @@ export class CalenderComponent implements OnInit {
   }
 
   AddToCart() {
-    if (sessionStorage.getItem("userid") != null) {
+    if (localStorage.getItem("userid") != null) {
       function stringtonum(input: string) {
         var n = Number(input);
         return n;
@@ -67,7 +67,7 @@ export class CalenderComponent implements OnInit {
 
           this.prod = this.prod_service.insertProduct(qty, detailid,300,0);
           this.httpClient.post(this.prod_service.getUrl()  + 'api/Orderdetails', this.prod[0]).subscribe(res => { alert("invi post"); });
-          let d = stringtonum(sessionStorage.getItem("cartcount"));
+          let d = stringtonum(localStorage.getItem("cartcount"));
           this._sharedservice.updateCartCount(d + this.prod.length);
         }
         else {
@@ -75,7 +75,7 @@ export class CalenderComponent implements OnInit {
           qty_update = this.products_get[0].quantity + stringtonum(qty);
           this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId,300,0);
           this.httpClient.put(this.prod_service.getUrl() + 'api/Orderdetails/' + this.products_get[0].detailId, this.prod[0]).subscribe(res => { alert("invi put"); });
-          let d = stringtonum(sessionStorage.getItem("cartcount"));
+          let d = stringtonum(localStorage.getItem("cartcount"));
           this._sharedservice.updateCartCount(d);
           alert("product added to cart");
         }
