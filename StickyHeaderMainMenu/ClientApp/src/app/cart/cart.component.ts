@@ -49,7 +49,7 @@ export class cartComponent implements OnInit {
     //    }
     //});
 
-    this.httpClient.get(this.prod_service.getUrl()  + 'api/OdCarts/' + sessionStorage.getItem("userid")).subscribe(
+    this.httpClient.get(this.prod_service.getUrl() + 'api/OdCarts/' + localStorage.getItem("userid")).subscribe(
       (r: any) => {
 
         this.productAddedTocart = r;
