@@ -220,10 +220,10 @@ export class AppComponent implements OnInit {
   //Sub menu hyperlink click event
   subMenuhyperlinkClick(e) {
     //location.reload();
-
+    sessionStorage.setItem("Prodl2Id", null);
     sessionStorage.setItem('Prodl3Id', e.target.id);
     //this.router.navigate([this.router.url])
-  // this.router.navigate(e.target.href);
+    this.router.navigate(e.target.href);
   
   }
 
@@ -231,9 +231,9 @@ export class AppComponent implements OnInit {
 
   subL2MenuhyperlinkClick(e) {
     // alert(e.target.innerText+e.target.id);
+    sessionStorage.setItem("Prodl3Id", null);
     sessionStorage.setItem('Prodl2Id', e.target.id);
-
-
+    this.router.navigate(e.target.href);
   }
 
   //main menu hyperlink click event

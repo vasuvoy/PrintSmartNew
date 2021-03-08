@@ -103,12 +103,18 @@ export class InvitationCardsComponent implements OnInit {
 
 
 
-    alert(this.prod_service.getUrl());
-
-    this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id")+'/'+"invi").subscribe
-      ((res: any) => {
-        this.img_list = res;
-      });
+    if (sessionStorage.getItem("Prodl3Id") != "null") {
+      this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id") + '/' + "invi").subscribe
+        ((res: any) => {
+          this.img_list = res;
+        });
+    }
+    else {
+      this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + sessionStorage.getItem("Prodl2Id") + '/' + "invi").subscribe
+        ((res: any) => {
+          this.img_list = res;
+        });
+    }
   }
 
   imgclick(e,f,g) {

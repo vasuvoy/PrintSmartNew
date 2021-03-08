@@ -6,7 +6,7 @@
 <body>
   <div id="div_invicards" style="width:500px !important;cursor:pointer">
     <div class="container" style="width:500px !important">
-      <div class="row" style="width:800px !important">
+      <div class="row" style="    width: 800px !important;height: 500px">
         <div *ngFor="let img of img_list">
           <div class="col-sm">
             <img id="img_Invicards" (click)="imgclick(img.modelId,img.modelLink,img.modelDesc)" src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <div class="container" id="innerdiv_invicards">
+  <div class="container" id="innerdiv_invicards" style="height:500px">
     <div class="row">
       <div class="col">
         <div id="div_img_cart">
