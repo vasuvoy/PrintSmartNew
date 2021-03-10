@@ -61,12 +61,6 @@ export class AppComponent implements OnInit {
 
   
   ngOnInit() {
-
-
-    window.onunload = () => {
-      // Clear the local storage
-      window.localStorage.clear()
-    }
     if (localStorage.getItem("userid") == null) {
       localStorage.setItem("status_text","Sign In");
     }
@@ -277,6 +271,7 @@ export class AppComponent implements OnInit {
     localStorage.setItem("status_text", "Sign In");
     localStorage.removeItem("signouttext");
     localStorage.removeItem("cartcount");
+    localStorage.removeItem("userid");
     this.router.navigateByUrl('/Login');
   }
 }

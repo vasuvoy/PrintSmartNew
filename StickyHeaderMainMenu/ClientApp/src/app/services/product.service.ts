@@ -17,8 +17,8 @@ export class ProductService {
   }
 
   public getUrl() {
-    //this.url = 'https://localhost:44302/';
-    this.url = "http://printsmart.in/";
+    this.url = 'https://localhost:44302/';
+    //this.url = "http://printsmart.in/";
     return this.url;
 }
 

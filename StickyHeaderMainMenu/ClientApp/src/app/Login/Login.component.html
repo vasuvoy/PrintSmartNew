@@ -26,7 +26,8 @@
                   <a href="#" style="float:right;font-size:12px;" id="forgotpwd" [routerLink]="['/forgotpassword']">Forgot password?</a>
                   <input type="password" class="form-control form-control-sm" name="pwd" id="pwd">
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" (click)="submit()" style="background-color:lightseagreen;border-color:lightseagreen">Sign in</button>
+                <button type="submit" id="signin" class="btn btn-primary btn-block" (click)="submit()" style="background-color:lightseagreen;border-color:lightseagreen">Sign in</button>
+                <br />
 
                 <div class="sign-up">
                   Don't have an account? <a href="#" [routerLink]="['/Register']" style="color:lightseagreen">Create One</a>
@@ -36,6 +37,11 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="alert alert-success" id="danger-alert" style="width:300px;margin:0 auto">
+      <button type="button" class="close" data-dismiss="alert">x</button>
+      <strong>  Incoreect Passowrd</strong>
     </div>
   </div>
 

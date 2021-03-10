@@ -1,7 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <style>
+    .qty .count {
+      color: #000;
+      display: inline-block;
+      vertical-align: top;
+      font-size: 20px;
+      font-weight: 200;
+      line-height: 27px;
+      padding: 0 3px;
+      min-width: 50px;
+      text-align: center;
+    }
 
+    .qty .plus {
+      cursor: pointer;
+      display: inline-block;
+      vertical-align: top;
+      color: white;
+      width: 24px;
+      height: 24px;
+      font: 24px/1 Arial,sans-serif;
+      text-align: center;
+      border-radius: 50%;
+    }
+
+    .qty .minus {
+      cursor: pointer;
+      display: inline-block;
+      vertical-align: top;
+      color: white;
+      width: 24px;
+      height: 24px;
+      font: 24px/1 Arial,sans-serif;
+      text-align: center;
+      border-radius: 50%;
+      background-clip: padding-box;
+    }
+
+    div {
+      text-align: center;
+    }
+
+    .minus:hover {
+      background-color: #717fe0 !important;
+    }
+
+    .plus:hover {
+      background-color: #717fe0 !important;
+    }
+    /*Prevent text selection*/
+    span {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    input {
+      border: none;
+      width: 2%;
+    }
+
+      nput::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input:disabled {
+        background-color: white;
+      }
+  </style>
 </head>
 <body>
   <div id="div_invicards" style="width:500px !important;cursor:pointer">
@@ -26,40 +96,59 @@
         </div>
       </div>
       <div class="col">
-        <br />
-        <label style="font:bold" id="lbl_desc"></label>
-        <br />
-        <br />
-        <select class="js-example-basic-single" id="ddl_Qty" style="width:150px">
-          <option value=""></option>
-          <option value="1">10</option>
-          <option value="2">20</option>
+        <table class="table">
+          <tbody>
+            <tr>
+              <td style="border:none"><label style="font:bold" id="lbl_desc"></label></td>
+            </tr>
 
-        </select>
-        <br />
-        <br />
-        <select class="js-example-basic-single" id="ddl_prodmat" style="width:150px">
-          <option value=""></option>
-        </select>
-        <br />
-        <br />
-        <select hidden class="js-example-basic-single" id="ddl_prodser" style="width:150px">
-          <option value=""></option>
-        </select>
-        <br />
-        <br />
-        <label style="font-size:15px">Selling Price</label>&nbsp;
-        <label style="font-size:15px" id="lbl_price"></label><br />
+            <tr>
+              <td style="width:150px;border:none"><label>Quantity</label></td>
+              <td style="border:none">
+                <div class="qty">
+                  <span class="minus bg-dark" id="spanminus">-</span>
+                  <input type="number" class="count" name="qty" value="1">
+                  <span class="plus bg-dark" id="spanplus">+</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:150px;border:none"><label>Material</label></td>
+              <td style="border:none">
+                <select class="js-example-basic-single" id="ddl_prodmat" style="width:150px">
+                  <option value=""></option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:150px;border:none"> <label style="font-size:15px">Selling Price</label>&nbsp;</td>
+              <td style="border:none"> <label style="font-size:15px" id="lbl_price"></label><br /></td>
+            <tr>
+              <td style="width:150px;border:none"> <label style="font-size:15px">Price</label>&nbsp;</td>
+              <td style="border:none">  <label style="font-size:15px" id="lbl_sellingprice"></label><span style="font-size: 15px" id="sp_disc"></span><br /></td>
+            </tr>
 
-        <label style="font-size:15px">Price</label>&nbsp;
-        <label style="font-size:15px" id="lbl_sellingprice"></label><span style="font-size:15px" id="sp_disc"></span><br />
+          </tbody>
+        </table>
+
         <!-- <label style="font:bold" id="lbl_disc"></label><br />-->
         <br />
         <button type="submit" class="btn btn-outline-success" (click)="AddToCart()" id="btn_AddtoCart"
                 style="background:lightseagreen;border-color:lightseagreen;color:white">
           Add to cart
         </button>
+
       </div>
+    </div>
+    <br />
+    <div class="alert alert-success" id="success-alert" style="width:300px;margin:0 auto">
+      <button type="button" class="close" data-dismiss="alert">x</button>
+      <strong>Product added to cart </strong>
+    </div>
+    <br />
+    <div class="alert alert-danger" id="danger-alert" style="width:200px;margin:0 auto">
+      <button type="button" class="close" data-dismiss="alert">x</button>
+      <strong>Please Login </strong>
     </div>
   </div>
 

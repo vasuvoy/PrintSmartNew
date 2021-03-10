@@ -38,6 +38,23 @@ export class InvitationCardsComponent implements OnInit {
   ngOnInit() {
 
     $(document).ready(function () {
+      $("#success-alert").hide();
+      $("#danger-alert").hide();
+      // $('.count').prop('disabled', false);
+      $("#spanminus").on('click', function () {
+        $('.count').val(parseInt($('.count').val()) - 1);
+        qty = $('.count').val();
+        if ($('.count').val() == 0) {
+          $('.count').val(1);
+        }
+      });
+      $("#spanplus").on('click', function () {
+        $('.count').val(parseInt($('.count').val()) + 1);
+        qty = $('.count').val();
+
+        });
+
+
       $("#innerdiv_invicards").hide();
       $("#ddl_prodser").hide();
       $('#ddl_Qty').select2({
@@ -119,6 +136,7 @@ export class InvitationCardsComponent implements OnInit {
 
   imgclick(e,f,g) {
     $("#div_invicards").hide();
+  
 
     function stringtonum(input: string) {
       var n = Number(input);
@@ -163,13 +181,15 @@ export class InvitationCardsComponent implements OnInit {
     sessionStorage.setItem('ModelId', e);
     this.httpClient.get(this.prod_service.getUrl()  + 'api/Pricedetails/' + e).subscribe((res: any) => {
       this.price_detail = res;
+      if (this.price_detail.length>0) {
       $("#lbl_price").text(this.price_detail[0].maxRetailPrice);
       $("#lbl_price").attr("style", "text-decoration:line-through");
       var numVal1 = this.price_detail[0].maxRetailPrice;
       var numVal2 = this.price_detail[0].percentDisc / 100;
       var totalValue = numVal1 - (numVal1 * numVal2);
       $("#sp_disc").text("("+this.price_detail[0].percentDisc + "%"+")");
-      $("#lbl_sellingprice").text(totalValue);
+        $("#lbl_sellingprice").text(totalValue);
+      }
      // document.getElementById("total").value = totalValue.toFixed(2);
     });
 
@@ -244,7 +264,12 @@ export class InvitationCardsComponent implements OnInit {
         //new product
         this.prod = this.prod_service.insertProduct(qty, detailid, stringtonum($("#lbl_price").text()), stringtonum($("#ddl_prodmat").val()));
 
-        this.httpClient.post(this.prod_service.getUrl() + 'api/Orderdetails', this.prod[0]).subscribe(res => { alert("invi post"); });
+        this.httpClient.post(this.prod_service.getUrl() + 'api/Orderdetails', this.prod[0]).subscribe(res => {
+          $("#success-alert").show();
+          $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#success-alert").slideUp(1000);
+          });
+        });
         let d = stringtonum(localStorage.getItem("cartcount"));
         this._sharedservice.updateCartCount(d + this.prod.length);
       }
@@ -253,14 +278,22 @@ export class InvitationCardsComponent implements OnInit {
         detailid = 1;
         qty_update = this.products_get[0].quantity + stringtonum(qty);
         this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId, stringtonum($("#lbl_price").text()), stringtonum($("#ddl_prodmat").text()));
-        this.httpClient.put(this.prod_service.getUrl()  + 'api/Orderdetails/' + this.products_get[0].detailId, this.prod[0]).subscribe(res => { alert("invi put"); });
+        this.httpClient.put(this.prod_service.getUrl()  + 'api/Orderdetails/' + this.products_get[0].detailId, this.prod[0]).subscribe(res => {  });
         let d = stringtonum(localStorage.getItem("cartcount"));
         this._sharedservice.updateCartCount(d);
-        alert("product added to cart");
+        $("#success-alert").show();
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+          $("#success-alert").slideUp(1000);
+        });
       }
       });
     }
-    else { alert("Please loginwwwwwlwl")}
+    else {
+      $("#danger-alert").show();
+      $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+        $("#danger-alert").slideUp(1000);
+      });
+    }
   }
 
 }

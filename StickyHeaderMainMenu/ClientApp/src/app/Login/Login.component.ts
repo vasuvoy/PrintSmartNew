@@ -26,6 +26,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     $(document).ready(function () {
+
+      $("#danger-alert").hide();
+  
+
       $("#loginform").validate({
         rules: {
           email: {
@@ -104,7 +108,10 @@ export class LoginComponent implements OnInit {
                 }
               }
               else {
-                swal("Incorrect Passowrd");
+                $("#danger-alert").show();
+                $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+                  $("#danger-alert").slideUp(1000);
+                });
                 }
             }
         });
