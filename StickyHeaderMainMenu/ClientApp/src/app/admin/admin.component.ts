@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Productmodel } from '../app.component';
 import { ProductService } from '../services/product.service';
+import { pricedetail } from '../entities/pricedetail.entity';
 
 
 declare var $: any;
@@ -12,6 +13,7 @@ let prodid_l3 = "";
 let prod_desc = "";
 let selected_filename = "";
 let modelfolder_name = "";
+let modelfolder_name01 = "";
 let model_count;
 let formData: FormData;
 let filename = "";
@@ -34,7 +36,7 @@ export class AdminComponent implements OnInit {
 
 
     $(document).ready(function () {
-   
+      $("#success-alert").hide();
 
       $('#ddl_prodl1').select2({
         closeOnSelect: true,
@@ -76,7 +78,8 @@ export class AdminComponent implements OnInit {
       prodid = $('#ddl_prodl1 :selected').val();
       p.forEach(g => {
         if (g.prodId == prodid) {
-          modelfolder_name = g.prodDesc
+          modelfolder_name01  = g.prodDesc;
+modelfolder_name =modelfolder_name01.replace("-","_");
         }
         if (g.parentId == prodid) {
           $('#ddl_prodl2').append('<option value="' + g.prodId + '">' +g.prodDesc + '</option>');
@@ -118,9 +121,12 @@ export class AdminComponent implements OnInit {
    // alert(this.selectedfile.name);
     const oldFileItem: File = event.target.files[0];
     if (prodid_l3 != "") {
+      var dt = new Date();
+      var time = dt.getHours() + "_" + dt.getMinutes() + "_" + dt.getSeconds() + "_" + dt.getMilliseconds();
+      var image_name = dt.getDate() + "_" + dt.getMonth() + "_" + dt.getFullYear() + "_" + time;
       this.http.get(this.prod_service.getUrl() + 'api/Productmodels/' + prodid_l3+'/'+"adminpage").subscribe((e: any) => {
-        model_count = e.length;
-        selected_filename = $("#modle_code")[0].value + '_' + model_count + '.jpg';// this.selectedfile.name;
+
+        selected_filename = $("#modle_code")[0].value + '_' + image_name + '.jpg';// this.selectedfile.name;
         // alert(selected_filename);
         const newFile: File = new File([event.target.files[0]], selected_filename, { type: oldFileItem.type });
         filename = newFile.name;
@@ -135,17 +141,18 @@ export class AdminComponent implements OnInit {
       });
     }
     else {
+      var dt = new Date();
+      var time = dt.getHours() + "_" + dt.getMinutes() + "_" + dt.getSeconds() + "_" + dt.getMilliseconds();
+      var image_name = dt.getDate() + "_" + dt.getMonth() + "_" + dt.getFullYear()+"_"+ time;
       this.http.get(this.prod_service.getUrl()  + 'api/Productmodels/' + prodid_l2 + '/' + "adminpage").subscribe((e: any) => {
-        model_count = e.length;
-        selected_filename = $("#modle_code")[0].value + '_' + model_count + '.jpg';// this.selectedfile.name;
-        // alert(selected_filename);
+
+        selected_filename = $("#modle_code")[0].value + '_' + image_name + '.jpg';// this.selectedfile.name;
         const newFile: File = new File([event.target.files[0]], selected_filename, { type: oldFileItem.type });
         filename = newFile.name;
         let formData: FormData = new FormData();
         formData.append('file', newFile, newFile.name);
         formData.append('folderName', modelfolder_name);
 
-        // let params = { 'formdata': formData, 'foldername': 'example' }
         this.http.post(this.prod_service.getUrl()  + 'api/FileUpload', formData).subscribe(e => { });
 
       });
@@ -168,17 +175,50 @@ export class AdminComponent implements OnInit {
       var n = Number(input);
       return n;
     }
-  
+
     if (prodid_l3 != "") {
       //inserting into prod model
       var test: Prod_model = { ProdId: stringtonum(prodid_l3), ModelCode: $("#modle_code")[0].value, ModelDesc: prod_desc, ModelLink: "assets/" + modelfolder_name + "/" + filename, DtCreate: null, DtModify: null, IsActive: 1 };
-      this.http.post(this.prod_service.getUrl()  + 'api/Productmodels', test).subscribe(e => { alert("Image Uploaded") });
+      this.http.post(this.prod_service.getUrl() + 'api/Productmodels', test).subscribe((e: any) => {
+        let dis_value = $("#dis").val();
+        let disc = dis_value / 100;
+        let sp = ($("#max_price")[0].value - ($("#max_price")[0].value * disc));
+
+        var price_detail: pricedetail = {
+          ModelId: e.modelId, maxRetailPrice: stringtonum($("#max_price")[0].value), percentDisc: stringtonum(dis_value), SellingPrice: sp,
+          DtEffectStart: null, DtEffectEnd: null, DtModify: null
+        }
+        this.http.post(this.prod_service.getUrl() + 'api/Pricedetails', price_detail).subscribe(e => {
+        });
+        $("#success-alert").show();
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+          $("#success-alert").slideUp(1000);
+        });
+      });
     }
     else {
       var test: Prod_model = { ProdId: stringtonum(prodid_l2), ModelCode: $("#modle_code")[0].value, ModelDesc: prod_desc, ModelLink: "assets/" + modelfolder_name + "/" + filename, DtCreate: null, DtModify: null, IsActive: 1 };
-      this.http.post(this.prod_service.getUrl()  + 'api/Productmodels', test).subscribe(e => { alert("Image Uploaded") });
+      this.http.post(this.prod_service.getUrl() + 'api/Productmodels', test).subscribe((e: any) => {
+        let dis_value = $("#dis").val();
+        let disc = dis_value / 100;
+        let sp = ($("#max_price")[0].value - ($("#max_price")[0].value * disc));
+        //alert(sp);
+        $("lbl_price").text(sp);
+        var price_detail: pricedetail = {
+          ModelId: e.modelId, maxRetailPrice: stringtonum($("#max_price")[0].value), percentDisc: stringtonum(dis_value), SellingPrice:sp,
+          DtEffectStart: null, DtEffectEnd: null, DtModify: null
+
+
+        }
+        this.http.post(this.prod_service.getUrl() + 'api/Pricedetails', price_detail).subscribe(e => {
+        });
+        $("#success-alert").show();
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+          $("#success-alert").slideUp(1000);
+        });
+      });
     }
-    }
+  }
  }
 
 export class ProductList {

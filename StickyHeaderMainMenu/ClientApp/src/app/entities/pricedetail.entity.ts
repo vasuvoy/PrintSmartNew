@@ -1,6 +1,6 @@
 export class pricedetail{
 
-  PriceDetId: number;
+  PriceDetId?: number;
   ModelId: number;
   maxRetailPrice: number;
   percentDisc: number;

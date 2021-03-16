@@ -68,14 +68,39 @@
                              (change)="OnFileSelect($event)">
                     </td>
                   </tr>
-
+                  <tr>
+                    <td><label class="lbl_style" for="text">Enter MRP</label></td>
+                    &nbsp;&nbsp;
+                    <td>
+                      <input class="e-input" id="max_price" style="width:150px" type="text" placeholder="Enter Price" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label class="lbl_style" for="text">Enter Discount</label></td>
+                    &nbsp;&nbsp;
+                    <td>
+                      <input class="e-input" id="dis" style="width:150px" type="text" placeholder="Enter Discount" />
+                    </td>
+                  </tr>
+                  <!--<tr>
+                    <td><label class="lbl_style">Price</label></td>
+                    &nbsp;&nbsp;
+                    <td>
+                      <label class="lbl_style" id="lbl_price"></label>
+                       
+                    </td>
+                  </tr>-->
                 </tbody>
               </table>
 
 
               <div class="col-md-6 offset-md-4">
                 <button class="btn btn-primary" type="button" (click)="save()">Save</button>
-                
+
+              </div>
+              <div class="alert alert-success" id="success-alert" style="width:300px;margin:0 auto">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>Image Uploaded</strong>
               </div>
             </form>
           </div>
@@ -83,8 +108,10 @@
         </div>
       </div>
     </div>
+    <br />
+  
   </div>
 
-  
+
 </body>
 </html>
