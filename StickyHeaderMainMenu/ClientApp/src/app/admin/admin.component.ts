@@ -36,8 +36,9 @@ export class AdminComponent implements OnInit {
 
 
     $(document).ready(function () {
+      $('#makeEditable').SetEditable();
       $("#success-alert").hide();
-
+      $("#disss").attr("readonly", true);
       $('#ddl_prodl1').select2({
         closeOnSelect: true,
         minimumResultsForSearch: -1,
@@ -219,6 +220,10 @@ modelfolder_name =modelfolder_name01.replace("-","_");
       });
     }
   }
+
+  btnedit() {
+    $("#disss").attr("readonly", false);
+    alert("edit");}
  }
 
 export class ProductList {
