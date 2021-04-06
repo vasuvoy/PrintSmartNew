@@ -63,6 +63,8 @@ namespace StickyHeaderMainMenu.Models
 
             modelBuilder.Entity<OdCart>().HasKey(e => e.DetailId)
                     .HasName("PRIMARY");
+            modelBuilder.Entity<EditPriceDetail>().HasKey(e => e.PriceDetId)
+                 .HasName("PRIMARY");
 
             modelBuilder.Entity<Productmaterial>(entity =>
             {
@@ -187,6 +189,10 @@ namespace StickyHeaderMainMenu.Models
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.Property(e => e.IsAdmin)
+              .HasColumnName("isAdmin")
+              .HasColumnType("tinyint(1)");
 
                 entity.Property(e => e.Isactive).HasColumnType("tinyint(1)");
 

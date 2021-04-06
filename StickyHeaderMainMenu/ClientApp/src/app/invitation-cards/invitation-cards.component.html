@@ -71,86 +71,122 @@
       input:disabled {
         background-color: white;
       }
+
+      /*anchor tag hover
+      */
+      a:hover{
+          text-decoration-color:red;
+          text-decoration:underline;
+      }
   </style>
 </head>
 <body>
-  <div id="div_invicards" style="width:500px !important;cursor:pointer">
-    <div class="container" style="width:500px !important">
-      <div class="row" style="    width: 800px !important;height: 500px">
-        <div *ngFor="let img of img_list">
-          <div class="col-sm">
-            <img id="img_Invicards" (click)="imgclick(img.modelId,img.modelLink,img.modelDesc)" src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
+  <div class="container">
+    <div class="row" style="text-align:justify">
+      <div class="col-sm">
+        <div class="container">
+          <div style="text-align:justify">
+            <a id="ahref1"></a>
+            <span>></span>
+            <a href="https://localhost:44302/invitation-cards" id="ahref2"></a>
           </div>
-          <br />
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="container" id="innerdiv_invicards" style="height:500px">
-    <div class="row">
-      <div class="col">
-        <div id="div_img_cart">
-          <img src="" id="img_selected_invicard" style="width:300px" alt="Los Angeles">
-        </div>
-      </div>
-      <div class="col">
-        <table class="table">
-          <tbody>
-            <tr>
-              <td style="border:none"><label style="font:bold" id="lbl_desc"></label></td>
-            </tr>
-
-            <tr>
-              <td style="width:150px;border:none"><label>Quantity</label></td>
-              <td style="border:none">
-                <div class="qty">
-                  <span class="minus bg-dark" id="spanminus">-</span>
-                  <input type="number" class="count" name="qty" value="1">
-                  <span class="plus bg-dark" id="spanplus">+</span>
+          <br/>
+          <div id="div_invicards" style="width:500px !important;cursor:pointer">
+            <div class="container" style="width:500px !important">
+              <div class="row" style="    width: 800px !important;height: 500px">
+                <div *ngFor="let img of img_list">
+                  <div class="col-sm">
+                    <img id="img_Invicards" (click)="imgclick(img.modelId,img.modelLink,img.modelDesc)" src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
+                  </div>
+                  <br />
                 </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="width:150px;border:none"><label>Material</label></td>
-              <td style="border:none">
-                <select class="js-example-basic-single" id="ddl_prodmat" style="width:150px">
-                  <option value=""></option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td style="width:150px;border:none"> <label style="font-size:15px">Selling Price</label>&nbsp;</td>
-              <td style="border:none"> <label style="font-size:15px" id="lbl_price"></label><br /></td>
-            <tr>
-              <td style="width:150px;border:none"> <label style="font-size:15px">Price</label>&nbsp;</td>
-              <td style="border:none">  <label style="font-size:15px" id="lbl_sellingprice"></label><span style="font-size: 15px" id="sp_disc"></span><br /></td>
-            </tr>
+              </div>
 
-          </tbody>
-        </table>
-
-        <!-- <label style="font:bold" id="lbl_disc"></label><br />-->
-        <br />
-        <button type="submit" class="btn btn-outline-success" (click)="AddToCart()" id="btn_AddtoCart"
-                style="background:lightseagreen;border-color:lightseagreen;color:white">
-          Add to cart
-        </button>
-
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <br />
-    <div class="alert alert-success" id="success-alert" style="width:300px;margin:0 auto">
-      <button type="button" class="close" data-dismiss="alert">x</button>
-      <strong>Product added to cart </strong>
-    </div>
-    <br />
-    <div class="alert alert-danger" id="danger-alert" style="width:200px;margin:0 auto">
-      <button type="button" class="close" data-dismiss="alert">x</button>
-      <strong>Please Login </strong>
-    </div>
   </div>
+
+          <!--<div id="div_invicards" style="width:500px !important;cursor:pointer">
+            <div class="container" style="width:500px !important">
+              <div class="row" style="    width: 800px !important;height: 500px">
+                <div *ngFor="let img of img_list">
+                  <div class="col-sm">
+                    <img id="img_Invicards" (click)="imgclick(img.modelId,img.modelLink,img.modelDesc)" src="{{img.modelLink}}" style="border:1px solid;width:230px" alt="Los Angeles">
+                  </div>
+                  <br />
+                </div>
+              </div>
+
+            </div>
+          </div>-->
+
+          <div class="container" id="innerdiv_invicards" style="height:500px">
+            <div class="row">
+              <div class="col">
+                <div id="div_img_cart">
+                  <img src="" id="img_selected_invicard" style="width:300px" alt="Los Angeles">
+                </div>
+              </div>
+              <div class="col">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td style="border:none"><label style="font:bold" id="lbl_desc"></label></td>
+                    </tr>
+
+                    <tr>
+                      <td style="width:150px;border:none"><label>Quantity</label></td>
+                      <td style="border:none">
+                        <div class="qty">
+                          <span class="minus bg-dark" id="spanminus">-</span>
+                          <input type="number" class="count" name="qty" value="1">
+                          <span class="plus bg-dark" id="spanplus">+</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:150px;border:none"><label>Material</label></td>
+                      <td style="border:none">
+                        <select class="js-example-basic-single" id="ddl_prodmat" style="width:150px">
+                          <option value=""></option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:150px;border:none"> <label style="font-size:15px">MRP</label>&nbsp;</td>
+                      <td style="border:none"> <label style="font-size:15px" id="lbl_price"></label><br /></td>
+                    <tr>
+                      <td style="width:150px;border:none"> <label style="font-size:15px">Price</label>&nbsp;</td>
+                      <td style="border:none">  <label style="font-size:15px" id="lbl_sellingprice"></label><span style="font-size: 15px" id="sp_disc"></span><br /></td>
+                    </tr>
+
+                  </tbody>
+                </table>
+
+                <!-- <label style="font:bold" id="lbl_disc"></label><br />-->
+                <br />
+                <button type="submit" class="btn btn-outline-success" (click)="AddToCart()" id="btn_AddtoCart"
+                        style="background:lightseagreen;border-color:lightseagreen;color:white">
+                  Add to cart
+                </button>
+
+              </div>
+            </div>
+            <br />
+            <div class="alert alert-success" id="success-alert" style="width:300px;margin:0 auto">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              <strong>Product added to cart </strong>
+            </div>
+            <br />
+            <div class="alert alert-danger" id="danger-alert" style="width:200px;margin:0 auto">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              <strong>Please Login </strong>
+            </div>
+          </div>
+
 
 </body>
 </html>

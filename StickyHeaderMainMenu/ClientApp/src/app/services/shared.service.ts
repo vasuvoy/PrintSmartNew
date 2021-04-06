@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ReturnStatement } from '@angular/compiler';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class SharedService {
+
 
   private CurrentCartCount = new BehaviorSubject(stringtonum(localStorage.getItem("cartcount")));
 
@@ -27,7 +29,10 @@ export class SharedService {
   private login_success_signout = new BehaviorSubject('');
   loginMessage_signout = this.login_success_signout.asObservable();
 
-  constructor() { }
+  private IsAdmin_res = new BehaviorSubject(localStorage.getItem("IsAdmin"));
+  IsAdmin_res_service = this.IsAdmin_res.asObservable();
+
+  constructor(private router: Router) { }
     updateCartCount(count: number){
       this.CurrentCartCount.next(count);
   }
@@ -50,6 +55,12 @@ export class SharedService {
 
   loginSuccesschangepwd(success: any) {
     this.login_success_changepwd.next(success);
+  }
+
+  IsAdminresservice(success: any) {
+ 
+    //  this.router.navigateByUrl('/');
+    this.IsAdmin_res.next(success);
   }
 }
 

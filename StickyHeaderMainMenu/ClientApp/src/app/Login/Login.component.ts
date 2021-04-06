@@ -79,9 +79,17 @@ export class LoginComponent implements OnInit {
               user_id = this.userdetails[0].userId;
               password = this.userdetails[0].pwd;
               email = this.userdetails[0].email;
+              let isadmin = this.userdetails[0].isAdmin;
               if (user_name == email && pwd == password) {
+                if (isadmin == "1") {
+                  this._sharedservice.IsAdminresservice("Admin");
+                  localStorage.setItem("IsAdmin","Admin");
+                }
                 //swal("Login success");
+               // window.location.reload();
                 this.router.navigateByUrl('/');
+                //this.router.navigateByUrl(this.prod_service.getUrl());
+
                 localStorage.setItem("status_text", "");
                 localStorage.setItem("changepwd", "Change Password");
                 localStorage.setItem("signouttext", "Sign Out");
@@ -106,6 +114,7 @@ export class LoginComponent implements OnInit {
                     });
 
                 }
+
               }
               else {
                 $("#danger-alert").show();
@@ -135,4 +144,5 @@ export interface User_Details {
   SecQa: string;
   DtCreate: null;
   DtModify: null;
+  isAdmin: string;
 }

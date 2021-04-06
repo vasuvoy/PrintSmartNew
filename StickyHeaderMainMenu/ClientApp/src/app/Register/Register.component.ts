@@ -159,7 +159,8 @@ export class RegisterComponent implements OnInit {
         var test: User_Details = {
           FirstName: $("#firstname")[0].value, LastName: $("#lastname")[0].value,
           email: $("#email")[0].value, Dob: $("#DOB")[0].value, Pwd: $("#pwd")[0].value, Telephone: $("#Phonenum")[0].value,
-          Isactive: 1, SecQid: secqid, SecQa: $("#ans")[0].value, DtCreate: null, DtModify: null
+          Isactive: 1, SecQid: secqid, SecQa: $("#ans")[0].value, DtCreate: null, DtModify: null, isAdmin: null
+
         };
 
         // var test: User_Details = {
@@ -195,6 +196,7 @@ export interface User_Details {
   SecQa: string;
   DtCreate: null;
   DtModify: null;
+  isAdmin: number;
 }
 
 export class secqus {

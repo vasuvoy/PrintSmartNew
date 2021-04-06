@@ -23,6 +23,7 @@ namespace StickyHeaderMainMenu.Models
         public DateTime? DtCreate { get; set; }
         public DateTime? DtModify { get; set; }
 
+        public byte? IsAdmin { get; set; }
         public virtual Secqmaster SecQ { get; set; }
         public virtual ICollection<Useraddress> Useraddress { get; set; }
     }

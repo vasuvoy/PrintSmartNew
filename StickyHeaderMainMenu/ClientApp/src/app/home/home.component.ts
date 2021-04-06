@@ -38,8 +38,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     
     $(document).ready(function () {
-      
-
+   
       $('.carousel').carousel({
         
       })

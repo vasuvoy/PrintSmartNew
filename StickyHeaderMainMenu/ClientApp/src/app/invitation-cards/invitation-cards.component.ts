@@ -7,6 +7,7 @@ import { SharedService } from '../services/shared.service';
 import { pricedetail } from '../entities/pricedetail.entity';
 import { Configuration } from 'jasmine-spec-reporter/built/configuration';
 import { LoginService } from '../services/login.service';
+import { isDevMode } from '@angular/core';
 
 declare var $: any;
 let qty: any;
@@ -40,6 +41,14 @@ export class InvitationCardsComponent implements OnInit {
     $(document).ready(function () {
       $("#success-alert").hide();
       $("#danger-alert").hide();
+
+      //nav link
+      $("#ahref1").text(localStorage.getItem('Prod_name'));
+      $("#ahref2").text(sessionStorage.getItem('Prodl2_name'));
+
+      $("#ahref2").click(function () {
+        $("#div_invicards").show();
+      }); 
       // $('.count').prop('disabled', false);
       $("#spanminus").on('click', function () {
         $('.count').val(parseInt($('.count').val()) - 1);
@@ -145,17 +154,25 @@ export class InvitationCardsComponent implements OnInit {
     if (sessionStorage.getItem("Prodl3Id") != null) {
       levelid = stringtonum(sessionStorage.getItem("Prodl3Id"));
     }
-    else
+    else {
       levelid = stringtonum(sessionStorage.getItem("Prodl2Id"));
+    }
     this.httpClient.get(this.prod_service.getUrl()  + 'api/Productmaterials/' + levelid).subscribe
       ((res: any) => {
-       // this.prod_mat = res;
-        res.forEach(e => {
+        if (res.length > 0) {
+          // this.prod_mat = res;
+          res.forEach(e => {
 
-          var ddl_prodoption = new Option(e.matDescription, e.matId, false, false);
+            var ddl_prodoption = new Option(e.matDescription, e.matId, false, false);
 
-          $('#ddl_prodmat').append(ddl_prodoption).trigger('change');
-        });
+            $('#ddl_prodmat').append(ddl_prodoption).trigger('change');
+         
+          
+          });
+        }
+        else {
+          $('#ddl_prodmat').hide();
+        }
         //this.prod_mat..forEach(e => {
         //  var newOption_gender = new Option(e.gender, e.gender, false, false);
         //  $('#ddl_gender').append(newOption_gender).trigger('change');
@@ -169,10 +186,18 @@ export class InvitationCardsComponent implements OnInit {
       ((r: any) => {
         if (r.length == 0)
           $("#ddl_prodser").hide();
-        else
-           $("#ddl_prodser").show();
+        else {
+          $("#ddl_prodser").show();
+
+          r.forEach(e => {
+
+            var ddl_prodSeroption = new Option(e.servDescription, e.servId, false, false);
+
+            $('#ddl_prodser').append(ddl_prodSeroption).trigger('change');
+
+          });
+        }
       });
-   
 
   //  $("#div_invicards").hide();
     $("#innerdiv_invicards").show();
@@ -296,6 +321,10 @@ export class InvitationCardsComponent implements OnInit {
     }
   }
 
+  hrefclick() {
+    false;
+    alert("xbfdshfhds");
+  }
 }
 
 //export class img_position {

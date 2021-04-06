@@ -12,10 +12,13 @@
 <body>
 
   <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" id="div_outer_admin">
       <div class="col-md-8">
-        <div class="card">
-          <div class="card-header" style="color:lightseagreen;font-size:medium"><b>Admin</b></div>
+        <div class="card" id="card_create">
+          <div class="card-header" style="color:lightseagreen;font-size:medium">
+            <b>Create Model</b>
+
+          </div>
           <div class="card-body">
             <form id="Admin" action="" method="post">
 
@@ -59,6 +62,13 @@
                     </td>
                   </tr>
                   <tr>
+                    <td><label class="lbl_style" for="text">Enter Model Description</label></td>
+                    &nbsp;&nbsp;
+                    <td>
+                      <input class="e-input" id="modle_desc" style="width:150px" type="text" placeholder="Enter Model Description" />
+                    </td>
+                  </tr>
+                  <tr>
                     <td><label class="lbl_style" for="text">Select Image</label></td>
                     &nbsp;&nbsp;
                     <td>
@@ -83,100 +93,152 @@
                     </td>
                   </tr>
                   <!--<tr>
-                  <td><label class="lbl_style">Price</label></td>
-                  &nbsp;&nbsp;
-                  <td>
-                    <label class="lbl_style" id="lbl_price"></label>
+          <td><label class="lbl_style">Price</label></td>
+          &nbsp;&nbsp;
+          <td>
+            <label class="lbl_style" id="lbl_price"></label>
 
-                  </td>
-                </tr>-->
+          </td>
+        </tr>-->
                 </tbody>
               </table>
 
 
               <div class="col-md-6 offset-md-4">
                 <button class="btn btn-primary" type="button" (click)="save()">Save</button>
-
+              </div>
+              <br />
+              <br />
+              <div class="col-md-6 offset-md-4">
+                <button class="btn btn-primary" type="button" (click)="edit()">Edit Model</button>
               </div>
               <div class="alert alert-success" id="success-alert" style="width:300px;margin:0 auto">
                 <button type="button" class="close" data-dismiss="alert">x</button>
                 <strong>Image Uploaded</strong>
               </div>
-            </form>
-          </div>
 
+            </form>
+            
+          </div>
+ 
+          <br/>
+        </div>
+
+        <div class="card" id="card_edit">
+          <div class="card-header" style="color:lightseagreen;font-size:medium">
+            <b>Edit Model</b>
+
+          </div>
+          <table class="table borderless" id="tbl_edit">
+            <tbody>
+              <tr>
+                <td><label class="lbl_style" for="ddl_prodl1_edit">Select Product</label></td>
+                &nbsp;
+                <td>
+                  <select class="js-example-basic-single" id="ddl_prodl1_edit" style="width:150px">
+                    <option></option>
+
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label class="lbl_style" for="ddl_prodl2_edit">Select Product Header</label></td>
+                &nbsp;&nbsp;
+                <td>
+                  <select class="js-example-basic-single" id="ddl_prodl2_edit" style="width:150px">
+                    <option></option>
+
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label class="lbl_style" for="ddl_prodl3_edit">Select Sub-Product</label></td>
+                &nbsp;&nbsp;
+                <td>
+                  <select class="js-example-basic-single" id="ddl_prodl3_edit" style="width:150px">
+                    <option></option>
+
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+          <div class="col-md-6 offset-md-4">
+            <button class="btn btn-primary" type="button" id="btn_edit_submit" (click)="submit()">submit</button>
+          </div>
         </div>
       </div>
     </div>
 
-    <table id="makeEditable" class="table table-bordered table-striped table-hover table-condensed table-responsive">
-      <thead>
+    <div style="padding-left:155px">
+
+    <br />
+
+    <table id="makeEditable" style="height:200px;overflow-y:scroll;width:725px"
+           class="table table-bordered table-striped table-hover table-condensed table-responsive">
+      <thead style="background-color:lightseagreen">
         <tr>
-          <th>
-            Full Name
+          <th></th>
+          <th hidden="hidden">
+            detId
+          </th>
+          <th hidden="hidden">
+            MOdelID
           </th>
           <th>
-            WebSite
+            MRP
           </th>
           <th>
-            Contact No
+            DIS
           </th>
           <th>
-            Edit
+            SP
+          </th>
+          <th hidden="hidden">
+            ModelLink
+          </th>
+          <th>
+            Model Description
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>
-            <input class="e-input" id="disss" style="width:150px" type="text" placeholder="Enter Discount" />
+        <tr *ngFor="let price_dt of price_detail;let i=index">
+          <td><img src="{{price_dt.modelLink}}" style="height:50px;width:50px" /></td>
+          <td hidden="hidden">
+            {{price_dt.priceDetId}}
+          </td>
+          <td hidden="hidden">
+            {{price_dt.modelId}}
           </td>
           <td>
-            http://john-m.com
+            <input class="edit" style="width:150px" type="text" id="txtmrp" disabled="disabled" placeholder="{{price_dt.maxRetailPrice}}" value="{{price_dt.maxRetailPrice}}" />
           </td>
           <td>
-            9876543210
+            <input class="edit" style="width:150px" type="text" id="txtdis" disabled="disabled" value="{{price_dt.percentDisc}}" placeholder="{{price_dt.percentDisc}}" />
           </td>
           <td>
-            <button id="btnedit" (click)="btnedit()"><i class="fa fa-edit "></i></button>
+            {{price_dt.sellingPrice}}
           </td>
-        </tr>
-        <tr>
-          <td>
-            Ariana Smith
-          </td>
-          <td>
-            https://araiana-smith.com
-          </td>
-          <td>
-            1234567890
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Silver Bourne
-          </td>
-          <td>
-            https://silver-bourne.com
-          </td>
-          <td>
-            988889888
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Rahul Ray
-          </td>
-          <td>
-            https://rahul-ray.com
-          </td>
-          <td>
-            9797979797
-          </td>
-        </tr>
+          <td hidden="hidden">
+            {{price_dt.modelLink}}
 
+          </td>
+          <td>
+            {{price_dt.modelDesc}}
+
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary" id="btn_row" (click)="btn_row_click(price_dt,i)">Edit</button>
+            <span class="btn_save" id="spn_save"> <button type="button" class="" hidden="hidden" (click)="btn_newsave(i)"> Save</button> </span>
+            &nbsp;<span class="btn_cancel" id="spn_cancel"> <button type="button" class="btncancel" hidden="hidden" (click)="btn_newcancel(i)"> Cancel</button></span>
+          </td>
+        </tr>
       </tbody>
     </table>
+
+    </div>  
     <br />
 
   </div>

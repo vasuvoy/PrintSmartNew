@@ -41,6 +41,24 @@ namespace StickyHeaderMainMenu.Controllers
             return pricedetail;
         }
 
+        [HttpGet("{page}/{id}")]
+        public async Task<ActionResult<IEnumerable<EditPriceDetail>>> GetPricedetail(string page,int id)
+        {
+            var pricedetail = new List<StickyHeaderMainMenu.Models.EditPriceDetail>();
+            if (page == "edit_page")
+            {
+                pricedetail = _context.Set<EditPriceDetail>().FromSqlRaw("CALL GetPriceDetail" + "(" + id + ")").ToList();
+            }
+           // var pricedetail = await _context.Pricedetail.Where(e => e.ModelId == id).ToListAsync();
+
+            if (pricedetail == null)
+            {
+                return NotFound();
+            }
+
+            return pricedetail;
+        }
+
         // PUT: api/Pricedetails/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

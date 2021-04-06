@@ -22,16 +22,20 @@ namespace StickyHeaderMainMenu.Controllers
         }
 
         [HttpPost]
-        public void Post([FromForm(Name = "file")]IFormFile objectfile,[FromForm(Name="folderName")]String foldername)
+        public void Post([FromForm(Name = "file")]IFormFile objectfile,[FromForm(Name="folderName")]String foldername, [FromForm(Name = "mode")]String mode)
         {
             string path = "";
             try
             {
-                // if (objectfile..Length > 0)
-                // {
-        
-                path = _webHostEnvironment.ContentRootPath + '\\' + "ClientApp" + '\\' + "src" + '\\' + "assets" + '\\'+foldername + '\\';
-                //  }
+
+                if (mode == "prod")
+                {
+                    path = _webHostEnvironment.ContentRootPath + '/' + "ClientApp" + '/' + "dist" + '/' + "assets" + '/' + foldername + '/';
+                }
+                else
+                {
+                    path = _webHostEnvironment.ContentRootPath + '\\' + "ClientApp" + '\\' + "src" + '\\' + "assets" + '\\' + foldername + '\\';
+                }
                 if (!Directory.Exists(path))
                 {
                     //If Directory (Folder) does not exists. Create it.
@@ -39,6 +43,7 @@ namespace StickyHeaderMainMenu.Controllers
                 }
                 using (FileStream fs = System.IO.File.Create(path + objectfile.FileName))
                 {
+                   
                     // var s= HttpContext.Session.Get("folder");
                     objectfile.CopyTo(fs);
                     fs.Flush();
@@ -50,6 +55,7 @@ namespace StickyHeaderMainMenu.Controllers
                 throw e;
 
             }
+
         }
 
 

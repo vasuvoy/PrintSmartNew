@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
   signout_text = "";
   isheader = " ";
   mySubscription;
+  isadmin_result = "";
   //public products: Product[];
   public prodlist: Product_list[] = [];
   public prodlist_main: mainmodel[] = [];
@@ -61,6 +62,8 @@ export class AppComponent implements OnInit {
 
   
   ngOnInit() {
+    //admin li item
+   
     if (localStorage.getItem("userid") == null) {
       localStorage.setItem("status_text","Sign In");
     }
@@ -177,6 +180,19 @@ export class AppComponent implements OnInit {
     this._sharedservice.UserName.subscribe(name => this.login_username = name);
     this._sharedservice.changepwd.subscribe(changepwd => this.change_pwd = localStorage.getItem('changepwd'));
     this._sharedservice.loginMessage_signout.subscribe(signout => this.signout_text = localStorage.getItem('signouttext'));
+    this._sharedservice.IsAdmin_res_service.subscribe(r => {
+      this.isadmin_result = r;
+      if (this.isadmin_result == "Admin") {
+        $("#liAdmin")[0].hidden = false;
+        $("#lispaceAdmin")[0].hidden = false;
+      }
+      else {
+       // $("#liAdmin")[0].hidden = true;
+      //  $("#lispaceAdmin")[0].hidden = true;
+
+
+      }
+    })
     //function theFunction() {
 
     //  if (this.login_text == 'Sign Out') {
@@ -216,6 +232,7 @@ export class AppComponent implements OnInit {
     //location.reload();
     sessionStorage.setItem("Prodl2Id", null);
     sessionStorage.setItem('Prodl3Id', e.target.id);
+    sessionStorage.setItem('Prodl2_name', e.target.innerText);
     //this.router.navigate([this.router.url])
     this.router.navigate(e.target.href);
   
@@ -227,6 +244,7 @@ export class AppComponent implements OnInit {
     // alert(e.target.innerText+e.target.id);
     sessionStorage.setItem("Prodl3Id", null);
     sessionStorage.setItem('Prodl2Id', e.target.id);
+    sessionStorage.setItem('Prodl2_name', e.target.innerText);
     this.router.navigate(e.target.href);
   }
 
@@ -234,6 +252,7 @@ export class AppComponent implements OnInit {
   MainMenuhyperlinkClick(e) {
 
     sessionStorage.setItem('ProdId', e.target.id);
+    localStorage.setItem('Prod_name', e.target.innerText);
   }
   isExpanded = false;
 
@@ -272,6 +291,8 @@ export class AppComponent implements OnInit {
     localStorage.removeItem("signouttext");
     localStorage.removeItem("cartcount");
     localStorage.removeItem("userid");
+    localStorage.removeItem("IsAdmin");
+    this._sharedservice.IsAdminresservice("");
     this.router.navigateByUrl('/Login');
   }
 }
