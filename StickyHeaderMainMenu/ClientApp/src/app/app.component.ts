@@ -3,7 +3,7 @@ import { Component, OnInit, HostListener  } from '@angular/core';
 import { ProductService } from './services/product.service';
 import { SharedService } from './services/shared.service';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpUrlEncodingCodec } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -18,6 +18,10 @@ let count: number;
   providers: [ProductService]
 })
 export class AppComponent implements OnInit {
+
+  //url = `/project/${encodeURIComponent('R&D Some Other Text')}`;
+  //dashboardUrl = '/dashboard/?isopen=true&name=' + name;
+
   navigationSubscription;
   cartItemCount: number = 0;
   login_text: string = "Sign In";
@@ -63,9 +67,9 @@ export class AppComponent implements OnInit {
   
   ngOnInit() {
     //admin li item
-   
+
     if (localStorage.getItem("userid") == null) {
-      localStorage.setItem("status_text","Sign In");
+      localStorage.setItem("status_text", "Sign In");
     }
     //from db loading prod list dynamically
 
@@ -113,8 +117,8 @@ export class AppComponent implements OnInit {
 
           var output = [];
 
-         
-            for (let key in this.groubedByTeam_l2) {
+
+          for (let key in this.groubedByTeam_l2) {
 
             if (count == 0) {
               //  if (this.groubedByTeam_l2[key].length == 1) {
@@ -174,12 +178,31 @@ export class AppComponent implements OnInit {
 
 
     // localStorage.setItem('cart', null);
-  //  $("#ex_lbl").text(localStorage.getItem('ex_username'));
+    //  $("#ex_lbl").text(localStorage.getItem('ex_username'));
     this._sharedservice.currentMessage.subscribe(msg => this.cartItemCount = msg);
     this._sharedservice.loginMessage.subscribe(msg => this.login_text = localStorage.getItem('status_text'));
-    this._sharedservice.UserName.subscribe(name => this.login_username = name);
-    this._sharedservice.changepwd.subscribe(changepwd => this.change_pwd = localStorage.getItem('changepwd'));
-    this._sharedservice.loginMessage_signout.subscribe(signout => this.signout_text = localStorage.getItem('signouttext'));
+    this._sharedservice.UserName.subscribe(name => {
+      if (localStorage.getItem('user_name') != null) {
+        this.login_username = name
+      }
+
+    });
+    this._sharedservice.changepwd.subscribe(changepwd => { 
+      if (localStorage.getItem('changepwd') != null) {
+        this.change_pwd = localStorage.getItem('changepwd');
+        $("#changePwd")[0].hidden = false;
+      }
+      else
+        $("#changePwd")[0].hidden = true;
+  });
+    this._sharedservice.loginMessage_signout.subscribe(signout => {
+      if (localStorage.getItem('signouttext') != null) {
+        this.signout_text = localStorage.getItem('signouttext');
+        $("#signout")[0].hidden = false;
+      }
+      else
+        $("#signout")[0].hidden = true;
+    });
     this._sharedservice.IsAdmin_res_service.subscribe(r => {
       this.isadmin_result = r;
       if (this.isadmin_result == "Admin") {
@@ -268,6 +291,7 @@ export class AppComponent implements OnInit {
   
      myaccount() {
        if (this.login_text == 'Sign In') {
+
          this.router.navigateByUrl('/Login');
        }
        else {

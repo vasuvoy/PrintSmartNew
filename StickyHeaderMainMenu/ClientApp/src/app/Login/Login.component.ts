@@ -18,6 +18,8 @@ declare var swal: any;
 
 
 export class LoginComponent implements OnInit {
+
+
   userdetails: User_Details[];
   cartItemCount: number = 0;
   constructor(private user_service: LoginService,
@@ -72,15 +74,17 @@ export class LoginComponent implements OnInit {
             }
             else {
               let userid = this.userdetails[0].userId;
-            //  localStorage.setItem('ex_username', this.userdetails[0].firstName);
-              localStorage.setItem('user_name', this.userdetails[0].firstName);
-              localStorage.setItem('userid', userid.toString());
-             // localStorage.setItem('Name', this.userdetails[0].FirstName);
+              //  localStorage.setItem('ex_username', this.userdetails[0].firstName);
+
+              // localStorage.setItem('Name', this.userdetails[0].FirstName);
               user_id = this.userdetails[0].userId;
               password = this.userdetails[0].pwd;
               email = this.userdetails[0].email;
               let isadmin = this.userdetails[0].isAdmin;
               if (user_name == email && pwd == password) {
+    
+                localStorage.setItem('user_name', this.userdetails[0].firstName);
+                localStorage.setItem('userid', userid.toString());
                 if (isadmin == "1") {
                   this._sharedservice.IsAdminresservice("Admin");
                   localStorage.setItem("IsAdmin","Admin");
