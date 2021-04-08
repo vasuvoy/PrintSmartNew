@@ -17,109 +17,118 @@
           <div class="card-body">
             <form id="registration" action="" method="post">
 
-                <table class="table borderless">
-                  <tbody>
-                    <tr>
-                      <td style="width:150px">
-                        <label class="lbl_style" for="firstname">First Name:</label><span style="color:red">*</span>&nbsp;
-                      </td>
-                      <td>
-                        <input class="form-control" name="firstname" id="firstname" style="width: 220px " type="text" required />
+              <table class="table borderless">
+                <tbody>
+                  <tr>
+                    <td style="width:150px">
+                      <label class="lbl_style" for="firstname">First Name:</label><span style="color:red">*</span>&nbsp;
+                    </td>
+                    <td>
+                      <input class="form-control" name="firstname" id="firstname" style="width: 220px " type="text" required />
 
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="width:150px">
-                        <label class="lbl_style" for="lastname">Last Name:</label><span style="color:red">*</span>&nbsp;
-                      </td>
-                      <td>
-                        <input class="form-control " name="lastname" id="lastname" style="width: 220px " type="text" required />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:150px">
+                      <label class="lbl_style" for="lastname">Last Name:</label><span style="color:red">*</span>&nbsp;
+                    </td>
+                    <td>
+                      <input class="form-control " name="lastname" id="lastname" style="width: 220px " type="text" required />
 
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="width:150px">
-                        <label class="lbl_style" for="email">Email:</label><span style="color:red">*</span>&nbsp;
-                      </td>
-                      <td>
-                        <input class="form-control " name="email" id="email" style="width: 170px " type="email" required />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:150px">
+                      <label class="lbl_style" for="email">Email:</label><span style="color:red">*</span>&nbsp;
+                    </td>
+                    <td>
+                      <input class="form-control " name="email" id="email" style="width: 170px " type="email" required />
 
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="width:150px">
-                        <label class="lbl_style" for="DOB">Date Of Birth:</label><span style="color:red">*</span>&nbsp;
-                      </td>
-                      <td>
-                        <input class="form-control " name="DOB" placeholder="YYYY-MM-DD"  id="DOB" style="width: 220px " type="date" required />
-                        <!--<div class="input-group date" data-provide="datepicker">
-            <input type="text" class="form-control">
-            <div class="input-group-addon">
-              <span class="glyphicon glyphicon-th"></span>
-            </div>
-          </div>-->
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="width:150px">
-                        <label class="lbl_style" for="pwd">Passowrd:</label><span style="color:red">*</span>&nbsp;
-                      </td>
-                      <td>
-                        <input class="form-control" name="pwd" id="pwd" style="width: 220px " type="password" required />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="width:175px">
-                        <label class="lbl_style" for="Confirmpwd">Confirm Password:</label><span style="color:red">*</span>&nbsp;
-                      </td>
-                      <td>
-                        <input class="form-control " name="Confirmpwd" id="Confirmpwd" style="width: 220px " type="text" required />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="width:150px">
-                        <label class="lbl_style" for="Phonenum">Phone Number:</label><span style="color:red">*</span>&nbsp;
-                      </td>
-                      <td>
-                        <input class="form-control " name="Phonenum" id="Phonenum" style="width: 220px " type="number" required />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="width:150px">
-                        <label class="lbl_style" for="SecurityQus">Security Question:</label><span style="color:red">*</span>&nbsp;
-                      </td>
-                      <td>
-                        <!--<input class="form-control " id="SecurityQus" style="width: 170px " type="text" required />-->
-                        <select class="form-control select2" required name="ddl_secqus" id="ddl_secqus" style="width:220px">
-                          <option value=""></option>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:150px">
+                      <label class="lbl_style" for="DOB">Date Of Birth:</label><span style="color:red">*</span>&nbsp;
+                    </td>
+                    <td>
+                      <input class="form-control " name="DOB" placeholder="YYYY-MM-DD" id="DOB" style="width: 220px " type="date" required />
+                      <!--<div class="input-group date" data-provide="datepicker">
+                      <input type="text" class="form-control">
+                      <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                      </div>
+                    </div>-->
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:150px">
+                      <label class="lbl_style" for="pwd">Passowrd:</label><span style="color:red">*</span>&nbsp;
+                    </td>
+                    <td>
+                      <input class="form-control" name="pwd" id="pwd" style="width: 220px " type="password" required />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:175px">
+                      <label class="lbl_style" for="Confirmpwd">Confirm Password:</label><span style="color:red">*</span>&nbsp;
+                    </td>
+                    <td>
+                      <input class="form-control " name="Confirmpwd" id="Confirmpwd" style="width: 220px " type="text" required />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:150px">
+                      <label class="lbl_style" for="Phonenum">Phone Number:</label><span style="color:red">*</span>&nbsp;
+                    </td>
+                    <td>
+                      <input class="form-control " name="Phonenum" id="Phonenum" style="width: 220px " type="number" required />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:150px">
+                      <label class="lbl_style" for="SecurityQus">Security Question:</label><span style="color:red">*</span>&nbsp;
+                    </td>
+                    <td>
+                      <!--<input class="form-control " id="SecurityQus" style="width: 170px " type="text" required />-->
+                      <select class="form-control select2" required name="ddl_secqus" id="ddl_secqus" style="width:220px">
+                        <option value=""></option>
 
-                        </select>
+                      </select>
 
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="width:150px">
-                        <label class="lbl_style" for="ans">Answer:</label><span style="color:red">*</span>&nbsp;
-                      </td>
-                      <td>
-                        <input class="form-control " name="ans" id="ans" style="width: 220px " type="text" required />
-                      </td>
-                    </tr>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:150px">
+                      <label class="lbl_style" for="ans">Answer:</label><span style="color:red">*</span>&nbsp;
+                    </td>
+                    <td>
+                      <input class="form-control " name="ans" id="ans" style="width: 220px " type="text" required />
+                    </td>
+                  </tr>
 
-                  </tbody>
-                </table>
-      
+                </tbody>
+              </table>
 
-                <div class="col-md-6 offset-md-4">
-                  <button type="submit" (click)="register();" style="background-color:lightseagreen" id="register" class="btn btn-primary">
-                    Register
-                  </button>
-                </div>
-</form>
+
+              <div class="col-md-6 offset-md-4">
+                <button type="submit" (click)="register();" style="background-color:lightseagreen" id="register" class="btn btn-primary">
+                  Register
+                </button>
+              </div>
+            </form>
           </div>
 
         </div>
       </div>
+    </div>
+
+    <div class="alert alert-success" id="success-alert" style="width:300px;margin:0 auto" hidden="hidden">
+      <button type="button" class="close" data-dismiss="alert">x</button>
+      <strong>Registration Successfull</strong>
+    </div>
+    <div class="alert alert-danger" id="danger-alert" style="width:300px;margin:0 auto" hidden="hidden">
+      <button type="button" class="close" data-dismiss="alert">x</button>
+      <strong>Email already exists</strong>
     </div>
   </div>
 

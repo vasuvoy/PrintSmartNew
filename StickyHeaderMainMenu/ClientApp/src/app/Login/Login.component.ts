@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     $(document).ready(function () {
 
-      $("#danger-alert").hide();
+ 
   
 
       $("#loginform").validate({
@@ -121,7 +121,8 @@ export class LoginComponent implements OnInit {
 
               }
               else {
-                $("#danger-alert").show();
+
+                $("#danger-alert")[0].hidden = false;
                 $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
                   $("#danger-alert").slideUp(1000);
                 });

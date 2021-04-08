@@ -170,11 +170,20 @@ export class RegisterComponent implements OnInit {
         //};
 
         this.httpClient.post(this.prod_service.getUrl() + 'api/Userdetail', test, { headers }).subscribe(res => {
-          alert("Registration successfull"); this.router.navigateByUrl('/Login'); 
+          $("#success-alert")[0].hidden = false;
+          $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#success-alert").slideUp(1000);
+          });
+          this.router.navigateByUrl('/Login'); 
         });
         return false;
       }
-      else { alert("email already exists");}
+      else {
+        $("#danger-alert")[0].hidden = false;
+        $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+          $("#danger-alert").slideUp(1000);
+        });
+      }
     });
 
 
