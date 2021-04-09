@@ -49,8 +49,8 @@ export class ProductService {
     if (detailid == 0) {
       this.products.push({
 
-       // ProdId: stringtonum(sessionStorage.getItem('ProdId')),
-        modelId: stringtonum(sessionStorage.getItem('ModelId')),
+        // ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+        modelId: stringtonum(localStorage.getItem('ModelId')),
         Gender: null,
         CustomContent: null,
         DimId: null,
@@ -70,7 +70,7 @@ export class ProductService {
       this.products.push({
         detailId: detailid,
        // ProdId: stringtonum(sessionStorage.getItem('ProdId')),
-        modelId: stringtonum(sessionStorage.getItem('ModelId')),
+        modelId: stringtonum(localStorage.getItem('ModelId')),
         Gender: null,
         CustomContent: null,
         DimId: null,

@@ -131,35 +131,44 @@
                 </div>
               </div>
               <div class="col">
+                <div id="div_desc" style="font-family:sans-serif;font-size:24px;width:500px;word-break:break-all;text-align:left;margin-left:35px;margin-bottom:10px"></div>
                 <table class="table">
                   <tbody>
-                    <tr>
+                    <!--<tr style="width:100px;border:1px solid black">
                       <td style="border:none"><label style="font:bold" id="lbl_desc"></label></td>
-                    </tr>
+                    </tr>-->
 
                     <tr>
-                      <td style="width:150px;border:none"><label>Quantity</label></td>
+                      <td style="width:150px;border:none"><label style="font-weight:100 !important">Quantity</label></td>
                       <td style="border:none">
                         <div class="qty">
                           <span class="minus bg-dark" id="spanminus">-</span>
-                          <input type="number" class="count" name="qty" value="1">
+                          <input type="number" class="count" name="qty" id="quantity" value="1">
                           <span class="plus bg-dark" id="spanplus">+</span>
                         </div>
                       </td>
                     </tr>
-                    <tr>
-                      <td style="width:150px;border:none"><label>Material</label></td>
+                    <tr id="trmat" hidden="hidden">
+                      <td style="width:150px;border:none"><label style="font-weight:100 !important">Material</label></td>
                       <td style="border:none">
                         <select class="js-example-basic-single" id="ddl_prodmat" style="width:150px">
                           <option value=""></option>
                         </select>
                       </td>
                     </tr>
+                    <tr id="trser" hidden="hidden">
+                      <td style="width:150px;border:none"><label style="font-weight:100 !important">Service</label></td>
+                      <td style="border:none">
+                        <select class="js-example-basic-single" id="ddl_prodser" style="width:150px">
+                          <option value=""></option>
+                        </select>
+                      </td>
+                    </tr>
                     <tr>
-                      <td style="width:150px;border:none"> <label style="font-size:15px">MRP</label>&nbsp;</td>
+                      <td style="width:150px;border:none"> <label style="font-size:15px;font-weight:100 !important">MRP</label>&nbsp;</td>
                       <td style="border:none"> <label style="font-size:15px" id="lbl_price"></label><br /></td>
                     <tr>
-                      <td style="width:150px;border:none"> <label style="font-size:15px">Price</label>&nbsp;</td>
+                      <td style="width:150px;border:none"> <label style="font-size:15px;font-weight:100 !important">Price</label>&nbsp;</td>
                       <td style="border:none">  <label style="font-size:15px" id="lbl_sellingprice"></label><span style="font-size: 15px" id="sp_disc"></span><br /></td>
                     </tr>
 

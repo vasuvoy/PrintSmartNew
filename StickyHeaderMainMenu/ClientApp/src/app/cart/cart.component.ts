@@ -54,8 +54,8 @@ export class cartComponent implements OnInit {
 
         this.productAddedTocart = r;
 
-        if (sessionStorage.getItem("ModelId") != null) {
-          this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + sessionStorage.getItem("ModelId") + '/' + "cart").subscribe(
+        if (localStorage.getItem("ModelId") != null) {
+          this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + localStorage.getItem("ModelId") + '/' + "cart").subscribe(
             (r: any) => {
               this.img_list = r;
             })

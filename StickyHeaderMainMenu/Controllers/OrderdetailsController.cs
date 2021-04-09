@@ -108,7 +108,8 @@ namespace StickyHeaderMainMenu.Controllers
 
                 return CreatedAtAction("GetOrderdetail", new { id = orderdetail.DetailId }, orderdetail);
             }
-            catch (Exception e) { throw e; };
+            catch (Exception e) { 
+                throw e; };
             }
 
         // DELETE: api/Orderdetails/5

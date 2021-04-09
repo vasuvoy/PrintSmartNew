@@ -31,6 +31,7 @@ export class InvitationCardsComponent implements OnInit {
   s: string[];
   public url: string;
   public price_detail: pricedetail[];
+  public level_id: number;
 
   constructor(public httpClient: HttpClient, private prod_service: ProductService, private _sharedservice: SharedService)
   {
@@ -44,7 +45,7 @@ export class InvitationCardsComponent implements OnInit {
 
       //nav link
       $("#ahref1").text(localStorage.getItem('Prod_name'));
-      $("#ahref2").text(sessionStorage.getItem('Prodl2_name'));
+      $("#ahref2").text(localStorage.getItem('Prodl2_name'));
 
       $("#ahref2").click(function () {
         $("#div_invicards").show();
@@ -129,14 +130,14 @@ export class InvitationCardsComponent implements OnInit {
 
 
 
-    if (sessionStorage.getItem("Prodl3Id") != "null") {
-      this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + sessionStorage.getItem("Prodl3Id") + '/' + "invi").subscribe
+    if (localStorage.getItem("Prodl3Id") != "null") {
+      this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + localStorage.getItem("Prodl3Id") + '/' + "invi").subscribe
         ((res: any) => {
           this.img_list = res;
         });
     }
     else {
-      this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + sessionStorage.getItem("Prodl2Id") + '/' + "invi").subscribe
+      this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + localStorage.getItem("Prodl2Id") + '/' + "invi").subscribe
         ((res: any) => {
           this.img_list = res;
         });
@@ -151,59 +152,96 @@ export class InvitationCardsComponent implements OnInit {
       var n = Number(input);
       return n;
     }
-    if (sessionStorage.getItem("Prodl3Id") != null) {
-      levelid = stringtonum(sessionStorage.getItem("Prodl3Id"));
+    //if (localStorage.getItem("Prodl3Id") != null) {
+    //  levelid = stringtonum(localStorage.getItem("Prodl3Id"));
+    //}
+    //else {
+    //  this.level_id = stringtonum(localStorage.getItem("Prodl2Id"));
+    //}
+
+    if (localStorage.getItem("Prodl3Id") == "null") {
+      this.httpClient.get(this.prod_service.getUrl() + 'api/Productmaterials/' + stringtonum(localStorage.getItem("Prodl2Id"))).subscribe
+        ((res: any) => {
+          if (res.length > 0) {
+            // this.prod_mat = res;
+            res.forEach(e => {
+
+              var ddl_prodoption = new Option(e.matDescription, e.matId, false, false);
+
+              $('#ddl_prodmat').append(ddl_prodoption).trigger('change');
+
+
+            });
+            $("#trmat")[0].hidden = false;
+          }
+
+          //this.prod_mat..forEach(e => {
+          //  var newOption_gender = new Option(e.gender, e.gender, false, false);
+          //  $('#ddl_gender').append(newOption_gender).trigger('change');
+          //});
+        });
     }
     else {
-      levelid = stringtonum(sessionStorage.getItem("Prodl2Id"));
+      this.httpClient.get(this.prod_service.getUrl() + 'api/Productmaterials/' + stringtonum(localStorage.getItem("Prodl3Id"))).subscribe
+        ((res: any) => {
+          if (res.length > 0) {
+            // this.prod_mat = res;
+            res.forEach(e => {
+
+              var ddl_prodoption = new Option(e.matDescription, e.matId, false, false);
+
+              $('#ddl_prodmat').append(ddl_prodoption).trigger('change');
+
+
+            });
+            $("#trmat")[0].hidden = false;
+          }
+        
+        });
     }
-    this.httpClient.get(this.prod_service.getUrl()  + 'api/Productmaterials/' + levelid).subscribe
-      ((res: any) => {
-        if (res.length > 0) {
-          // this.prod_mat = res;
-          res.forEach(e => {
-
-            var ddl_prodoption = new Option(e.matDescription, e.matId, false, false);
-
-            $('#ddl_prodmat').append(ddl_prodoption).trigger('change');
-         
-          
-          });
-        }
-        else {
-          $('#ddl_prodmat').hide();
-        }
-        //this.prod_mat..forEach(e => {
-        //  var newOption_gender = new Option(e.gender, e.gender, false, false);
-        //  $('#ddl_gender').append(newOption_gender).trigger('change');
-        //});
-      });
 
     //check for product service dropdown
 
+    if (localStorage.getItem("Prodl3Id") == "null") {
+      this.httpClient.get(this.prod_service.getUrl() + 'api/Productservices/' + stringtonum(localStorage.getItem("Prodl2Id"))).subscribe
+        ((r: any) => {
+          if (r.length > 0) {
+            r.forEach(e => {
 
-    this.httpClient.get(this.prod_service.getUrl() + 'api/Productservices/' + levelid).subscribe
-      ((r: any) => {
-        if (r.length == 0)
-          $("#ddl_prodser").hide();
-        else {
-          $("#ddl_prodser").show();
+              var ddl_prodSeroption = new Option(e.servDescription, e.servId, false, false);
 
-          r.forEach(e => {
+              $('#ddl_prodser').append(ddl_prodSeroption).trigger('change');
 
-            var ddl_prodSeroption = new Option(e.servDescription, e.servId, false, false);
+            });
+            $("#trser")[0].hidden = false;
+          }
+        });
+    }
+    else {
+      this.httpClient.get(this.prod_service.getUrl() + 'api/Productservices/' + stringtonum(localStorage.getItem("Prodl3Id"))).subscribe
+        ((r: any) => {
+          if (r.length > 0) {
+   
 
-            $('#ddl_prodser').append(ddl_prodSeroption).trigger('change');
+            r.forEach(e => {
 
-          });
-        }
-      });
+              var ddl_prodSeroption = new Option(e.servDescription, e.servId, false, false);
+
+              $('#ddl_prodser').append(ddl_prodSeroption).trigger('change');
+
+            });
+            $("#trser")[0].hidden = false;
+          }
+        });
+
+    }
 
   //  $("#div_invicards").hide();
     $("#innerdiv_invicards").show();
     $("#img_selected_invicard").attr("src", f);
-    $("#lbl_desc").text(g);
-    sessionStorage.setItem('ModelId', e);
+    //$("#lbl_desc").text(g);
+    $("#div_desc").text(g);
+    localStorage.setItem('ModelId', e);
     this.httpClient.get(this.prod_service.getUrl()  + 'api/Pricedetails/' + e).subscribe((res: any) => {
       this.price_detail = res;
       if (this.price_detail.length>0) {
@@ -281,22 +319,25 @@ export class InvitationCardsComponent implements OnInit {
         return n;
       }
       var s = "l3menu";
-      this.httpClient.get(this.prod_service.getUrl()  + 'api/Orderdetails/' + sessionStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
+      this.httpClient.get(this.prod_service.getUrl() + 'api/Orderdetails/' + localStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
         this.products_get = res;
-
-      
+     //   qty = $('#ddl_Qty :selected').text();
+        qty = $('.count').val();
       if (this.products_get.length == 0) {
         //new product
         this.prod = this.prod_service.insertProduct(qty, detailid, stringtonum($("#lbl_price").text()), stringtonum($("#ddl_prodmat").val()));
 
+        let d = stringtonum(localStorage.getItem("cartcount"));
+        this._sharedservice.updateCartCount(d + this.prod.length);
+        var updated_count = d + this.prod.length;
+        localStorage.setItem("cartcount", updated_count.toString());
         this.httpClient.post(this.prod_service.getUrl() + 'api/Orderdetails', this.prod[0]).subscribe(res => {
           $("#success-alert").show();
           $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
             $("#success-alert").slideUp(1000);
           });
         });
-        let d = stringtonum(localStorage.getItem("cartcount"));
-        this._sharedservice.updateCartCount(d + this.prod.length);
+
       }
       else {
         //update existing product

@@ -40,7 +40,9 @@ export class AdminComponent implements OnInit {
 
 
     $(document).ready(function () {
+      if (localStorage.getItem("userid") == null && localStorage.getItem("IsAdmin") == null) {
 
+      }
     //  $('.btnsave').hide();
       $("#makeEditable").hide();
       $("#card_edit").hide();

@@ -253,28 +253,31 @@ export class AppComponent implements OnInit {
   //Sub menu hyperlink click event
   subMenuhyperlinkClick(e) {
     //location.reload();
-    sessionStorage.setItem("Prodl2Id", null);
-    sessionStorage.setItem('Prodl3Id', e.target.id);
-    sessionStorage.setItem('Prodl2_name', e.target.innerText);
+    localStorage.setItem("Prodl2Id", null);
+    localStorage.setItem('Prodl3Id', e.target.id);
+    localStorage.setItem('Prodl2_name', e.target.innerText);
     //this.router.navigate([this.router.url])
     this.router.navigate(e.target.href);
-  
+
+  //  localStorage.setItem('Prodl3Id', e.target.id)
   }
 
  
 
   subL2MenuhyperlinkClick(e) {
     // alert(e.target.innerText+e.target.id);
-    sessionStorage.setItem("Prodl3Id", null);
-    sessionStorage.setItem('Prodl2Id', e.target.id);
-    sessionStorage.setItem('Prodl2_name', e.target.innerText);
+    localStorage.setItem("Prodl3Id", null);
+    localStorage.setItem('Prodl2Id', e.target.id);
+    localStorage.setItem('Prodl2_name', e.target.innerText);
     this.router.navigate(e.target.href);
+
+ //   localStorage.setItem('Prodl3Id', e.target.id)
   }
 
   //main menu hyperlink click event
   MainMenuhyperlinkClick(e) {
 
-    sessionStorage.setItem('ProdId', e.target.id);
+    localStorage.setItem('ProdId', e.target.id);
     localStorage.setItem('Prod_name', e.target.innerText);
   }
   isExpanded = false;
@@ -316,6 +319,12 @@ export class AppComponent implements OnInit {
     localStorage.removeItem("cartcount");
     localStorage.removeItem("userid");
     localStorage.removeItem("IsAdmin");
+    localStorage.removeItem("Prodl3Id");
+    localStorage.removeItem("Prodl2Id");
+    localStorage.removeItem("Prodl2_name");
+    localStorage.removeItem("ProdId");
+    localStorage.removeItem("Prod_name");
+    localStorage.removeItem("ModelId");
     this._sharedservice.IsAdminresservice("");
     this.router.navigateByUrl('/Login');
   }
