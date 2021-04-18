@@ -6,7 +6,7 @@
       <div class="card">
         <div class="card-header" style="color:lightseagreen;font-size:medium"><b>New Address</b></div>
         <div class="card-body">
-          <form [formGroup]="editForm" id="edit" >
+          <form *ngIf="editForm" [formGroup]="editForm" id="edit" >
 
             <table class="table borderless">
               <tbody>
@@ -108,7 +108,8 @@
             <div class="col-md-6 offset-md-4">
               <button type="submit" (click)="update_address();" style="background-color:lightseagreen" id="submit" class="btn btn-primary">
                 Update Address
-              </button>
+              </button>&nbsp;
+              <a href="#" [routerLink]="['/address-list']">Addresses List</a>
             </div>
           </form>
         </div>

@@ -1,59 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <style>
+    @media (max-width: 767px) {
+      .column{
+        width:250px !important;
+        padding-left:0px !important;
+      }
 
+      .row{
+        width:500px !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <h1>Address List</h1>
-  <table class="table" id="table_address">
-    <tbody>
-      <tr>
-        <td width="100px">
-          <table class="table borderless" id="table_address">
-            <tbody>
-              <tr *ngFor="let address of address_list;let i=index">
-                <td>
-                  <label>{{address.name}}</label><br />
-                  <label>{{address.addressLine1}}</label><span>,</span>
 
-                  <label>{{address.addressLine2}}</label><span>,</span>
-                  <label>{{address.addressLine3}}</label><span>,</span>
-                  <label>{{address.addressLine4}}</label><span>,</span>
-                  <label>{{address.addressLine5}}</label><br />
-                  <label>Contact no:</label>&nbsp;<label>{{address.contactNo}}</label><br />
-                  <label>Pincode:</label>&nbsp;<label>{{address.pinCode}}</label>
-                </td>
-                <td><button (click)="deladdr(address)" class="btn btn-primary" style="width:75px">Remove</button>&nbsp;<span>|</span>&nbsp;<button class="btn btn-primary" (click)="editaddr(address)">Edit</button></td>
+ <!--<table class="table border-primary">
+   <tbody>
+     <tr >
+       <ng-container *ngFor="let address of address_list;let i=index;let odd=odd;let even=even;">
+         <td *ngIf="even" style="width:450px">
+           <label>{{address.name}}</label><br />
+           <label>{{address.addressLine1}}</label><span>,</span>
 
-              </tr>
-            </tbody>
-          </table>
-        </td>
-        <td width="100px">
-          <table class="table borderless" id="table_address">
-            <tbody>
-              <tr *ngFor="let address of address_list1;let i=index">
-                <td>
-                  <label>{{address.name}}</label><br />
-                  <label>{{address.addressLine1}}</label><span>,</span>
+           <label>{{address.addressLine2}}</label><span>,</span>
+           <label>{{address.addressLine3}}</label><span>,</span>
+           <label>{{address.addressLine4}}</label><span>,</span>
+           <label>{{address.addressLine5}}</label><br />
+           <label>Contact no:</label>&nbsp;<label>{{address.contactNo}}</label><br />
+           <label>Pincode:</label>&nbsp;<label>{{address.pinCode}}</label>
+           
+         </td>
+         <td *ngIf="even"><button (click)="deladdr(address)" class="btn btn-primary" style="width:75px">Remove</button>
+         <br/><br/><button class="btn btn-primary" (click)="editaddr(address)">Edit</button></td>
+       </ng-container>
+     </tr>
+     <tr >
+       <ng-container *ngFor="let address of address_list;let i=index;let odd=odd;let even=even;">
+         <td *ngIf="odd" style="width:450px">
+           <label>{{address.name}}</label><br />
+           <label>{{address.addressLine1}}</label><span>,</span>
 
-                  <label>{{address.addressLine2}}</label><span>,</span>
-                  <label>{{address.addressLine3}}</label><span>,</span>
-                  <label>{{address.addressLine4}}</label><span>,</span>
-                  <label>{{address.addressLine5}}</label><br />
-                  <label>Contact no:</label>&nbsp;<label>{{address.contactNo}}</label><br />
-                  <label>Pincode:</label>&nbsp;<label>{{address.pinCode}}</label>
-                </td>
-                <td><button (click)="deladdr(address)" class="btn btn-primary" style="width:75px">Remove</button>&nbsp;<span>|</span>&nbsp;<button class="btn btn-primary" (click)="editaddr(address)">Edit</button></td>
+           <label>{{address.addressLine2}}</label><span>,</span>
+           <label>{{address.addressLine3}}</label><span>,</span>
+           <label>{{address.addressLine4}}</label><span>,</span>
+           <label>{{address.addressLine5}}</label><br />
+           <label>Contact no:</label>&nbsp;<label>{{address.contactNo}}</label><br />
+           <label>Pincode:</label>&nbsp;<label>{{address.pinCode}}</label>
+          
+         </td>
+         <td *ngIf="odd"><button (click)="deladdr(address)" class="btn btn-primary" style="width:75px">Remove</button>
+         <br/><br/><button class="btn btn-primary" (click)="editaddr(address)">Edit</button></td>
+       </ng-container>
+     </tr>
 
-              </tr>
-            </tbody>
-          </table>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-    
-    
+   </tbody>
+ </table>-->
+<div class="container">
+  <div class="row" style="width:1000px">
+
+    <div class="column" style="width:500px;padding-left:15px" *ngFor="let address of address_list;let i=index;">
+      <label>{{address.name}}</label><br />
+      <label>{{address.addressLine1}}</label><span>,</span>
+
+      <label>{{address.addressLine2}}</label><span>,</span>
+      <label>{{address.addressLine3}}</label><span>,</span>
+      <label>{{address.addressLine4}}</label><span>,</span>
+      <label>{{address.addressLine5}}</label><br />
+      <label>Contact no:</label>&nbsp;<label>{{address.contactNo}}</label><br />
+      <label>Pincode:</label>&nbsp;<label>{{address.pinCode}}</label>
+      <br />
+      <button (click)="deladdr(address)" class="btn btn-primary" style="width:75px">Remove</button>
+      <button class="btn btn-primary" (click)="editaddr(address)">Edit</button>
+      <hr *ngIf="even" />
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   //dashboardUrl = '/dashboard/?isopen=true&name=' + name;
 
   navigationSubscription;
-  cartItemCount: number = 0;
+  cartItemCount: number;
   login_text: string = "Sign In";
   login_username: string = "";
   change_pwd = "";
@@ -179,7 +179,15 @@ export class AppComponent implements OnInit {
 
     // localStorage.setItem('cart', null);
     //  $("#ex_lbl").text(localStorage.getItem('ex_username'));
-    this._sharedservice.currentMessage.subscribe(msg => this.cartItemCount = msg);
+    this._sharedservice.currentMessage.subscribe(msg => {
+      this.cartItemCount = msg;
+      if (this.cartItemCount == 0) {
+        $("#cartcount")[0].hidden = true;
+      }
+      else
+        $("#cartcount")[0].hidden = false;
+  });
+    
     this._sharedservice.loginMessage.subscribe(msg => this.login_text = localStorage.getItem('status_text'));
     this._sharedservice.UserName.subscribe(name => {
       if (localStorage.getItem('user_name') != null) {
@@ -291,8 +299,7 @@ export class AppComponent implements OnInit {
   }
 
 
-  
-     myaccount() {
+  myaccount() {
        if (this.login_text == 'Sign In') {
 
          this.router.navigateByUrl('/Login');
@@ -327,6 +334,10 @@ export class AppComponent implements OnInit {
     localStorage.removeItem("ModelId");
     this._sharedservice.IsAdminresservice("");
     this.router.navigateByUrl('/Login');
+  }
+
+  headerImg() {
+    this.router.navigateByUrl('/');
   }
 }
 

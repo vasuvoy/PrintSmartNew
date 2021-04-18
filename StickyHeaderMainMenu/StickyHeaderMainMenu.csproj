@@ -63,8 +63,6 @@
     <None Remove="ClientApp\src\app\services\product.service.ts" />
     <None Remove="ClientApp\src\app\services\sample.service.ts" />
     <None Remove="ClientApp\src\app\services\shared.service.ts" />
-    <None Remove="ClientApp\src\app\Tshirts\Tshirts.component.ts" />
-    <None Remove="ClientApp\src\app\wallpapers\wallpapers.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -74,7 +72,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\entities\Userdetail.entity.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\IdCards\IdCards.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\sample.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\wallpapers\wallpapers.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\cart\cart.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\item.entity.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\product.entity.ts" />
@@ -86,7 +83,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\services\login.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\product.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\shared.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\Tshirts\Tshirts.component.ts" />
   </ItemGroup>
 
   <ItemGroup>

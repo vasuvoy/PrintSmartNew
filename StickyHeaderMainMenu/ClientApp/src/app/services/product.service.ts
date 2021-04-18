@@ -40,7 +40,7 @@ export class ProductService {
     return -1;
   }
 
-  public insertProduct(qty,detailid,price,prodmat) {
+  public insertProduct(qty,detailid,price,prodmat,prodser) {
     function stringtonum(input: string) {
       var n = Number(input);
       return n;
@@ -54,7 +54,8 @@ export class ProductService {
         Gender: null,
         CustomContent: null,
         DimId: null,
-        MatId:prodmat,
+        MatId: prodmat,
+        ServId:prodser,
         OrderedBy: stringtonum(localStorage.getItem('userid')),
         DtCreate: null,
         DtModify: null,

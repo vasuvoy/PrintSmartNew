@@ -14,6 +14,8 @@ let qty: any;
 let qty_update: any;
 let detailid = 0;
 let levelid = 0;
+let Prodmat_value = 0;
+let Prodser_value = 0;
 @Component({
   selector: 'app-invitation-cards',
   templateUrl: './invitation-cards.component.html',
@@ -66,7 +68,7 @@ export class InvitationCardsComponent implements OnInit {
 
 
       $("#innerdiv_invicards").hide();
-      $("#ddl_prodser").hide();
+    
       $('#ddl_Qty').select2({
         closeOnSelect: true,
         minimumResultsForSearch: -1,
@@ -78,6 +80,12 @@ export class InvitationCardsComponent implements OnInit {
         minimumResultsForSearch: -1,
         placeholder: "Select Material",
       })
+      $('#ddl_prodser').select2({
+        closeOnSelect: true,
+        minimumResultsForSearch: -1,
+        placeholder: "Select Service",
+      })
+
 
       $("#ddl_Qty").change(function () {
         qty = $('#ddl_Qty :selected').text();
@@ -318,6 +326,18 @@ export class InvitationCardsComponent implements OnInit {
         var n = Number(input);
         return n;
       }
+      //mat ddl
+      if (stringtonum($("#ddl_prodmat").val()) == 0)
+         Prodmat_value = null;
+      else
+        Prodmat_value = stringtonum($("#ddl_prodmat").val());
+
+      //service ddl
+      if (stringtonum($("#ddl_prodser").val()) == 0)
+        Prodser_value = null;
+      else
+        Prodser_value = stringtonum($("#ddl_prodser").val());
+
       var s = "l3menu";
       this.httpClient.get(this.prod_service.getUrl() + 'api/Orderdetails/' + localStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
         this.products_get = res;
@@ -325,7 +345,9 @@ export class InvitationCardsComponent implements OnInit {
         qty = $('.count').val();
       if (this.products_get.length == 0) {
         //new product
-        this.prod = this.prod_service.insertProduct(qty, detailid, stringtonum($("#lbl_price").text()), stringtonum($("#ddl_prodmat").val()));
+
+
+        this.prod = this.prod_service.insertProduct(qty, detailid, stringtonum($("#lbl_price").text()), Prodmat_value, Prodser_value);
 
         let d = stringtonum(localStorage.getItem("cartcount"));
         this._sharedservice.updateCartCount(d + this.prod.length);
@@ -343,7 +365,7 @@ export class InvitationCardsComponent implements OnInit {
         //update existing product
         detailid = 1;
         qty_update = this.products_get[0].quantity + stringtonum(qty);
-        this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId, stringtonum($("#lbl_price").text()), stringtonum($("#ddl_prodmat").text()));
+        this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId, stringtonum($("#lbl_price").text()), Prodmat_value, Prodser_value);
         this.httpClient.put(this.prod_service.getUrl()  + 'api/Orderdetails/' + this.products_get[0].detailId, this.prod[0]).subscribe(res => {  });
         let d = stringtonum(localStorage.getItem("cartcount"));
         this._sharedservice.updateCartCount(d);

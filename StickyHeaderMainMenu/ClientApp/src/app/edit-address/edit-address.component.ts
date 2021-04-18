@@ -59,6 +59,16 @@ export class EditAddressComponent implements OnInit {
       AddrId: stringtonum(this.addrId)
     }
     this.http.put(this.prod_service.getUrl() + 'api/UserAddresses/' + this.addrId, user_address_update).subscribe(res => { alert("addr updtead"); });
+
+    //clear fields
+    $("#firstname").val('');
+    $("#AdL1").val('');
+    $("#AdL2").val('');
+    $("#AdL3").val('');
+    $("#AdL4").val('');
+    $("#AdL5").val('');
+    $("#postalcode").val('');
+    $("#ddl_addtype").val('');
   }
 }
 interface User_Address_list {

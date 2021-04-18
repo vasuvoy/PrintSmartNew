@@ -41,9 +41,25 @@ export class NewAddressComponent implements OnInit {
       IsDefault: $("#isdefaul")[0].checked, AddressType: stringtonum($('#ddl_addtype').val())
     }
     if (userid != undefined) {
-      this.http.post(this.prod_service.getUrl() + 'api/UserAddresses', user_address, { headers }).subscribe(r=>alert("address ok"));
+      this.http.post(this.prod_service.getUrl() + 'api/UserAddresses', user_address, { headers }).subscribe(r => {
+      $("#success-alert")[0].hidden = false;
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+          $("#success-alert").slideUp(1000);
+        });
+      } );
     }
     else { }
+
+    //clear fields
+    $("#Phonenum").val('');
+    $("#firstname").val('');
+    $("#AdL1").val('');
+    $("#AdL2").val('');
+    $("#AdL3").val('');
+    $("#AdL4").val('');
+    $("#AdL5").val('');
+    $("#postalcode").val('');
+    $("#ddl_addtype").selectedIndex=0;
   }
 }
 

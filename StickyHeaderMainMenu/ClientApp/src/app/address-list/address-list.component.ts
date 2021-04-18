@@ -23,36 +23,36 @@ export class AddressListComponent implements OnInit {
    // const action = "addr_list";
     this.http.get(this.prod_service.getUrl()  + 'api/Useraddresses/' + this.userid, { params: {action:"addr_lst"} }).subscribe(
       (res: any[]) => {
-        for (var i = 0; i <= (res.length / 2); i++) {
+        for (var i = 0; i < res.length; i++) {
           this.address_list.push({
             userId: res[i].userId,
             addressLine1: res[i].addressLine1,
-            addressLine2: res[i].addressLine1,
-            addressLine3: res[i].addressLine1,
-            addressLine4: res[i].addressLine1,
-            addressLine5: res[i].addressLine1,
+            addressLine2: res[i].addressLine2,
+            addressLine3: res[i].addressLine3,
+            addressLine4: res[i].addressLine4,
+            addressLine5: res[i].addressLine5,
             addressType: res[i].addressType,
             pinCode: res[i].pinCode,
             contactNo: res[i].contactNo,
             name: res[i].name,
-
+            addrId:res[i].addrId
           });
         }
-          for (var i = ((res.length / 2)+0.5); i <= (res.length); i++) {
-            this.address_list1.push({
-              userId: res[i].userId,
-              addressLine1: res[i].addressLine1,
-              addressLine2: res[i].addressLine1,
-              addressLine3: res[i].addressLine1,
-              addressLine4: res[i].addressLine1,
-              addressLine5: res[i].addressLine1,
-              addressType: res[i].addressType,
-              pinCode: res[i].pinCode,
-              contactNo: res[i].contactNo,
-              name: res[i].name,
-
-            });
-        }
+        //  for (var i = ((res.length / 2)+1); i <= (res.length); i++) {
+        //    this.address_list1.push({
+        //      userId: res[i].userId,
+        //      addressLine1: res[i].addressLine1,
+        //      addressLine2: res[i].addressLine1,
+        //      addressLine3: res[i].addressLine1,
+        //      addressLine4: res[i].addressLine1,
+        //      addressLine5: res[i].addressLine1,
+        //      addressType: res[i].addressType,
+        //      pinCode: res[i].pinCode,
+        //      contactNo: res[i].contactNo,
+        //      name: res[i].name,
+        //      addrId: res[i].addrId
+        //    });
+        //}
        // this.address_list = res;
         var tr;
         //alert(res[0].userId);

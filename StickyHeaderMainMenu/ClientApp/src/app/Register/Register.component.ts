@@ -23,14 +23,25 @@ export class RegisterComponent implements OnInit {
   secq: Array<any>;
   test1: Array<any>;
   myAppUrl: string = "";
+  registerForm: FormGroup;
+  submitted = false;
 
-  constructor(private httpClient: HttpClient, private prod_service: ProductService, private router: Router, private _userdetailService: UserdetailService,
+  constructor(private httpClient: HttpClient, private formBuilder: FormBuilder, private prod_service: ProductService, private router: Router, private _userdetailService: UserdetailService,
     @Inject('BASE_URL') baseUrl: string) { this.myAppUrl = baseUrl; }
   ngOnInit() {
-    $(function () {
-      
-    });
-    
+    //this.registerForm = this.formBuilder.group({
+    //  title: ['', Validators.required],
+    //  firstName: ['', Validators.required],
+    //  lastName: ['', Validators.required],
+    //  // validates date format yyyy-mm-dd
+    //  dob: ['', [Validators.required, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
+    //  email: ['', [Validators.required, Validators.email]],
+    //  password: ['', [Validators.required, Validators.minLength(6)]],
+    //  confirmPassword: ['', Validators.required],
+    //  acceptTerms: [false, Validators.requiredTrue]
+    //}, {
+     // validator: MustMatch('password', 'confirmPassword')
+    //});
 
     //--------HTTPGET REQUEST--------
     this.httpClient.get<secqus>(this.prod_service.getUrl() + 'api/Secqmasters').subscribe(
@@ -52,6 +63,17 @@ export class RegisterComponent implements OnInit {
       })
 
     $(document).ready(function () {
+
+      $("body").on('click', '.toggle-password', function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $("#Confirmpwd");
+        if (input.attr("type") === "password") {
+          input.attr("type", "text");
+        } else {
+          input.attr("type", "password");
+        }
+
+      });
      
       $('#ddl_secqus').select2({
         closeOnSelect: true,
@@ -63,6 +85,8 @@ export class RegisterComponent implements OnInit {
         $('#registration').valid();
       })
       //$('.datepicker').datepicker();
+
+
       $("#registration").validate({
 
         // Specify validation rules
@@ -81,6 +105,7 @@ export class RegisterComponent implements OnInit {
           pwd: {
             required: true,
             minlength: 5
+ 
           },
           Confirmpwd: {
             required: true,
@@ -97,7 +122,8 @@ export class RegisterComponent implements OnInit {
           lastname: "Please enter your lastname",
           pwd: {
             required: "Please provide a password",
-            minlength: "Your password must be at least 5 characters long"
+            minlength: "Your password must be at least 5 characters long and 2 characters"
+
           },
           Confirmpwd: {
             required: "Please provide a password",
@@ -135,11 +161,22 @@ export class RegisterComponent implements OnInit {
         }
       });
 
+      $('#register').on('click', function () {
+        $("#registration").valid();
+      });
+
+
     });
   }
 
   register() {
-   
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
+
 
     const headers = new HttpHeaders().set('content-type', 'application/json');
  
@@ -189,7 +226,7 @@ export class RegisterComponent implements OnInit {
 
   }
 
-
+  get f() { return this.registerForm.controls; }
 
 }
 export interface User_Details {

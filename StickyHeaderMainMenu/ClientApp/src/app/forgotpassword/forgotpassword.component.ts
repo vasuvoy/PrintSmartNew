@@ -23,6 +23,17 @@ export class ForgotpasswordComponent implements OnInit {
   ngOnInit() {
     $(document).ready(function () {
 
+      $("body").on('click', '.toggle-password', function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $("#Confirmpwd");
+        if (input.attr("type") === "password") {
+          input.attr("type", "text");
+        } else {
+          input.attr("type", "password");
+        }
+
+      });
+
       $('#ddl_secqus').select2({
         closeOnSelect: true,
         minimumResultsForSearch: -1,
@@ -79,10 +90,19 @@ export class ForgotpasswordComponent implements OnInit {
           //};
 
           this.http.put(this.prod_service.getUrl() + 'api/Userdetail/' + user_name, userdetails_updated).subscribe(res => {
-            alert("Password changed sucessfully");
+           // alert("Password changed sucessfully");
+            $("#success-alert")[0].hidden = false;
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+              $("#success-alert").slideUp(1000);
+            });
             this.router.navigateByUrl('/Login');});
         }
-        else { swal("incorrect security qus")}
+        else {
+        $("#danger-alert")[0].hidden = false;
+          $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#danger-alert").slideUp(1000);
+          });
+        }
       });
   }
 }
