@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
         //this.secq.push(res);
         this.secq = res;
         var test: secqus = res;
-        for (var i = 0; i <= 10; i++)
+        for (var i = 0; i <= res.length-1; i++)
         {
           var newOption = new Option(test[i].secQ, test[i].secQid, false, false);
           $('#ddl_secqus').append(newOption).trigger('change');
@@ -112,7 +112,7 @@ export class RegisterComponent implements OnInit {
             equalTo: "#pwd"
           },
           DOB: "required",
-          Phonenum: "required",
+          Phonenum: { required:true},
           ddl_secqus:"required",
           ans: "required"
         },
@@ -173,9 +173,9 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.registerForm.invalid) {
-      return;
-    }
+    //if (this.registerForm.invalid) {
+    //  return;
+    //}
 
 
     const headers = new HttpHeaders().set('content-type', 'application/json');
@@ -190,9 +190,9 @@ export class RegisterComponent implements OnInit {
       var n = Number(input);
       return n;
     }
-    this.httpClient.get<User_Details[]>(this.prod_service.getUrl() + 'api/Userdetail').subscribe(res => {
-      var email_exists = res.findIndex(em_exists => em_exists.email == $("#email")[0].value);
-      if (email_exists == -1) {
+    this.httpClient.get<User_Details[]>(this.prod_service.getUrl() + 'api/Userdetail/'+ $("#email")[0].value).subscribe((res:any) => {
+      var email_exists = res;//.where(em_exists => em_exists.email == $("#email")[0].value).FirstOrDefault();
+      if (email_exists.length== 0) {
         var test: User_Details = {
           FirstName: $("#firstname")[0].value, LastName: $("#lastname")[0].value,
           email: $("#email")[0].value, Dob: $("#DOB")[0].value, Pwd: $("#pwd")[0].value, Telephone: $("#Phonenum")[0].value,
@@ -211,8 +211,13 @@ export class RegisterComponent implements OnInit {
           $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
             $("#success-alert").slideUp(1000);
           });
-          this.router.navigateByUrl('/Login'); 
+
         });
+        setTimeout(() => {
+          this.router.navigateByUrl('/Login')
+        }
+          , 5000);
+
         return false;
       }
       else {
@@ -226,7 +231,6 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  get f() { return this.registerForm.controls; }
 
 }
 export interface User_Details {
