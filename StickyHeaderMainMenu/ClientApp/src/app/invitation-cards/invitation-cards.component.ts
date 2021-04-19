@@ -51,6 +51,8 @@ export class InvitationCardsComponent implements OnInit {
 
       $("#ahref2").click(function () {
         $("#div_invicards").show();
+      //  this.router.navigateByUrl('/invitation-cards');
+        $("#ahref2").attr("href", this.prod_service.getUrl() +"/invitation-cards");
       }); 
       // $('.count').prop('disabled', false);
       $("#spanminus").on('click', function () {

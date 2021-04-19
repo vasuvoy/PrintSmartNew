@@ -22,6 +22,12 @@ export class ForgotpasswordComponent implements OnInit {
 
   ngOnInit() {
     $(document).ready(function () {
+      if (localStorage.getItem('changepwd') != null) {
+        this.change_pwd = localStorage.getItem('changepwd');
+        $("#trcurrentpwd")[0].hidden = false;
+      }
+      else
+        $("#trcurrentpwd")[0].hidden = true;
 
       $("body").on('click', '.toggle-password', function () {
         $(this).toggleClass("fa-eye fa-eye-slash");
@@ -47,7 +53,7 @@ export class ForgotpasswordComponent implements OnInit {
         //this.secq.push(res);
         this.secq = res;
         var test: secqus = res;
-        for (var i = 0; i <= 10; i++) {
+        for (var i = 0; i <= (res.length-1); i++) {
           var newOption = new Option(test[i].secQ, test[i].secQid, false, false);
           $('#ddl_secqus').append(newOption).trigger('change');
         }
@@ -78,30 +84,65 @@ export class ForgotpasswordComponent implements OnInit {
           Telephone: result[0].telephone, Isactive: result[0].isactive, SecQid: result[0].secQid,
           SecQa: result[0].secQa, DtCreate: result[0].dtCreate, DtModify: result[0].dtModify
         };
-        if ($("#ddl_secqus").val() == result[0].secQid && $("#ans").val() == result[0].secQa) {
-          userdetails_updated.Pwd = $("#pwd").val();
-          // userdetails_updated.SecQid = secqid;
-          //  userdetails_updated.SecQa = $("#ans").val();
+        //forgot Password
+        if (localStorage.getItem('changepwd') == null) {
+          if ($("#ddl_secqus").val() == result[0].secQid && $("#ans").val() == result[0].secQa) {
+            userdetails_updated.Pwd = $("#pwd").val();
+            // userdetails_updated.SecQid = secqid;
+            //  userdetails_updated.SecQa = $("#ans").val();
 
-          // var test: User_Details = {
-          //   FirstName: "first", LastName: "l",
-          //   Email: "skkkk@gmail.com", Dob: null, Pwd:$("#pwd")[0].value, Telephone: "344",
-          //  Isactive: 1, SecQid: 3, SecQa: null, DtCreate: null, DtModify: null
-          //};
+            // var test: User_Details = {
+            //   FirstName: "first", LastName: "l",
+            //   Email: "skkkk@gmail.com", Dob: null, Pwd:$("#pwd")[0].value, Telephone: "344",
+            //  Isactive: 1, SecQid: 3, SecQa: null, DtCreate: null, DtModify: null
+            //};
 
-          this.http.put(this.prod_service.getUrl() + 'api/Userdetail/' + user_name, userdetails_updated).subscribe(res => {
-           // alert("Password changed sucessfully");
-            $("#success-alert")[0].hidden = false;
-            $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
-              $("#success-alert").slideUp(1000);
+            this.http.put(this.prod_service.getUrl() + 'api/Userdetail/' + user_name, userdetails_updated).subscribe(res => {
+              // alert("Password changed sucessfully");
+              $("#success-alert")[0].hidden = false;
+              $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+                $("#success-alert").slideUp(1000);
+              });
+              this.router.navigateByUrl('/Login');
             });
-            this.router.navigateByUrl('/Login');});
+          }
+          else {
+            $("#danger-alert")[0].hidden = false;
+            $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+              $("#danger-alert").slideUp(1000);
+            });
+          }
         }
+
+        //change password
         else {
-        $("#danger-alert")[0].hidden = false;
-          $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
-            $("#danger-alert").slideUp(1000);
-          });
+          if ($("#currentpwd").val() == result[0].pwd) {
+            if ($("#ddl_secqus").val() == result[0].secQid && $("#ans").val() == result[0].secQa) {
+              userdetails_updated.Pwd = $("#pwd").val();
+
+              this.http.put(this.prod_service.getUrl() + 'api/Userdetail/' + user_name, userdetails_updated).subscribe(res => {
+                // alert("Password changed sucessfully");
+                $("#success-alert")[0].hidden = false;
+                $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+                  $("#success-alert").slideUp(1000);
+                });
+                this.router.navigateByUrl('/Login');
+              });
+            }
+            else {
+              $("#danger-alert")[0].hidden = false;
+              $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+                $("#danger-alert").slideUp(1000);
+              });
+            }
+          }
+          else {
+            $("#danger-alert-currentpwd")[0].hidden = false;
+            $("#danger-alert-currentpwd").fadeTo(2000, 500).slideUp(500, function () {
+              $("#danger-alert-currentpwd").slideUp(1000);
+            });
+
+          }
         }
       });
   }

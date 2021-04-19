@@ -25,6 +25,7 @@ import { AddressListComponent } from './address-list/address-list.component';
 import { EditAddressComponent } from './edit-address/edit-address.component';
 
 import { AdminComponent } from './admin/admin.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 
@@ -47,6 +48,7 @@ import { AdminComponent } from './admin/admin.component';
     AddressListComponent,
     EditAddressComponent,
     AdminComponent,
+    ContactComponent,
     //FileUploadModule
   ],
   imports: [
@@ -73,6 +75,7 @@ import { AdminComponent } from './admin/admin.component';
       { path: 'edit-address/:id', component: EditAddressComponent },
 
       { path: 'admin', component: AdminComponent },
+      { path: 'contact', component: ContactComponent },
  
     ])
   ],
