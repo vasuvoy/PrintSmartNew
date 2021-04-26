@@ -27,19 +27,31 @@ namespace StickyHeaderMainMenu.Models
         }
 
         // GET: api/OdCarts/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<OdCart>>> GetOdCart(int id)
+        [HttpGet("{id}/{cart_myorders}")]
+        public async Task<ActionResult<IEnumerable<OdCart>>> GetOdCart(int id,string cart_myorders)
         {
-           var odCart = _context.Set<OdCart>().FromSqlRaw("CALL GetUserCart" + "(" + id + ")").ToList();
-      
-        //    var odCart = await _context.OdCart.FindAsync(id);
+            var odCart = new List<StickyHeaderMainMenu.Models.OdCart>();
+            var odCart_status = new List<StickyHeaderMainMenu.Models.OdCart>();
+
+            odCart = _context.Set<OdCart>().FromSqlRaw("CALL GetUserCart" + "(" + id + ")").ToList();
+            if (cart_myorders == "cart")
+            {
+               
+                odCart_status = odCart.Where(e => e.StatusCode == "C").ToList();
+            }
+            else
+            {
+                // odCart = _context.Set<OdCart>().FromSqlRaw("CALL GetUserCart" + "(" + id + ")").Where(e => e.StatusCode == "O").ToList();
+                odCart_status = odCart.Where(e => e.StatusCode == "O").ToList();
+            }
+
 
             if (odCart == null)
             {
                 return NotFound();
             }
 
-            return odCart;
+            return odCart_status;
         }
 
         // PUT: api/OdCarts/5

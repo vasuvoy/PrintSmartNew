@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../entities/product.entity';
-import { Item } from '../entities/item.entity';
-import { ProductService } from '../services/product.service';
-import { SharedService } from '../services/shared.service';
-import { HttpClient } from '@angular/common/http';
 import { ImageList } from '../entities/ImageList.entity';
+import { ProductService } from '../services/product.service';
+import { HttpClient } from '@angular/common/http';
+import { SharedService } from '../services/shared.service';
 
 declare var $: any;
-let cartpage = "";
 
 @Component({
-  selector: 'app-cart',
-  templateUrl: './cart.component.html',
+  selector: 'app-myorders',
+  templateUrl: './myorders.component.html',
+  styleUrls: ['./myorders.component.css']
 })
+export class MyordersComponent implements OnInit {
 
-export class cartComponent implements OnInit {
-  cartItemCount: number = 0;
-  productAddedTocart: Product[];
+  productAddedTocart: Product[]=[];
+  products_myorders: Product[];
   public img_list: ImageList[];
+
   constructor(private prod_service: ProductService, private httpClient: HttpClient, private _sharedservice: SharedService) { }
   ngOnInit() {
     //this.httpClient.get('https://localhost:44302/' + 'api/OdCarts/' + sessionStorage.getItem("userid")).subscribe(
     //  (r: any) =>
-      
+
     //  {
 
     //    this.productAddedTocart = r;
@@ -49,27 +49,26 @@ export class cartComponent implements OnInit {
     //    }
     //});
 
-    this.httpClient.get(this.prod_service.getUrl() + 'api/OdCarts/' + localStorage.getItem("userid")+"/"+"cart").subscribe(
+    this.httpClient.get(this.prod_service.getUrl() + 'api/OdCarts/' + localStorage.getItem("userid")+"/"+"myorders").subscribe(
       (r: any) => {
 
-        this.productAddedTocart = r;
-
-        if (localStorage.getItem("ModelId") != null) {
-          this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + localStorage.getItem("ModelId") + '/' + "cart").subscribe(
-            (r: any) => {
-              this.img_list = r;
-            })
+       //.where(u => u.StatusCode == "O").ToList();
+      //  this.products_myorders = this.productAddedTocart;//.forEach(e => e.StatusCode == "O");
+        if (r.length > 0) {
+          this.productAddedTocart = r;
+          if (localStorage.getItem("ModelId") != null) {
+            this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + localStorage.getItem("ModelId") + '/' + "cart").subscribe(
+              (r: any) => {
+                this.img_list = r;
+              })
+          }
         }
         else {
-
+          $("#divHistory")[0].hidden = false;
         }
+ 
       });
-    this._sharedservice.currentMessage.subscribe(msg => this.cartItemCount = msg);
- //   this.productAddedTocart = this._exampleService.getProductFromCart();
-    //this._exampleService.addProductToCart(this.productAddedTocart);
-    //var item: Item = {
-    //  product: this.productService.find('1'),
-    //  quantity: 1
-    //};
+   
   }
+
 }

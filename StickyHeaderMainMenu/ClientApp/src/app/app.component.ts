@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
   login_text: string = "Sign In";
   login_username: string = "";
   change_pwd = "";
+  my_orders = "";
   signout_text = "";
   isheader = " ";
   mySubscription;
@@ -202,7 +203,17 @@ export class AppComponent implements OnInit {
       }
       else
         $("#changePwd")[0].hidden = true;
-  });
+    });
+
+    this._sharedservice.myorders.subscribe(myorders => {
+      if (localStorage.getItem('myorders') != null) {
+        this.my_orders = localStorage.getItem('myorders');
+        $("#myorders")[0].hidden = false;
+      }
+      else
+        $("#myorders")[0].hidden = true;
+    });
+
     this._sharedservice.loginMessage_signout.subscribe(signout => {
       if (localStorage.getItem('signouttext') != null) {
         this.signout_text = localStorage.getItem('signouttext');
@@ -305,7 +316,7 @@ export class AppComponent implements OnInit {
          this.router.navigateByUrl('/Login');
        }
        else {
-         //this.router.navigateByUrl('/Login');
+         this.router.navigateByUrl('/myaccount');
        }
   }
 

@@ -96,6 +96,7 @@ export class LoginComponent implements OnInit {
 
                 localStorage.setItem("status_text", "");
                 localStorage.setItem("changepwd", "Change Password");
+                localStorage.setItem("myorders", "My Orders");
                 localStorage.setItem("signouttext", "Sign Out");
                 this._sharedservice.loginSuccess("Sign Out");
                 this._sharedservice.loginSuccessUsername(this.userdetails[0].firstName);

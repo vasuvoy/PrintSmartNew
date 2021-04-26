@@ -26,6 +26,8 @@ import { EditAddressComponent } from './edit-address/edit-address.component';
 
 import { AdminComponent } from './admin/admin.component';
 import { ContactComponent } from './contact/contact.component';
+import { MyaccountComponent } from './myaccount/myaccount.component';
+import { MyordersComponent } from './myorders/myorders.component';
 
 
 
@@ -49,6 +51,8 @@ import { ContactComponent } from './contact/contact.component';
     EditAddressComponent,
     AdminComponent,
     ContactComponent,
+    MyaccountComponent,
+    MyordersComponent,
     //FileUploadModule
   ],
   imports: [
@@ -76,6 +80,9 @@ import { ContactComponent } from './contact/contact.component';
 
       { path: 'admin', component: AdminComponent },
       { path: 'contact', component: ContactComponent },
+      
+      { path: 'myaccount', component: MyaccountComponent },
+      { path: 'myorders', component: MyordersComponent }
  
     ])
   ],

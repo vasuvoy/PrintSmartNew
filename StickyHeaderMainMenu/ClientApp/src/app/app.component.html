@@ -243,7 +243,7 @@
         <!--<img src="assets/Icon.jpg" style="width:100px"  />-->
       </div>
       <div class="column2">
-        <img src="assets/Icon.jpg" style="width:100px" (click)="headerImg();"/>
+        <img src="assets/Logo.svg" style="width:100px;cursor:pointer;padding-bottom:13px" (click)="headerImg();"/>
       </div>
       <div class="column3">
         <div>
@@ -258,7 +258,9 @@
                   <a class="dropdown-item" (click)=" myaccount();" [routerLink]="">My Account</a>
                   <a class="dropdown-item" (click)=" myaddress();" [routerLink]="" href="#">My Address</a>
                   <a class="dropdown-item" id="changePwd" [routerLink]="['forgotpassword']" href="#" hidden="hidden">{{change_pwd}}</a>
+                  <a class="dropdown-item" id="myorders" [routerLink]="['myorders']" href="#" hidden="hidden">{{my_orders}}</a>
                   <a class="dropdown-item" (click)=" signout();" id="signout" href="#" hidden="hidden">{{signout_text}}</a>
+
                 </li>
               </ul>
             </li>

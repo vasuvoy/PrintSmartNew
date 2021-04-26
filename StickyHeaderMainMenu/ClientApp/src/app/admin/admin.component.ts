@@ -4,11 +4,12 @@ import { Productmodel } from '../app.component';
 import { ProductService } from '../services/product.service';
 import { pricedetail } from '../entities/pricedetail.entity';
 import { isDevMode } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 declare var $: any;
 let prodid: any;
-let prodid_l2:any;
+let prodid_l2: any;
 let p: ProductList[];
 let prodid_l3 = "";
 let prod_desc = "";
@@ -34,7 +35,7 @@ export class AdminComponent implements OnInit {
 
   public price_detail: pricedetail[];
 
-  constructor(private http: HttpClient, private prod_service: ProductService) { }
+  constructor(private http: HttpClient, private prod_service: ProductService, private router: Router) { }
 
   ngOnInit() {
 
@@ -43,7 +44,7 @@ export class AdminComponent implements OnInit {
       if (localStorage.getItem("userid") == null && localStorage.getItem("IsAdmin") == null) {
 
       }
-    //  $('.btnsave').hide();
+      //  $('.btnsave').hide();
       $("#makeEditable").hide();
       $("#card_edit").hide();
       $("#tbl_edit").hide();
@@ -51,7 +52,7 @@ export class AdminComponent implements OnInit {
       $("#btn_edit_submit").hide();
       $('#makeEditable').SetEditable({
 
-        
+
       });
       $("#disss").attr("readonly", true);
       $('#ddl_prodl1').select2({
@@ -91,8 +92,8 @@ export class AdminComponent implements OnInit {
     var page = "admin";
     var prd_level = "p1";
     let prodid = 0;
-    
-    this.http.get(this.prod_service.getUrl()  + 'api/Products/' + prd_level + '/' + prodid).subscribe(
+
+    this.http.get(this.prod_service.getUrl() + 'api/Products/' + prd_level + '/' + prodid).subscribe(
       (res1: any) => {
         p = res1;
         this.prod_lst = res1;
@@ -102,22 +103,22 @@ export class AdminComponent implements OnInit {
             $('#ddl_prodl1').append('<option value="' + e.prodId + '">' + e.prodDesc + '</option>');//.trigger('change');
             $('#ddl_prodl1_edit').append('<option value="' + e.prodId + '">' + e.prodDesc + '</option>');//.trigger('change');
           }
-          })
-        
+        })
+
       });
-   
+
     $("#ddl_prodl1").change(function () {
       $("#ddl_prodl2").empty();
       $('#ddl_prodl2').append('<option />');
       prodid = $('#ddl_prodl1 :selected').val();
       p.forEach(g => {
         if (g.prodId == prodid) {
-          modelfolder_name01  = g.prodDesc;
-modelfolder_name =modelfolder_name01.replace("-","_");
+          modelfolder_name01 = g.prodDesc;
+          modelfolder_name = modelfolder_name01.replace("-", "_");
         }
         if (g.parentId == prodid) {
-          $('#ddl_prodl2').append('<option value="' + g.prodId + '">' +g.prodDesc + '</option>');
-            }
+          $('#ddl_prodl2').append('<option value="' + g.prodId + '">' + g.prodDesc + '</option>');
+        }
       });
     });
 
@@ -136,7 +137,7 @@ modelfolder_name =modelfolder_name01.replace("-","_");
           $('#ddl_prodl3').hide();
         }
       });
- 
+
     });
 
     $("#ddl_prodl3").change(function (e) {
@@ -197,22 +198,22 @@ modelfolder_name =modelfolder_name01.replace("-","_");
     let image_name = "";
     //event.target.files[0].name = selected_filename;
     this.selectedfile = event.target.files[0];
-   // alert(this.selectedfile.name);
+    // alert(this.selectedfile.name);
     const oldFileItem: File = event.target.files[0];
     if (prodid_l3 != "") {
       var dt = new Date();
       time = dt.getHours().toString() + dt.getMinutes().toString() + dt.getSeconds().toString() + dt.getMilliseconds().toString();
-      image_name = dt.getDate().toString() + dt.getMonth().toString() + dt.getFullYear().toString()  + time;
-      this.http.get(this.prod_service.getUrl() + 'api/Productmodels/' + prodid_l3+'/'+"adminpage").subscribe((e: any) => {
+      image_name = dt.getDate().toString() + dt.getMonth().toString() + dt.getFullYear().toString() + time;
+      this.http.get(this.prod_service.getUrl() + 'api/Productmodels/' + prodid_l3 + '/' + "adminpage").subscribe((e: any) => {
 
-        selected_filename = $("#modle_code")[0].value  + image_name + '.jpg';// this.selectedfile.name;
+        selected_filename = $("#modle_code")[0].value + image_name + '.jpg';// this.selectedfile.name;
         // alert(selected_filename);
         const newFile: File = new File([event.target.files[0]], selected_filename, { type: oldFileItem.type });
         filename = newFile.name;
         let formData: FormData = new FormData();
         formData.append('file', newFile, newFile.name);
         formData.append('folderName', modelfolder_name);
-        
+
 
         if (isDevMode()) {
           // let params = { 'formdata': formData, 'foldername': 'example' }
@@ -221,18 +222,18 @@ modelfolder_name =modelfolder_name01.replace("-","_");
         else
           formData.append('mode', "prod");
 
-          this.http.post(this.prod_service.getUrl() + 'api/FileUpload', formData).subscribe(e => { });
+        this.http.post(this.prod_service.getUrl() + 'api/FileUpload', formData).subscribe(e => { });
 
-       
+
       });
     }
     else {
       var dt = new Date();
       time = dt.getHours().toString() + dt.getMinutes().toString() + dt.getSeconds().toString() + dt.getMilliseconds().toString();
-      image_name = dt.getDate().toString() + dt.getMonth().toString() + dt.getFullYear().toString()+ time;
-      this.http.get(this.prod_service.getUrl()  + 'api/Productmodels/' + prodid_l2 + '/' + "adminpage").subscribe((e: any) => {
+      image_name = dt.getDate().toString() + dt.getMonth().toString() + dt.getFullYear().toString() + time;
+      this.http.get(this.prod_service.getUrl() + 'api/Productmodels/' + prodid_l2 + '/' + "adminpage").subscribe((e: any) => {
 
-        selected_filename = $("#modle_code")[0].value  + image_name + '.jpg';// this.selectedfile.name;
+        selected_filename = $("#modle_code")[0].value + image_name + '.jpg';// this.selectedfile.name;
         const newFile: File = new File([event.target.files[0]], selected_filename, { type: oldFileItem.type });
         filename = newFile.name;
         let formData: FormData = new FormData();
@@ -247,9 +248,9 @@ modelfolder_name =modelfolder_name01.replace("-","_");
           formData.append('mode', "prod");
 
         this.http.post(this.prod_service.getUrl() + 'api/FileUpload', formData).subscribe(
-          (e:any) => {
+          (e: any) => {
 
-       });
+          });
       });
     }
 
@@ -297,7 +298,7 @@ modelfolder_name =modelfolder_name01.replace("-","_");
         //alert(sp);
         $("lbl_price").text(sp);
         var price_detail: pricedetail = {
-          ModelId: e.modelId, maxRetailPrice: stringtonum($("#max_price")[0].value), percentDisc: stringtonum(dis_value), SellingPrice:sp,
+          ModelId: e.modelId, maxRetailPrice: stringtonum($("#max_price")[0].value), percentDisc: stringtonum(dis_value), SellingPrice: sp,
           DtEffectStart: null, DtEffectEnd: null, DtModify: null
 
 
@@ -331,13 +332,20 @@ modelfolder_name =modelfolder_name01.replace("-","_");
   }
 
   submit() {
-    $("#makeEditable").show();
+
 
     $("#card_create").hide();
-    if (prodid_l3 != "") {
+    if (prodid_l3_edit != " ") {
       this.http.get(this.prod_service.getUrl() + 'api/Pricedetails/' + "edit_page" + "/" + prodid_l3_edit).subscribe((e: any) => {
         this.price_detail = e;
-
+        if (e.length > 0)
+          $("#makeEditable").show();
+        else {
+          $("#danger-alert").show();
+          $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#danger-alert").slideUp(1000);
+          });
+        }
       });
 
     }
@@ -345,25 +353,32 @@ modelfolder_name =modelfolder_name01.replace("-","_");
 
       this.http.get(this.prod_service.getUrl() + 'api/Pricedetails/' + "edit_page" + "/" + prodid_l2_edit).subscribe((e: any) => {
         this.price_detail = e;
-
+        if (e.length > 0)
+          $("#makeEditable").show();
+        else {
+          $("#danger-alert").show();
+          $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#danger-alert").slideUp(1000);
+          });
+        }
       });
-    } 
+    }
 
   }
 
-  btn_row_click(e,i) {
+  btn_row_click(e, i) {
 
     for (let j = 0; j < $("table")[2].children[1].children[i].children.length; j++) {
       if ($("table")[2].children[1].children[i].cells[j].children.length > 0) {
         if ($("table")[2].children[1].children[i].cells[j].children[0].className == "edit") {
           $("table")[2].children[1].children[i].cells[j].children[0].disabled = false;
-     
+
         }
       }
     }
     for (let s = 1; s <= 2; s++) {
 
-     // $("table")[2].children[1].children[i].children[6].children[0].children[0].hidden = false;
+      // $("table")[2].children[1].children[i].children[6].children[0].children[0].hidden = false;
       $("table")[2].children[1].children[i].children[8].children[s].children[0].hidden = false;
     }
 
@@ -377,27 +392,27 @@ modelfolder_name =modelfolder_name01.replace("-","_");
       return n;
     }
     let mrp_new = $("table")[2].children[1].children[i].cells[3].children[0].value;
-   // alert(mrp_new);
+    // alert(mrp_new);
     let disc_new = $("table")[2].children[1].children[i].cells[4].children[0].value;
-  //  alert(disc_new);
+    //  alert(disc_new);
     let model_id_edit = $("table")[2].children[1].children[i].cells[2].innerText;
     let disc = stringtonum(disc_new) / 100;
-    let sp = (mrp_new - (mrp_new *disc));
+    let sp = (mrp_new - (mrp_new * disc));
     let detid_edit = $("table")[2].children[1].children[i].cells[1].innerText;
     var pd_edit: pricedetail = {
       PriceDetId: stringtonum(detid_edit),
       maxRetailPrice: stringtonum(mrp_new), percentDisc: stringtonum(disc_new), SellingPrice: sp,
-      ModelId: stringtonum(model_id_edit),DtEffectStart: null,
-      DtEffectEnd: null, DtModify:null
+      ModelId: stringtonum(model_id_edit), DtEffectStart: null,
+      DtEffectEnd: null, DtModify: null
     };
     this.http.put(this.prod_service.getUrl() + 'api/Pricedetails/' + stringtonum(detid_edit), pd_edit).subscribe(e => {
       $("table")[2].children[1].children[i].children[8].children[0].hidden = true;
       $("#btn_edit_submit").click();
     });
 
- 
+
     //this.submit();
-   // $("#btn_edit_submit").click();
+    // $("#btn_edit_submit").click();
     //this.http.get(this.prod_service.getUrl() + 'api/Pricedetails/' + "edit_page" + "/" + prodid_l2_edit).subscribe((e: any) => {
     //  this.price_detail = e;
     //});
@@ -421,9 +436,18 @@ modelfolder_name =modelfolder_name01.replace("-","_");
     }
 
     $("table")[2].children[1].children[i].children[8].children[0].hidden = false;
-   
+
   }
- }
+
+  back() {
+    $("#makeEditable").hide();
+    $("#card_edit").hide();
+    $("#tbl_edit").hide();
+    $("#card_create").show();
+    $("#Admin").show();
+  //  location.reload();
+  }
+}
 
 export class ProductList {
   prodId: number;

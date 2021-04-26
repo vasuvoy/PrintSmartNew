@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>my orders</title>
+</head>
+<body>
+  <h1>My orders</h1>
+  <!--<table class="table table-bordered table-responsive table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>Image</th>
+        <th>gender</th>
+        <th>size</th>
+        <th>color</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let prod of productAddedTocart">
+      <td><img src="assets/Img/tshirt.jpg" width="250px" height="270px" /></td>
+      <td class="text-center">{{prod.gender}}</td>
+      <td>{{prod.size}}</td>
+      <td>{{prod.color}}</td>
+
+    </tr>
+  </table>-->
+
+  <div class="table-responsive">
+    <table class="table">
+
+      <tbody>
+        <tr *ngFor="let prod of productAddedTocart">
+          <td scope="row" width="100px" *ngIf="prod.isCustomized==1; else elseBlock">
+            <!--<img src="assets/Img/tshirt.jpg" style="width:150px;height:150px" />-->
+            <div style="position: relative; left: 0; top: 0;">
+              <img id="img_tshirt_modal" style="position: relative; left: 0; top: 0;width:150px" src="assets/Tshirt_Imgs/15.jpg" />
+
+              <!--<img id="img_tshirt_write" style="position: absolute; left: 65px; top: 100px;width:100px"
+              src="assets/Img/download.png" />-->
+              <!--<div id="text_div" style="line-height:0.6; position: absolute;border:dotted;border-color:red; left: 156px; top: 100px;width:100px">-->
+              <div id="outer_editor_div" style=" width:50px">
+
+                <div id="img_tshirt_write" style="position: absolute; left:60px;top:50px;font-size:6px" innerHTML="{{prod.customContent}}">
+                </div>
+              </div>
+            </div>
+          </td>
+          <ng-template #elseBlock>
+            <td scope="row" width="100px">
+              <img src="{{prod.modelLink}}" style="width:150px;height:150px" />
+            </td>
+          </ng-template>
+          <td>
+            <div>
+              <span ng-if="prod.gender==null; else sizeblock"></span>
+              <ng-template #sizeblock>
+                <span><span style="font-size:medium;color:blue">size:</span> {{prod.gender}}</span><br />
+              </ng-template>
+              <!--<span><span style="font-size:medium;color:blue">color:</span> {{prod.color}}</span><br />-->
+              <span><span style="font-size:medium;color:blue">Qty:</span> {{prod.quantity}}</span><br />
+              <span><span style="font-size:medium;color:blue">Price:</span> {{prod.itemPrice}}</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div id="divHistory" hidden="hidden">
+      <label>No order history</label>
+    </div>
+  </div>
+</body>
+</html>

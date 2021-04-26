@@ -32,6 +32,9 @@ export class SharedService {
   private IsAdmin_res = new BehaviorSubject(localStorage.getItem("IsAdmin"));
   IsAdmin_res_service = this.IsAdmin_res.asObservable();
 
+  private login_success_myorders = new BehaviorSubject('');
+  myorders = this.login_success_myorders.asObservable();
+
   constructor(private router: Router) { }
     updateCartCount(count: number){
       this.CurrentCartCount.next(count);
@@ -56,6 +59,11 @@ export class SharedService {
   loginSuccesschangepwd(success: any) {
     this.login_success_changepwd.next(success);
   }
+
+  loginsuccessmyorders(success: any) {
+    this.login_success_myorders.next(success);
+  }
+
 
   IsAdminresservice(success: any) {
  

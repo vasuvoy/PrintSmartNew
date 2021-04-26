@@ -7,6 +7,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title></title>
   <style>
+    a:hover {
+        text-decoration:underline !important;
+        cursor:pointer;
+    }
   </style>
 </head>
 <body>
@@ -93,13 +97,13 @@
                     </td>
                   </tr>
                   <!--<tr>
-          <td><label class="lbl_style">Price</label></td>
-          &nbsp;&nbsp;
-          <td>
-            <label class="lbl_style" id="lbl_price"></label>
+                    <td><label class="lbl_style">Price</label></td>
+                    &nbsp;&nbsp;
+                    <td>
+                      <label class="lbl_style" id="lbl_price"></label>
 
-          </td>
-        </tr>-->
+                    </td>
+                  </tr>-->
                 </tbody>
               </table>
 
@@ -118,10 +122,10 @@
               </div>
 
             </form>
-            
+
           </div>
- 
-          <br/>
+
+          <br />
         </div>
 
         <div class="card" id="card_edit">
@@ -167,78 +171,86 @@
           <div class="col-md-6 offset-md-4">
             <button class="btn btn-primary" type="button" id="btn_edit_submit" (click)="submit()">submit</button>
           </div>
+          &nbsp;
+          <a  (click)="back()">Back</a>
+          <br />
+          <div class="alert alert-danger" id="danger-alert" style="width:300px;margin:0 auto" hidden="hidden">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>no results found</strong>
+          </div>
         </div>
       </div>
     </div>
 
     <div style="padding-left:155px">
 
-    <br />
+      <br />
 
-    <table id="makeEditable" style="height:200px;overflow-y:scroll;width:725px"
-           class="table table-bordered table-striped table-hover table-condensed table-responsive">
-      <thead style="background-color:lightseagreen">
-        <tr>
-          <th></th>
-          <th hidden="hidden">
-            detId
-          </th>
-          <th hidden="hidden">
-            MOdelID
-          </th>
-          <th>
-            MRP
-          </th>
-          <th>
-            DIS
-          </th>
-          <th>
-            SP
-          </th>
-          <th hidden="hidden">
-            ModelLink
-          </th>
-          <th>
-            Model Description
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let price_dt of price_detail;let i=index">
-          <td><img src="{{price_dt.modelLink}}" style="height:50px;width:50px" /></td>
-          <td hidden="hidden">
-            {{price_dt.priceDetId}}
-          </td>
-          <td hidden="hidden">
-            {{price_dt.modelId}}
-          </td>
-          <td>
-            <input class="edit" style="width:150px" type="text" id="txtmrp" disabled="disabled" placeholder="{{price_dt.maxRetailPrice}}" value="{{price_dt.maxRetailPrice}}" />
-          </td>
-          <td>
-            <input class="edit" style="width:150px" type="text" id="txtdis" disabled="disabled" value="{{price_dt.percentDisc}}" placeholder="{{price_dt.percentDisc}}" />
-          </td>
-          <td>
-            {{price_dt.sellingPrice}}
-          </td>
-          <td hidden="hidden">
-            {{price_dt.modelLink}}
+      <table id="makeEditable" style="height:200px;overflow-y:scroll;width:725px"
+             class="table table-bordered table-striped table-hover table-condensed table-responsive">
+        <thead style="background-color:lightseagreen">
+          <tr>
+            <th></th>
+            <th hidden="hidden">
+              detId
+            </th>
+            <th hidden="hidden">
+              MOdelID
+            </th>
+            <th>
+              MRP
+            </th>
+            <th>
+              DIS
+            </th>
+            <th>
+              SP
+            </th>
+            <th hidden="hidden">
+              ModelLink
+            </th>
+            <th>
+              Model Description
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let price_dt of price_detail;let i=index">
+            <td><img src="{{price_dt.modelLink}}" style="height:50px;width:50px" /></td>
+            <td hidden="hidden">
+              {{price_dt.priceDetId}}
+            </td>
+            <td hidden="hidden">
+              {{price_dt.modelId}}
+            </td>
+            <td>
+              <input class="edit" style="width:150px" type="text" id="txtmrp" disabled="disabled" placeholder="{{price_dt.maxRetailPrice}}" value="{{price_dt.maxRetailPrice}}" />
+            </td>
+            <td>
+              <input class="edit" style="width:150px" type="text" id="txtdis" disabled="disabled" value="{{price_dt.percentDisc}}" placeholder="{{price_dt.percentDisc}}" />
+            </td>
+            <td>
+              {{price_dt.sellingPrice}}
+            </td>
+            <td hidden="hidden">
+              {{price_dt.modelLink}}
 
-          </td>
-          <td>
-            {{price_dt.modelDesc}}
+            </td>
+            <td>
+              {{price_dt.modelDesc}}
 
-          </td>
-          <td>
-            <button type="button" class="btn btn-primary" id="btn_row" (click)="btn_row_click(price_dt,i)">Edit</button>
-            <span class="btn_save" id="spn_save"> <button type="button" class="" hidden="hidden" (click)="btn_newsave(i)"> Save</button> </span>
-            &nbsp;<span class="btn_cancel" id="spn_cancel"> <button type="button" class="btncancel" hidden="hidden" (click)="btn_newcancel(i)"> Cancel</button></span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    </div>  
+            </td>
+            <td>
+              <button type="button" class="btn btn-primary" id="btn_row" (click)="btn_row_click(price_dt,i)">Edit</button>
+              <span class="btn_save" id="spn_save"> <button type="button" class="" hidden="hidden" (click)="btn_newsave(i)"> Save</button> </span>
+              &nbsp;<span class="btn_cancel" id="spn_cancel"> <button type="button" class="btncancel" hidden="hidden" (click)="btn_newcancel(i)"> Cancel</button></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br />
+    
+    </div>
     <br />
 
   </div>

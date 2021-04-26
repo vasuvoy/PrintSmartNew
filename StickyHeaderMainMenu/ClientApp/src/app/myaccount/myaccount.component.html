@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title></title>
+</head>
+<body>
+  <div class="container" *ngFor="let dt of userdetails">
+    <label>Email:</label>&nbsp;
+    <label style="font-weight:normal">{{dt.email}}</label>
+    <br />
+    <label>Phone Number:</label>&nbsp;
+    <label style="font-weight:normal">{{dt.telephone}}</label>
+    <br />
+    <label>FirstName:</label>&nbsp;
+    <label style="font-weight:normal">{{dt.firstName}}</label>
+    <br />
+    <label>LastName:</label>&nbsp;
+    <label style="font-weight:normal">{{dt.lastName}}</label>
+    <!--<label>Email:</label>&nbsp;
+  <label style="font-weight:normal">{{dt.dob}}</label>
+  <br />-->
+  </div>
+</body>
+</html>
