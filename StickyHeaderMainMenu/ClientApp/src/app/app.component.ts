@@ -343,6 +343,7 @@ export class AppComponent implements OnInit {
     localStorage.removeItem("ProdId");
     localStorage.removeItem("Prod_name");
     localStorage.removeItem("ModelId");
+    localStorage.removeItem("myorders");
     this._sharedservice.IsAdminresservice("");
     this.router.navigateByUrl('/Login');
   }

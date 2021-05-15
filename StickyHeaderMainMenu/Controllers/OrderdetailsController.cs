@@ -28,14 +28,14 @@ namespace StickyHeaderMainMenu.Controllers
         }
 
         // GET: api/Orderdetails/5
-        [HttpGet("{id}/{page}")]
-        public async Task<ActionResult<IEnumerable<Orderdetail>>> GetOrderdetail(int id,string page)
+        [HttpGet("{id}/{page}/{userid}")]
+        public async Task<ActionResult<IEnumerable<Orderdetail>>> GetOrderdetail(int id,string page,int userid)
         {
             var orderdetail=new List<StickyHeaderMainMenu.Models.Orderdetail>();
           //  var orderdetail1 = new List<StickyHeaderMainMenu.Models.OdCart>();
             if (page == "l3menu")
             {
-                 orderdetail = await _context.Orderdetail.Where(e => e.ModelId == id).ToListAsync();
+                 orderdetail = await _context.Orderdetail.Where(e => e.ModelId == id).Where(e=>e.OrderedBy==userid).ToListAsync();
                 if (orderdetail == null)
                 {
                     return NotFound();

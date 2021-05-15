@@ -55,18 +55,26 @@ export class LoginComponent implements OnInit {
 
 
   submit() {
-  
+    function stringtonum(input: string) {
+      var n = Number(input);
+      return n;
+    }
     let user_name = $("#email").val();
     let pwd = $("#pwd").val();
     let user_id = 0;
     let password = "";
     let email = "";
+
     localStorage.setItem('emailid', user_name);
+    localStorage.setItem('password', pwd);
  
     if (user_name != "" && pwd != "") {
       this.httpClient.get<User_Details[]>(this.prod_service.getUrl()+ 'api/Userdetail/' + user_name).subscribe(
         result => {
-          this.userdetails = result
+          this.userdetails = result;
+          let seqid = this.userdetails[0].secQid;
+          localStorage.setItem("seq", seqid.toString());
+          localStorage.setItem("seqa", this.userdetails[0].secQa);
           var email_exists = result.findIndex(em_exists => em_exists.email == user_name);
 
             if (email_exists == -1) {
@@ -142,13 +150,13 @@ export interface User_Details {
   firstName: string;
   LastName: string;
   email: string;
-  Dob: Date;
+  dob: Date;
   pwd: string;
-  Telephone: string;
-  Isactive: string;
-  SecQid: number;
-  SecQa: string;
-  DtCreate: null;
-  DtModify: null;
+  telephone: string;
+  isactive: string;
+  secQid: number;
+  secQa: string;
+  dtCreate: null;
+  dtModify: null;
   isAdmin: string;
 }

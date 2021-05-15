@@ -7,21 +7,44 @@
   <title></title>
 </head>
 <body>
-  <div class="container" *ngFor="let dt of userdetails">
-    <label>Email:</label>&nbsp;
-    <label style="font-weight:normal">{{dt.email}}</label>
-    <br />
-    <label>Phone Number:</label>&nbsp;
-    <label style="font-weight:normal">{{dt.telephone}}</label>
-    <br />
-    <label>FirstName:</label>&nbsp;
-    <label style="font-weight:normal">{{dt.firstName}}</label>
-    <br />
-    <label>LastName:</label>&nbsp;
-    <label style="font-weight:normal">{{dt.lastName}}</label>
-    <!--<label>Email:</label>&nbsp;
-  <label style="font-weight:normal">{{dt.dob}}</label>
-  <br />-->
+  <div style="height:500px">
+    <div class="container" *ngFor="let dt of userdetails">
+      <table class="table table-borderless" style="">
+        <tr>
+          <td style="width:150px"><label>Email:</label></td>
+          <td><input style="font-weight:normal" id="txt_email" value="{{dt.email}}"></td>
+        </tr>
+
+        <tr style="width:150px">
+          <td><label>Phone Number:</label></td>
+          <td><input style="font-weight:normal" id="txt_phonenum" value="{{dt.telephone}}"></td>
+        </tr>
+
+        <tr style="width:150px">
+          <td><label>FirstName:</label></td>
+          <td><input style="font-weight:normal" id="txt_fname" value="{{dt.firstName}}"></td>
+        </tr>
+
+        <tr style="width:150px">
+          <td><label>LastName:</label></td>
+          <td><input style="font-weight:normal" id="txt_lname" value="{{dt.lastName}}"></td>
+        </tr>
+
+        <!--<tr style="width:150px">
+          <td><label>Date Of Birth:</label></td>
+          <td><input style="font-weight:normal" type="date"  id="txt_dob" value="{{dt.dob}}"></td>
+        </tr>-->
+      </table>
+      <!--<label>Email:</label>&nbsp;
+    <label style="font-weight:normal">{{dt.dob}}</label>
+    <br />-->
+    </div>
+
+    <button class="btn btn-primary" style="margin-left:145px" (click)="acc_save()">Save</button>
+    <div class="alert alert-success" id="success-alert" style="width:300px;margin:0 auto" hidden="hidden">
+      <button type="button" class="close" data-dismiss="alert">x</button>
+      <strong>details updated</strong>
+    </div>
   </div>
 </body>
 </html>

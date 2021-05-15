@@ -341,7 +341,7 @@ export class InvitationCardsComponent implements OnInit {
         Prodser_value = stringtonum($("#ddl_prodser").val());
 
       var s = "l3menu";
-      this.httpClient.get(this.prod_service.getUrl() + 'api/Orderdetails/' + localStorage.getItem('ModelId') + '/' + s).subscribe((res: any) => {
+      this.httpClient.get(this.prod_service.getUrl() + 'api/Orderdetails/' + localStorage.getItem('ModelId') + '/' + s + '/' + localStorage.getItem("userid")).subscribe((res: any) => {
         this.products_get = res;
      //   qty = $('#ddl_Qty :selected').text();
         qty = $('.count').val();

@@ -7,6 +7,7 @@ import { ProductService } from '../services/product.service';
 
 declare var $: any;
 declare var swal: any;
+let userid = 0;
 
 @Component({
   selector: 'app-forgotpassword',
@@ -63,12 +64,15 @@ export class ForgotpasswordComponent implements OnInit {
   }
 
   submit() {
-    const headers = new HttpHeaders().set('content-type', 'application/json');
-    var secqid = stringtonum($('#ddl_secqus').val());
     function stringtonum(input: string) {
       var n = Number(input);
       return n;
     }
+    const headers = new HttpHeaders().set('content-type', 'application/json');
+    var secqid = stringtonum($('#ddl_secqus').val());
+    userid = stringtonum(localStorage.getItem('userid'));
+
+ 
 
     let user_name = $("#email").val();
     this.http.get(this.prod_service.getUrl() + 'api/Userdetail/' + user_name).subscribe(
@@ -97,7 +101,7 @@ export class ForgotpasswordComponent implements OnInit {
             //  Isactive: 1, SecQid: 3, SecQa: null, DtCreate: null, DtModify: null
             //};
 
-            this.http.put(this.prod_service.getUrl() + 'api/Userdetail/' + user_name, userdetails_updated).subscribe(res => {
+            this.http.put(this.prod_service.getUrl() + 'api/Userdetail/' + userid, userdetails_updated).subscribe(res => {
               // alert("Password changed sucessfully");
               $("#success-alert")[0].hidden = false;
               $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {

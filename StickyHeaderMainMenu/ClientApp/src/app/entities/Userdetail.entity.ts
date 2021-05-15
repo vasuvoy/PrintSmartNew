@@ -4,12 +4,12 @@ export class Userdetail {
   FirstName: string;
   LastName: string;
   Email: string;
-  Dob: Date;
-  Pwd: string;
+  Dob?: Date;
+  Pwd?: string;
   Telephone: string;
-  Isactive: string;
-  SecQid: number;
-  SecQa: string;
-  DtCreate: null;
+  Isactive: number;
+  SecQid?: number;
+  SecQa?: string;
+  DtCreate?: null;
   DtModify: null;
 }

@@ -54,13 +54,13 @@ namespace StickyHeaderMainMenu.Controllers
         // PUT: api/Userdetails/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{email}")]
-        public async Task<IActionResult> PutUserdetail(string email,[FromBody] Userdetail userdetail)
+        [HttpPut("{userid}")]
+        public async Task<IActionResult> PutUserdetail(int userid,[FromBody] Userdetail userdetail)
         {
-            if (email != userdetail.Email)
-            {
-                return BadRequest();
-            }
+            //if (email != userdetail.Email)
+            //{
+            //    return BadRequest();
+            //}
 
             _context.Entry(userdetail).State = EntityState.Modified;
 
