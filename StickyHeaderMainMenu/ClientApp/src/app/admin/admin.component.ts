@@ -21,7 +21,8 @@ let formData: FormData;
 let filename = "";
 let prodid_l2_edit: any;
 let prodid_l3_edit: any;
-let contentpath = "";
+let actual_mrp = $("#txtmrp").text();
+let actual_disc = $("#txtdis").text();
 
 @Component({
   selector: 'app-admin',
@@ -286,6 +287,8 @@ export class AdminComponent implements OnInit {
         $("#max_price").val('');
         $('#ddl_prodl1').select2('val', '0');
         $("#file").val('');
+        $("#modle_desc").val('');
+        $('#ddl_prodl3').select2('val', '0');
       });
     }
     else {
@@ -335,7 +338,7 @@ export class AdminComponent implements OnInit {
 
 
     $("#card_create").hide();
-    if (prodid_l3_edit != " ") {
+    if (prodid_l3_edit != undefined) {
       this.http.get(this.prod_service.getUrl() + 'api/Pricedetails/' + "edit_page" + "/" + prodid_l3_edit).subscribe((e: any) => {
         this.price_detail = e;
         if (e.length > 0)
@@ -372,7 +375,8 @@ export class AdminComponent implements OnInit {
       if ($("table")[2].children[1].children[i].cells[j].children.length > 0) {
         if ($("table")[2].children[1].children[i].cells[j].children[0].className == "edit") {
           $("table")[2].children[1].children[i].cells[j].children[0].disabled = false;
-
+    
+          //mrp
         }
       }
     }
@@ -424,7 +428,8 @@ export class AdminComponent implements OnInit {
       if ($("table")[2].children[1].children[i].cells[j].children.length > 0) {
         if ($("table")[2].children[1].children[i].cells[j].children[0].className == "edit") {
           $("table")[2].children[1].children[i].cells[j].children[0].disabled = true;
-
+          $("table")[2].children[1].children[i].cells[j].children[0].value = actual_mrp;
+          $("table")[2].children[1].children[i].cells[j].children[0].value = actual_disc;
         }
       }
     }
@@ -445,6 +450,9 @@ export class AdminComponent implements OnInit {
     $("#tbl_edit").hide();
     $("#card_create").show();
     $("#Admin").show();
+    $('#ddl_prodl1_edit').select2('val', '0');
+    $('#ddl_prodl2_edit').select2('val', '0');
+    $('#ddl_prodl3_edit').select2('val', '0');
   //  location.reload();
   }
 }

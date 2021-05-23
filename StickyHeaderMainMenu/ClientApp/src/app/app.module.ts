@@ -28,6 +28,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ContactComponent } from './contact/contact.component';
 import { MyaccountComponent } from './myaccount/myaccount.component';
 import { MyordersComponent } from './myorders/myorders.component';
+import { PaymentComponent } from './payment/payment.component';
 
 
 
@@ -53,6 +54,7 @@ import { MyordersComponent } from './myorders/myorders.component';
     ContactComponent,
     MyaccountComponent,
     MyordersComponent,
+    PaymentComponent,
     //FileUploadModule
   ],
   imports: [
@@ -82,8 +84,8 @@ import { MyordersComponent } from './myorders/myorders.component';
       { path: 'contact', component: ContactComponent },
       
       { path: 'myaccount', component: MyaccountComponent },
-      { path: 'myorders', component: MyordersComponent }
- 
+      { path: 'myorders', component: MyordersComponent },
+      { path: 'payment', component: PaymentComponent }
     ])
   ],
   providers: [],

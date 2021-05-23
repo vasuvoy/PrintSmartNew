@@ -58,7 +58,12 @@ export class EditAddressComponent implements OnInit {
       IsDefault: $("#isdefaul")[0].checked, AddressType: stringtonum($('#ddl_addtype').val()),
       AddrId: stringtonum(this.addrId)
     }
-    this.http.put(this.prod_service.getUrl() + 'api/UserAddresses/' + this.addrId, user_address_update).subscribe(res => { alert("addr updtead"); });
+    this.http.put(this.prod_service.getUrl() + 'api/UserAddresses/' + this.addrId, user_address_update).subscribe(res => {
+      $("#success-alert").show();
+      $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+        $("#success-alert").slideUp(1000);
+      });
+    });
 
     //clear fields
     $("#firstname").val('');

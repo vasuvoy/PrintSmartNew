@@ -6,7 +6,7 @@
       <div class="card">
         <div class="card-header" style="color:lightseagreen;font-size:medium"><b>New Address</b></div>
         <div class="card-body">
-          <form *ngIf="editForm" [formGroup]="editForm" id="edit" >
+          <form *ngIf="editForm" [formGroup]="editForm" id="edit">
 
             <table class="table borderless">
               <tbody>
@@ -51,7 +51,7 @@
                     <label class="lbl_style" for="AdL3">Address Line3</label><span style="color:red">*</span>&nbsp;
                   </td>
                   <td>
-                    <input class="form-control" name="AdL3"formControlName="AdL3" placeholder="Street" id="AdL3" style="width: 220px " type="text" required />
+                    <input class="form-control" name="AdL3" formControlName="AdL3" placeholder="Street" id="AdL3" style="width: 220px " type="text" required />
 
                   </td>
                 </tr>
@@ -112,6 +112,11 @@
               <a href="#" [routerLink]="['/address-list']">Addresses List</a>
             </div>
           </form>
+          <br/>
+          <div class="alert alert-success" id="success-alert" style="width: 300px; margin: 0 auto">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Address Successfully updated</strong>
+          </div>
         </div>
 
       </div>

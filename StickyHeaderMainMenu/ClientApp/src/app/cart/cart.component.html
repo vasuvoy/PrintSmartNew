@@ -24,8 +24,8 @@
     </tr>
   </table>-->
 
-  <div class="table-responsive">
-    <table class="table">
+  <div class="table-responsive" style="height:500px">
+    <table class="table" id="tblcart">
       
       <tbody>
         <tr *ngFor="let prod of productAddedTocart">
@@ -45,25 +45,39 @@
               </div>
           </td>
           <ng-template #elseBlock>
-            <td scope="row" width="100px" >
+            <td scope="row" width="150px" >
               <img src="{{prod.modelLink}}"  style="width:150px;height:150px" />
               </td>
 </ng-template>
-          <td >
+          <td width="250px">
             <div>
               <span ng-if="prod.gender==null; else sizeblock"></span>
               <ng-template #sizeblock>
                 <span><span style="font-size:medium;color:blue">size:</span> {{prod.gender}}</span><br />
               </ng-template>
-  <!--<span><span style="font-size:medium;color:blue">color:</span> {{prod.color}}</span><br />-->
-              <span><span style="font-size:medium;color:blue">Qty:</span> {{prod.quantity}}</span><br />
-              <span><span style="font-size:medium;color:blue">Price:</span> {{prod.itemPrice}}</span>
+              <!--<span><span style="font-size:medium;color:blue">color:</span> {{prod.color}}</span><br />-->
+
+              <span><span style="font-size:medium;color:blue">Price:</span> {{prod.itemPrice}}</span><br />
+              <span>
+                <span style="font-size:medium;color:blue">Qty:</span>
+                <input type="number" id="qtywheel" value="{{prod.quantity}}" min="0" max="500" step="1">
+              </span>
+              
             </div>
+            
           </td>
+          <td width="150px" style="text-align:right"><button (click)="trash(prod)"><i class="fa fa-trash" aria-hidden="true" ></i></button></td>
         </tr>
-        <button class="btn btn-primary" type="button" >PayNow</button>
+        <br />
+        <button class="btn btn-primary" type="button" (click)="paynow()" >PayNow</button>
       </tbody>
     </table>
+    <br />
+    <br />
+    <br />
+    <div id="emptycart" hidden="hidden" style="text-align:center">
+      <p>Your Cart Currently is empty</p>
+    </div>
     </div>
 </body>
 </html>

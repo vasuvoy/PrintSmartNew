@@ -113,7 +113,7 @@ export class LoginComponent implements OnInit {
                 if (localStorage.getItem('userid') != null) {
                   var s = "appPage";
 
-                  this.httpClient.get(this.prod_service.getUrl() + 'api/OdCarts/' + localStorage.getItem("userid")).subscribe(
+                  this.httpClient.get(this.prod_service.getUrl() + 'api/OdCarts/' + localStorage.getItem("userid") + "/" +"cart").subscribe(
                     (res: any) => {
                      // var numArr = [10, 20, 30, 40] // sums to value = 100
                       //var sum = 0;
