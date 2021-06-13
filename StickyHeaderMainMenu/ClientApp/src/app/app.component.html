@@ -219,9 +219,17 @@
       .container {
         flex-direction: column;
       }
-    }
-    /*hsggggjghgjjkgg*/
 
+    }
+
+    /*hsggggjghgjjkgg*/
+    /*added on june05*/
+
+    @media (min-width: 768px) {
+      .navbar-collapse.collapse {
+        height: 32px !important;
+      }
+    }
   </style>
 </head>
 
@@ -243,12 +251,12 @@
         <!--<img src="assets/Icon.jpg" style="width:100px"  />-->
       </div>
       <div class="column2">
-        <img src="assets/Logo.svg" style="width:100px;cursor:pointer;padding-bottom:13px" (click)="headerImg();"/>
+        <img src="assets/Logo.svg" style="width:108px;cursor:pointer;padding-bottom:13px" (click)="headerImg();"/>
       </div>
       <div class="column3">
         <div>
 
-          <ul class="nav nav-pills" style="width:33.33%;">
+          <ul class="nav nav-pills" style="width:33.33%">
             <li class="nav-item dropdown" id="signinddl">
 
               <a class="nav-link dropdown-toggle" id="signinnav" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{login_username}}&nbsp;{{login_text}}</a>
@@ -287,12 +295,24 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav mr-auto" style="margin-top:-8px !important">
 
             <li class="nav-item active">
-              <a class="nav-link" [routerLink]="['/']">Home</a>
+              <a class="nav-link" [routerLink]="['/']" id="home">Home</a>
+              <!--<ul class="dropdown-menu" id="home_list" aria-labelledby="home">
+    <li class="dropdown-submenu">
+      <a class="dropdown-item">About</a>
+    </li>
+    </ul>-->
             </li>
             <li style="margin-left:40px">    </li>
+
+            <li class="nav-item active">
+              <a href="#" class="nav-link" [routerLink]="['about']">
+                About
+              </a>
+            </li>
+            <li style="margin-left:40px"></li>
             <!--sample&&&&&&&&&&&&&&&&&&&&&&(((((((((((((((((-->
             <li class="nav-item dropdown active">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Products </a>
@@ -404,7 +424,7 @@
                 </div>
               </ul>
             </li>
-         
+
             <li style="margin-left:40px" id="lispaceAdmin" hidden="hidden"></li>
             <li class="nav-item active" hidden="hidden" id="liAdmin">
               <a href="#" class="nav-link" [routerLink]="['admin']">
@@ -417,15 +437,15 @@
                 Contact
               </a>
             </li>
-            <li style="margin-left:40px"></li>
+
 
             <!--<li class="nav-item active">
-              <a href="#" class="nav-link" [routerLink]="['cart']">
-                <span class="glyphicon glyphicon-shopping-cart"></span>
-                <span id="cartcount">{{cartItemCount}}</span>
-                Cart
-              </a>
-            </li>-->
+    <a href="#" class="nav-link" [routerLink]="['cart']">
+      <span class="glyphicon glyphicon-shopping-cart"></span>
+      <span id="cartcount">{{cartItemCount}}</span>
+      Cart
+    </a>
+  </li>-->
           </ul>
 
           <!--<ul class="nav navbar-nav navbar-right">

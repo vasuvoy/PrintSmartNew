@@ -92,6 +92,10 @@ export class AddressListComponent implements OnInit {
       this.address_list = x;
     })
   }
+
+  addnewaddr() {
+    this.router.navigateByUrl('/new-address');
+  }
 }
 
 

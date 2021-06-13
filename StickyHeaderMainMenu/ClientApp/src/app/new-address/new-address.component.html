@@ -39,7 +39,7 @@
                     </td>
                     <td>
                       <input class="form-control" name="firstname" id="firstname" style="width: 220px " type="text" required />
-
+                      <span class="error_form" id="firstname_err_msg"></span>
                     </td>
                   </tr>
                   <tr>
@@ -47,8 +47,9 @@
                       <label class="lbl_style" for="Phonenum">Phone Number:</label><span style="color:red">*</span>&nbsp;
                     </td>
                     <td>
-                      <input class="form-control" name="Phonenum" id="Phonenum" style="width: 220px " type="number" required />
-
+                      <label>+91</label>
+                      <input class="form-control" name="Phonenum" id="Phonenum" style="width: 184px;margin-left:36px;margin-top:-30px" type="text" required />
+                      <span class="error_form" id="phnNum_err_msg"></span>
                     </td>
                   </tr>
                   <tr>
@@ -57,7 +58,7 @@
                     </td>
                     <td>
                       <input class="form-control" placeholder="flat no/house no,appt name" name="AdL1" id="AdL1" style="width: 220px " type="text" required />
-
+                      <span class="error_form" id="addl1_err_msg"></span>
                     </td>
                   </tr>
                   <tr>
@@ -66,34 +67,34 @@
                     </td>
                     <td>
                       <input class="form-control" name="AdL2" placeholder="Street" id="AdL2" style="width: 220px " type="text" required />
-
+                      <span class="error_form" id="addl2_err_msg"></span>
                     </td>
                   </tr>
                   <tr>
                     <td style="width:150px">
-                      <label class="lbl_style" for="AdL3">Address Line3</label><span style="color:red">*</span>&nbsp;
+                      <label class="lbl_style" for="AdL3">Address Line3</label><span style="color:red"></span>&nbsp;
                     </td>
                     <td>
-                      <input class="form-control" name="AdL3" placeholder="(landmark)" id="AdL3" style="width: 220px " type="text" required />
+                      <input class="form-control" name="AdL3" placeholder="(landmark)" id="AdL3" style="width: 220px " type="text"  />
 
                     </td>
                   </tr>
                   <tr>
                     <td style="width:150px">
-                      <label class="lbl_style" for="AdL4">Address Line4</label><span style="color:red">*</span>&nbsp;
+                      <label class="lbl_style" for="AdL4">City</label><span style="color: red">*</span>&nbsp;
                     </td>
                     <td>
                       <input class="form-control" name="AdL4" placeholder="City" id="AdL4" style="width: 220px " type="text" required />
-
+                      <span class="error_form" id="addl4_err_msg"></span>
                     </td>
                   </tr>
                   <tr>
                     <td style="width:150px">
-                      <label class="lbl_style" for="AdL5">Address Line5</label><span style="color:red">*</span>&nbsp;
+                      <label class="lbl_style" for="AdL5">State</label><span style="color:red">*</span>&nbsp;
                     </td>
                     <td>
                       <input class="form-control" name="AdL5" placeholder="State" id="AdL5" style="width: 220px " type="text" required />
-
+                      <span class="error_form" id="addl5_err_msg"></span>
                     </td>
                   </tr>
                   <tr>
@@ -101,8 +102,8 @@
                       <label class="lbl_style" for="postalcode">ZIP</label><span style="color:red">*</span>&nbsp;
                     </td>
                     <td>
-                      <input class="form-control" name="postalcode" placeholder="postal code" id="postalcode" style="width: 220px " type="number" required />
-
+                      <input class="form-control" name="postalcode" placeholder="postal code" id="postalcode" style="width: 220px" type="text" maxlength="6" required />
+                      <span class="error_form" id="zip_err_msg"></span>
                     </td>
                   </tr>
                   <tr>
@@ -120,8 +121,8 @@
                   <tr>
                     <td></td>
                     <td>
-                      <input type="checkbox" id="isdefaul" name="isdefaul" />&nbsp;
-                      <label for="isdefaul">IsDefault</label>
+                      <input type="checkbox" id="isdefaul" name="isdefaul" checked="checked" />&nbsp;
+                      <label for="isdefaul" >IsDefault</label>
                     </td>
                   </tr>
                 </tbody>

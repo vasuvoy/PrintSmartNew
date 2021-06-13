@@ -325,7 +325,7 @@ export class AppComponent implements OnInit {
       this.router.navigateByUrl('/Login');
     }
     else {
-      this.router.navigateByUrl('/new-address');
+      this.router.navigateByUrl('/address-list');
     }
   }
 

@@ -35,7 +35,7 @@ namespace StickyHeaderMainMenu.Controllers
           //  var orderdetail1 = new List<StickyHeaderMainMenu.Models.OdCart>();
             if (page == "l3menu")
             {
-                 orderdetail = await _context.Orderdetail.Where(e => e.ModelId == id).Where(e=>e.OrderedBy==userid).ToListAsync();
+                 orderdetail = await _context.Orderdetail.Where(e => e.ModelId == id).Where(e=>e.OrderedBy==userid).Where(e=>e.StatusCode=="C").ToListAsync();
                 if (orderdetail == null)
                 {
                     return NotFound();

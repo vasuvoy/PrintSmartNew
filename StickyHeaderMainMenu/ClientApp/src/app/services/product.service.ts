@@ -6,6 +6,7 @@ import { Product } from '../entities/product.entity';
 export class ProductService {
 
   private products: Product[] = [];
+  private products_statuscode: Product[] = [];
   public url: string;
   constructor() {
 
@@ -40,7 +41,7 @@ export class ProductService {
     return -1;
   }
 
-  public insertProduct(qty,detailid,price,prodmat,prodser) {
+  public insertProduct(qty,detailid,itemprice,prodmat,prodser,discamount,netamount) {
     function stringtonum(input: string) {
       var n = Number(input);
       return n;
@@ -62,9 +63,9 @@ export class ProductService {
         quantity: stringtonum(qty),
         IsCustomized: 0,
         StatusCode: "C",
-        itemPrice: price,
-        discAmount: 0,
-        netAmount:price
+        itemPrice: itemprice,
+        discAmount: discamount,
+        netAmount: netamount
       });
     }
     else {
@@ -81,14 +82,40 @@ export class ProductService {
         quantity: stringtonum(qty),
         IsCustomized: 0,
         StatusCode: "C",
-        itemPrice: price,
-        discAmount: 0,
-        netAmount: price
+        itemPrice: itemprice,
+        discAmount: discamount,
+        netAmount: netamount
       });
     }
   //this.products.push({ 'ProdId': ProdId, 'ProdModelId': , 'size': size, 'color': color, 'qty': qty })
     return this.products;
  
+  }
+
+  public updateprod_status(detailid,statuscode,price,qty) {
+    function stringtonum(input: string) {
+      var n = Number(input);
+      return n;
+    }
+    this.products_statuscode.push({
+      detailId: detailid,
+      // ProdId: stringtonum(sessionStorage.getItem('ProdId')),
+      modelId: stringtonum(localStorage.getItem('ModelId')),
+      Gender: null,
+      CustomContent: null,
+      DimId: null,
+      OrderedBy: stringtonum(localStorage.getItem('userid')),
+      DtCreate: null,
+      DtModify: null,
+      quantity: stringtonum(qty),
+      IsCustomized: 0,
+      StatusCode: statuscode,
+      itemPrice: price,
+      discAmount: 0,
+      netAmount: price
+    });
+    return this.products_statuscode;
+
   }
 
   addProductToCart(prodcuts: any) {

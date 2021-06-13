@@ -29,6 +29,7 @@ import { ContactComponent } from './contact/contact.component';
 import { MyaccountComponent } from './myaccount/myaccount.component';
 import { MyordersComponent } from './myorders/myorders.component';
 import { PaymentComponent } from './payment/payment.component';
+import { AboutComponent } from './about/about.component';
 
 
 
@@ -55,6 +56,7 @@ import { PaymentComponent } from './payment/payment.component';
     MyaccountComponent,
     MyordersComponent,
     PaymentComponent,
+    AboutComponent,
     //FileUploadModule
   ],
   imports: [
@@ -85,7 +87,8 @@ import { PaymentComponent } from './payment/payment.component';
       
       { path: 'myaccount', component: MyaccountComponent },
       { path: 'myorders', component: MyordersComponent },
-      { path: 'payment', component: PaymentComponent }
+      { path: 'payment', component: PaymentComponent },
+      { path: 'about', component: AboutComponent }
     ])
   ],
   providers: [],

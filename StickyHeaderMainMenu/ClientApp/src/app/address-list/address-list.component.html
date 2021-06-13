@@ -59,24 +59,26 @@
    </tbody>
  </table>-->
 <div class="container">
-  <div class="row" style="width:1000px">
+  <div class="row" style="border:1px solid black;border-radius:7px;width:1003px">
 
-    <div class="column" style="width:500px;padding-left:15px" *ngFor="let address of address_list;let i=index;">
+    <div class="column" style="width:500px;padding-left:15px;padding-bottom:10px;border-bottom:1px solid black" *ngFor="let address of address_list;let i=index;">
       <label>{{address.name}}</label><br />
-      <label>{{address.addressLine1}}</label><span>,</span>
-
-      <label>{{address.addressLine2}}</label><span>,</span>
-      <label>{{address.addressLine3}}</label><span>,</span>
-      <label>{{address.addressLine4}}</label><span>,</span>
+      <label>{{address.addressLine1}}</label>
+      <br/>
+      <label>{{address.addressLine2}}</label><br />
+      <label>{{address.addressLine3}}</label><br />
+      <label>{{address.addressLine4}}</label><br />
       <label>{{address.addressLine5}}</label><br />
       <label>Contact no:</label>&nbsp;<label>{{address.contactNo}}</label><br />
       <label>Pincode:</label>&nbsp;<label>{{address.pinCode}}</label>
       <br />
       <button (click)="deladdr(address)" class="btn btn-primary" style="width:75px">Remove</button>
       <button class="btn btn-primary" (click)="editaddr(address)">Edit</button>
-      <hr *ngIf="even" />
+    
     </div>
   </div>
+  <br/>
+  <button type="submit" (click)="addnewaddr()" style="background-color:lightseagreen" id="addnewaddr" class="btn btn-primary">Add New Address</button>
 </div>
 </body>
 </html>

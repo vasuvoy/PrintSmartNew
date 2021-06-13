@@ -16,6 +16,7 @@ let detailid = 0;
 let levelid = 0;
 let Prodmat_value = 0;
 let Prodser_value = 0;
+let discamount = 0;
 @Component({
   selector: 'app-invitation-cards',
   templateUrl: './invitation-cards.component.html',
@@ -260,7 +261,8 @@ export class InvitationCardsComponent implements OnInit {
       var numVal1 = this.price_detail[0].maxRetailPrice;
       var numVal2 = this.price_detail[0].percentDisc / 100;
       var totalValue = numVal1 - (numVal1 * numVal2);
-      $("#sp_disc").text("("+this.price_detail[0].percentDisc + "%"+")");
+        $("#sp_disc").text("(" + this.price_detail[0].percentDisc + "%" + ")");
+        discamount = this.price_detail[0].percentDisc;
         $("#lbl_sellingprice").text(totalValue);
       }
      // document.getElementById("total").value = totalValue.toFixed(2);
@@ -345,11 +347,11 @@ export class InvitationCardsComponent implements OnInit {
         this.products_get = res;
      //   qty = $('#ddl_Qty :selected').text();
         qty = $('.count').val();
-      if (this.products_get.length == 0) {
+        if (this.products_get.length == 0) {
         //new product
 
 
-        this.prod = this.prod_service.insertProduct(qty, detailid, stringtonum($("#lbl_price").text()), Prodmat_value, Prodser_value);
+          this.prod = this.prod_service.insertProduct(qty, detailid, stringtonum($("#lbl_sellingprice").text()), Prodmat_value, Prodser_value, discamount, stringtonum($("#lbl_price").text()));
 
         let d = stringtonum(localStorage.getItem("cartcount"));
         this._sharedservice.updateCartCount(d + this.prod.length);
@@ -367,7 +369,7 @@ export class InvitationCardsComponent implements OnInit {
         //update existing product
         detailid = 1;
         qty_update = this.products_get[0].quantity + stringtonum(qty);
-        this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId, stringtonum($("#lbl_price").text()), Prodmat_value, Prodser_value);
+          this.prod = this.prod_service.insertProduct(qty_update, this.products_get[0].detailId, stringtonum($("#lbl_sellingprice").text()), Prodmat_value, Prodser_value, discamount, stringtonum($("#lbl_price").text()));
         this.httpClient.put(this.prod_service.getUrl()  + 'api/Orderdetails/' + this.products_get[0].detailId, this.prod[0]).subscribe(res => {  });
         let d = stringtonum(localStorage.getItem("cartcount"));
         this._sharedservice.updateCartCount(d);

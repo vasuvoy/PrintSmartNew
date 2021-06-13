@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
 
 declare var $: any;
 let cartpage = "";
-
+let total = 0;
+let qty: any;
+let productAddedTocart_0: Product[] = [];
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -17,10 +19,11 @@ let cartpage = "";
 
 export class cartComponent implements OnInit {
   cartItemCount: number = 0;
-  productAddedTocart: Product[];
+  productAddedTocart: Product[]=[];
   public img_list: ImageList[];
-  constructor(private prod_service: ProductService, private router: Router, private httpClient: HttpClient, private _sharedservice: SharedService) { }
+  constructor( private prod_service: ProductService, private router: Router, private httpClient: HttpClient, private _sharedservice: SharedService) { }
   ngOnInit() {
+    total = 0;
     $("input[type='number']").inputSpinner({
 
       // button text/icons
@@ -64,54 +67,59 @@ export class cartComponent implements OnInit {
         '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control form-control-text-input"/>' +
         '<div class="input-group-append"><button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass} btn-plus" type="button">${incrementButton}</button></div>' +
         '</div>'
+     
+       
 
     });
-    let v = 8;
 
-    //this.httpClient.get('https://localhost:44302/' + 'api/OdCarts/' + sessionStorage.getItem("userid")).subscribe(
-    //  (r: any) =>
-      
-    //  {
-
-    //    this.productAddedTocart = r;
-    //    this.productAddedTocart.forEach(r => {
-    //      this.productAddedTocart[r.ModelLink] == "ss";
-    //    })
-    //    cartpage = "cart";
-    //    this.productAddedTocart.forEach(res => {
-    //      //this.productAddedTocart[0].modelId
-    //      // alert(res.modelId);
-    //      this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + res.modelId + '/' + cartpage).subscribe(
-    //        (r: any) => {
-    //          this.img_list.push(r);
-    //        })
-    //    })
-    //    if (sessionStorage.getItem("ModelId") != null) {
-    //      this.httpClient.get('https://localhost:44302/' + 'api/Productmodels/' + sessionStorage.getItem("ModelId")+ '/' + cartpage).subscribe(
-    //        (r: any) => {
-    //          this.img_list = r;
-    //        })
-    //    }
-    //    else {
-
-    //    }
-    //});
+    document.addEventListener("change", function (event) {
+      function stringtonum(input: string) {
+        var n = Number(input);
+        return n;
+      }
+      //alert((<HTMLInputElement>event.target).value);
+      qty = (<HTMLInputElement>event.target).value;//event.srcElement.value
+     // total = qty * $("#price").text();
+      let index = (<HTMLInputElement>event.target).placeholder;
+      let myobjarray = [];
+      $("#qtywheel").val();
+      //for (let i = 0; i < productAddedTocart_0.length; i++) {
+        alert(total);
+        // if (i != stringtonum(index)) {
+        //   total = (productAddedTocart_0[i].itemPrice) * (productAddedTocart_0[i].quantity);
+          // myobjarray.push(total);
+       //  }
+        //  else {
+      total = total - ((productAddedTocart_0[index].itemPrice) * (($("#qtywheel").val() - (productAddedTocart_0[index].quantity))));
+      let diff = $("#qtywheel").val() - (productAddedTocart_0[index].quantity);
+      total = total + ((productAddedTocart_0[index].itemPrice) * $("#qtywheel").val() );
+        //   myobjarray.push(total);
+       //  }
+     // }
+      $("#lbltotal").text(total);
+    })
+    
     this.cartitems();
   
- //   this.productAddedTocart = this._exampleService.getProductFromCart();
-    //this._exampleService.addProductToCart(this.productAddedTocart);
-    //var item: Item = {
-    //  product: this.productService.find('1'),
-    //  quantity: 1
-    //};
+
   }
 
   cartitems() {
-   // $("#qtywheel").val('50');
+   
     this.httpClient.get(this.prod_service.getUrl() + 'api/OdCarts/' + localStorage.getItem("userid") + "/" + "cart").subscribe(
       (r: any) => {
 
         this.productAddedTocart = r;
+        productAddedTocart_0 = this.productAddedTocart;
+        for (let i = 0; i < r.length; i++) {
+          if (qty == undefined)
+            total = (total + this.productAddedTocart[i].itemPrice) * this.productAddedTocart[i].quantity;
+          else
+            total = (total + this.productAddedTocart[i].itemPrice) * qty;
+        }
+        alert(total);
+        $("#lbltotal").text(total);
+        //total = 0;
         if (r.length > 0) {
           localStorage.setItem("cartcount", r.length);
           if (localStorage.getItem("ModelId") != null) {
@@ -143,7 +151,8 @@ export class cartComponent implements OnInit {
 
          // this.cartcount();
         });
-      
+      var tt = trash.itemPrice * trash.quantity;
+      $("#lbltotal").text(total-tt);
     })
 
     
@@ -154,6 +163,14 @@ export class cartComponent implements OnInit {
   }
 
   paynow() {
+
+    localStorage.setItem('carttotal_amount', $("#lbltotal").text());
     this.router.navigateByUrl('/payment');
+   //this.router.navigateByUrl(`edit-address/${addr.addrId}`);
   }
 }
+
+//interface cartitems {
+//  total: number;
+//  orderedby: number;
+//}

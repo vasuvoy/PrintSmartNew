@@ -17,6 +17,7 @@ export class EditAddressComponent implements OnInit {
   constructor(private route: ActivatedRoute, private prod_service: ProductService, private http: HttpClient, private formbuilder: FormBuilder) { }
 
   ngOnInit() {
+    $("#success-alert").hide();
     //const addrId = this.route.snapshot.params['id'];
     this.setForm(this.addrId);
   }

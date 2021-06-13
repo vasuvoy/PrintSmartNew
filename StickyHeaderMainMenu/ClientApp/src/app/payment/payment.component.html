@@ -6,7 +6,29 @@
 </head>
 <body>
   <div class="container" style="height:500px">
-    <p>For payment wats app number </p><span>9142323666</span>&nbsp;&nbsp;<i class="fab fa-whatsapp" style="height:17px" aria-hidden="true"></i>
+    <p>Currently we are working on our payment gateway. </p>
+    <span>For making payment please contact on : 9142323666</span>&nbsp;&nbsp;<i class="fab fa-whatsapp" style="height:17px" aria-hidden="true"></i>
+    <br />
+    <br />
+    <table>
+      <tbody>
+        <tr>
+          <td><label>Total Amount:&nbsp;</label></td>
+          <td><label id="lbltotal"></label></td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+    <span>Please press the  confirm button to process the order</span>
+    <button class="btn btn-primary" (click)="confirm_order()">Confirm</button>
+    <br />
+    <br />
+    <div class="alert alert-success" id="success-alert" style="width:300px;margin:0 auto">
+      <button type="button" class="close" data-dismiss="alert">x</button>
+      <strong>Order confirmed</strong>
+    </div>
   </div>
+
+
 </body>
 </html>

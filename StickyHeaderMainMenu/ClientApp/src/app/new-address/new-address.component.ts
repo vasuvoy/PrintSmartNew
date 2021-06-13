@@ -4,6 +4,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProductService } from '../services/product.service';
 
 declare var $: any;
+var errr_fname = false;
+var err_phn = false;
+var err_addl1 = false;
+var err_addl2 = false;
+var err_addl4 = false;
+var err_addl5 = false;
+var err_zip = false;
 
 @Component({
   selector: 'app-new-address',
@@ -24,69 +31,160 @@ export class NewAddressComponent implements OnInit {
       })
 
       //validation
+      $("#firstname_err_msg").hide();
+      $("#phnNum_err_msg").hide();
+      $("#addl1_err_msg").hide();
+      $("#addl2_err_msg").hide();
+      $("#addl4_err_msg").hide();
+      $("#addl5_err_msg").hide();
+      $("#zip_err_msg").hide();
+    });
 
-      $("#registration").validate({
+    $("#firstname").focusout(function () {
 
-        // Specify validation rules
-        rules: {
-          // The key name on the left side is the name attribute
-          // of an input field. Validation rules are defined
-          // on the right side
-          firstname: "required",
-          lastname: "required",
-          Phonenum:"required",
-          postalcode: "required",
-          AdL1: "required",
-          AdL2: "required",
-          AdL3: "required",
-          AdL4: "required",
-          AdL5: "required",
+      errr_fname = false;
+      var fname = $("#firstname").val();
+      if (fname == "") {
+        $("#firstname_err_msg").html("please enter first name");
+        $("#firstname_err_msg").show();
+        $("#firstname_err_msg").css("font-size", "12px");
+        $("#firstname_err_msg").css("color", "red");
+        errr_fname = true;
+      }
+      else {
+        $("#firstname_err_msg").hide();
+        errr_fname = false;
+      }
+    });
+    $("#Phonenum").focusout(function () {
 
+      err_phn = false;
+      var phnum = $("#Phonenum").val().length;
+      var pattern = /^[a-zA-Z]*$/;
+      if (phnum == 10) {
+        $("#phnNum_err_msg").hide();
+        err_phn = false;
+      }
+      else {
+        $("#phnNum_err_msg").html("please enter 10 digit Phone number");
+        $("#phnNum_err_msg").show();
+        //  $("#email_err_msg").css("border-bottom", "2px solid green");
+        $("#phnNum_err_msg").css("font-size", "12px");
+        $("#phnNum_err_msg").css("color", "red");
+        err_phn = true;
+      }
+    });
+    $("#AdL1").focusout(function () {
 
-        },
-        // Specify validation error messages
-        messages: {
-          firstname: "Please enter your firstname",
-          lastname: "Please enter your lastname",
-          postalcode: "Please enter postal code",
-          AdL1: "Please enter address",
-          AdL2: "Please enter address",
-          AdL3: "Please enter address",
-          AdL4: "Please enter address",
-          AdL5: "Please enter address",
-          Phonenum:"Please enter Phone Number"
-        },
-        errorPlacement: function (label, element) {
-          if (element.hasClass('select2') && element.next('.select2-container').length) {
-            label.addClass('arrow');
-            label.insertAfter(element.next('.select2-container'));
-          }
-          else {
-            label.addClass('arrow');
-            label.insertAfter(element);
-          }
-          //if (element.attr("name") != "ddl_secqus") {
-          //  label.addClass('arrow');
-          //  label.insertAfter(element);
-          //}
-          //else {
-          //  label.removeClass('arrow');
-          //  label.insertAfter(element);
-          //}
-        },
-        wrapper: 'span',
-        // Make sure the form is submitted to the destination defined
-        // in the "action" attribute of the form when valid
-        submitHandler: function (form) {
-          // register();
-          // form.submit();
+      err_addl1 = false;
+      var adl1 = $("#AdL1").val();
+      if (adl1 =="") {
+        $("#addl1_err_msg").html("please enter address");
+        $("#addl1_err_msg").show();
+        //  $("#email_err_msg").css("border-bottom", "2px solid green");
+        $("#addl1_err_msg").css("font-size", "12px");
+        $("#addl1_err_msg").css("color", "red");
+        err_addl1 = true;
+      }
+      else {
+        $("#addl1_err_msg").hide();
+        err_addl1 = false;
+      }
+    });
+    $("#AdL2").focusout(function () {
+
+      err_addl2 = false;
+      var adl2 = $("#AdL2").val();
+      if (adl2 == "") {
+        $("#addl2_err_msg").html("please enter address");
+        $("#addl2_err_msg").show();
+        //  $("#email_err_msg").css("border-bottom", "2px solid green");
+        $("#addl2_err_msg").css("font-size", "12px");
+        $("#addl2_err_msg").css("color", "red");
+        err_addl1 = true;
+      }
+      else {
+        $("#addl2_err_msg").hide();
+        err_addl2 = false;
+      }
+    });
+    $("#AdL4").focusout(function () {
+
+      err_addl4 = false;
+      var adl4= $("#AdL4").val();
+      if (adl4 == "") {
+        $("#addl4_err_msg").html("please enter city");
+        $("#addl4_err_msg").show();
+        //  $("#email_err_msg").css("border-bottom", "2px solid green");
+        $("#addl4_err_msg").css("font-size", "12px");
+        $("#addl4_err_msg").css("color", "red");
+        err_addl4 = true;
+      }
+      else {
+        $("#addl4_err_msg").hide();
+        err_addl4 = false;
+      }
+    });
+    $("#AdL5").focusout(function () {
+
+      err_addl5 = false;
+      var adl5= $("#AdL5").val();
+      if (adl5 == "") {
+        $("#addl5_err_msg").html("please enter state");
+        $("#addl5_err_msg").show();
+        //  $("#email_err_msg").css("border-bottom", "2px solid green");
+        $("#addl5_err_msg").css("font-size", "12px");
+        $("#addl5_err_msg").css("color", "red");
+        err_addl5 = true;
+      }
+      else {
+        $("#addl5_err_msg").hide();
+        err_addl5 = false;
+      }
+    });
+
+    $("#postalcode").focusout(function () {
+
+      err_zip = false;
+      var zipnum = $("#postalcode").val().length;
+    //  var pattern = /^[a-zA-Z]*$/;
+      if (zipnum ==6) {
+
+        $("#zip_err_msg").hide();
+        err_zip = false;
         }
-      });
+      
+      else {
+        $("#zip_err_msg").html("please enter 6 digit postal code");
+        $("#zip_err_msg").show();
+        //  $("#email_err_msg").css("border-bottom", "2px solid green");
+        $("#zip_err_msg").css("font-size", "12px");
+        $("#zip_err_msg").css("color", "red");
+        err_zip = true;
+
+      }
     });
   }
 
   add_address() {
-    if ($("#registration").valid() == true) {
+    errr_fname = false;
+    err_phn = false;
+    err_addl1 = false;
+    err_addl2 = false;
+    err_addl4 = false;
+    err_addl5 = false;
+    err_zip = false;
+
+    this.check_fname();
+    this.check_phnumber();
+    this.check_addl1();
+    this.check_addl2();
+    this.check_addl4();
+    this.check_addl5();
+    this.check_zip();
+
+    if (errr_fname == false && err_phn == false && err_addl1 == false &&
+      err_addl2 == false && err_addl4 == false && err_addl5 == false && err_zip==false) {
 
 
       const headers = new HttpHeaders().set('content-type', 'application/json');
@@ -122,6 +220,129 @@ export class NewAddressComponent implements OnInit {
       $("#AdL5").val('');
       $("#postalcode").val('');
       $("#ddl_addtype").selectedIndex = 0;
+    }
+  }
+
+  check_fname() {
+    errr_fname = false;
+    var fname = $("#firstname").val();
+    if (fname == "") {
+      $("#firstname_err_msg").html("please enter first name");
+      $("#firstname_err_msg").show();
+      $("#firstname_err_msg").css("font-size", "12px");
+      $("#firstname_err_msg").css("color", "red");
+      errr_fname = true;
+    }
+    else {
+      $("#firstname_err_msg").hide();
+      errr_fname = false;
+    }
+  }
+
+  check_phnumber() {
+    err_phn = false;
+    var phnum = $("#Phonenum").val().length;
+    
+    if (phnum==10) {
+      $("#phnNum_err_msg").hide();
+      err_phn = false;
+    }
+    else {
+      $("#phnNum_err_msg").html("please enter 10 digit Phone number");
+      $("#phnNum_err_msg").show();
+      //  $("#email_err_msg").css("border-bottom", "2px solid green");
+      $("#phnNum_err_msg").css("font-size", "12px");
+      $("#phnNum_err_msg").css("color", "red");
+      err_phn = true;
+    }
+  }
+
+  check_addl1() {
+    err_addl1 = false;
+    var adl1 = $("#AdL1").val();
+    if (adl1 == "") {
+      $("#addl1_err_msg").html("please enter address");
+      $("#addl1_err_msg").show();
+      //  $("#email_err_msg").css("border-bottom", "2px solid green");
+      $("#addl1_err_msg").css("font-size", "12px");
+      $("#addl1_err_msg").css("color", "red");
+      err_addl1 = true;
+    }
+    else {
+      $("#addl1_err_msg").hide();
+      err_addl1 = false;
+    }
+  }
+
+  check_addl2() {
+    err_addl2 = false;
+    var adl2 = $("#AdL2").val();
+    if (adl2 == "") {
+      $("#addl2_err_msg").html("please enter address");
+      $("#addl2_err_msg").show();
+      //  $("#email_err_msg").css("border-bottom", "2px solid green");
+      $("#addl2_err_msg").css("font-size", "12px");
+      $("#addl2_err_msg").css("color", "red");
+      err_addl1 = true;
+    }
+    else {
+      $("#addl2_err_msg").hide();
+      err_addl2 = false;
+    }
+  }
+
+  check_addl4() {
+
+    err_addl4 = false;
+    var adl4 = $("#AdL4").val();
+    if (adl4 == "") {
+      $("#addl4_err_msg").html("please enter city");
+      $("#addl4_err_msg").show();
+      //  $("#email_err_msg").css("border-bottom", "2px solid green");
+      $("#addl4_err_msg").css("font-size", "12px");
+      $("#addl4_err_msg").css("color", "red");
+      err_addl4 = true;
+    }
+    else {
+      $("#addl4_err_msg").hide();
+      err_addl4 = false;
+    }
+  }
+
+  check_addl5() {
+    err_addl5 = false;
+    var adl5 = $("#AdL5").val();
+    if (adl5 == "") {
+      $("#addl5_err_msg").html("please enter state");
+      $("#addl5_err_msg").show();
+      //  $("#email_err_msg").css("border-bottom", "2px solid green");
+      $("#addl5_err_msg").css("font-size", "12px");
+      $("#addl5_err_msg").css("color", "red");
+      err_addl5 = true;
+    }
+    else {
+      $("#addl5_err_msg").hide();
+      err_addl5 = false;
+    }
+  }
+
+  check_zip() {
+    err_zip = false;
+    var zipnum = $("#postalcode").val().length;
+    if (zipnum == 6) {
+
+      $("#zip_err_msg").hide();
+      err_zip = false;
+    }
+
+    else {
+      $("#zip_err_msg").html("please enter 6 digit postal code");
+      $("#zip_err_msg").show();
+      //  $("#email_err_msg").css("border-bottom", "2px solid green");
+      $("#zip_err_msg").css("font-size", "12px");
+      $("#zip_err_msg").css("color", "red");
+      err_zip = true;
+
     }
   }
 }

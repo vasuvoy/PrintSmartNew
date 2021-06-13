@@ -26,10 +26,19 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
+        <div class="alert alert-success" id="success-alert" style="width:300px;margin:0 auto" hidden="hidden">
+          <button type="button" class="close" data-dismiss="alert">x</button>
+          <strong>Registration Successfull</strong>
+        </div>
+        <div class="alert alert-danger" id="danger-alert" style="width:300px;margin:0 auto" hidden="hidden">
+          <button type="button" class="close" data-dismiss="alert">x</button>
+          <strong>Email already exists</strong>
+        </div>
         <div class="card">
           <div class="card-header" style="color:lightseagreen;font-size:medium"><b>Register</b></div>
           <div class="card-body">
-            <form id="registration" name="registration">
+
+            <form id="registration" name="registration" novalidate>
 
               <table class="table borderless">
                 <tbody>
@@ -38,18 +47,21 @@
                       <label class="lbl_style" for="firstname">First Name:</label><span style="color:red">*</span>&nbsp;
                     </td>
                     <td>
-                      <input class="form-control" name="firstname" id="firstname" style="width: 220px " type="text" required />
-                     
+                      <input class="form-control" name="firstname" id="firstname" style="width: 220px " type="text" />
+                      <span class="error_form" id="firstname_err_msg"></span>
+                      <!--<div class="invalid-feedback">
+                  Please choose a username.
+                </div>-->
                     </td>
-          
+
                   </tr>
                   <tr>
                     <td style="width:150px">
                       <label class="lbl_style" for="lastname">Last Name:</label><span style="color:red">*</span>&nbsp;
                     </td>
                     <td>
-                      <input class="form-control " name="lastname" id="lastname" style="width: 220px " type="text" required />
-
+                      <input class="form-control " name="lastname" id="lastname" style="width: 220px " type="text" />
+                      <span class="error_form" id="lastname_err_msg"></span>
                     </td>
                   </tr>
                   <tr>
@@ -57,8 +69,8 @@
                       <label class="lbl_style" for="email">Email:</label><span style="color:red">*</span>&nbsp;
                     </td>
                     <td>
-                      <input class="form-control " name="email" id="email" style="width: 170px " type="email" required />
-
+                      <input class="form-control " name="email" id="email" style="width: 170px " type="email" />
+                      <span class="error_form" id="email_err_msg"></span>
                     </td>
                   </tr>
                   <tr>
@@ -66,13 +78,14 @@
                       <label class="lbl_style" for="DOB">Date Of Birth:</label><span style="color:red">*</span>&nbsp;
                     </td>
                     <td>
-                      <input class="form-control " name="DOB" placeholder="YYYY-MM-DD" id="DOB" style="width: 220px " type="date" required />
+                      <input class="form-control " name="DOB" placeholder="YYYY-MM-DD" id="DOB" style="width: 220px " type="date" />
+                      <span class="error_form" id="dob_err_msg"></span>
                       <!--<div class="input-group date" data-provide="datepicker">
-                      <input type="text" class="form-control">
-                      <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th"></span>
-                      </div>
-                    </div>-->
+                  <input type="text" class="form-control">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                  </div>
+                </div>-->
                     </td>
                   </tr>
                   <tr>
@@ -80,7 +93,8 @@
                       <label class="lbl_style" for="pwd">Password:</label><span style="color:red">*</span>&nbsp;
                     </td>
                     <td>
-                      <input class="form-control" name="pwd"   pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="pwd" style="width: 220px " type="password" required />
+                      <input class="form-control" name="pwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="pwd" style="width: 220px " type="password" />
+                      <span class="error_form" id="pwd_err_msg"></span>
                     </td>
                   </tr>
                   <tr>
@@ -89,8 +103,8 @@
                     </td>
                     <td style="width: 100px;">
 
-                      <input class="form-control "  style="width: 220px "  type="password" id="Confirmpwd" required />
-                    
+                      <input class="form-control" style="width: 220px" type="password" id="Confirmpwd" />
+                      <span class="error_form" id="Cnfrmpwd_err_msg"></span>
                       <!-- <input  name="Confirmpwd" id="Confirmpwd" style="width: 220px " type="text" required />-->
                     </td>
                     <td><span toggle="#password-field" class="fa fa-eye toggle-password"></span></td>
@@ -99,9 +113,16 @@
                     <td style="width:150px">
                       <label class="lbl_style" for="Phonenum">Phone Number:</label><span style="color:red">*</span>&nbsp;
                     </td>
+
                     <td>
-                      <input class="form-control " name="Phonenum" id="Phonenum" style="width: 220px " type="number" required />
+
+                      <div>
+                      <label>+91</label>
+                      <input class="form-control" name="Phonenum" id="Phonenum" style="width: 184px;margin-left:36px;margin-top:-30px" type="number" /></div>
+                      
+                      <span class="error_form" id="phnNum_err_msg"></span>
                     </td>
+
                   </tr>
                   <tr>
                     <td style="width:150px">
@@ -109,11 +130,11 @@
                     </td>
                     <td>
                       <!--<input class="form-control " id="SecurityQus" style="width: 170px " type="text" required />-->
-                      <select class="form-control select2" required name="ddl_secqus" id="ddl_secqus" style="width:220px">
+                      <select class="form-control select2" name="ddl_secqus" id="ddl_secqus" style="width:220px">
                         <option value=""></option>
 
                       </select>
-
+                      <span class="error_form" id="secq_err_msg"></span>
                     </td>
                   </tr>
                   <tr>
@@ -121,7 +142,8 @@
                       <label class="lbl_style" for="ans">Answer:</label><span style="color:red">*</span>&nbsp;
                     </td>
                     <td>
-                      <input class="form-control " name="ans" id="ans" style="width: 220px " type="text" required />
+                      <input class="form-control " name="ans" id="ans" style="width: 220px " type="text" />
+                      <span class="error_form" id="secans_err_msg"></span>
                     </td>
                   </tr>
 
@@ -138,17 +160,14 @@
           </div>
 
         </div>
+
+
+
       </div>
+      
     </div>
 
-    <div class="alert alert-success" id="success-alert" style="width:300px;margin:0 auto" hidden="hidden">
-      <button type="button" class="close" data-dismiss="alert">x</button>
-      <strong>Registration Successfull</strong>
-    </div>
-    <div class="alert alert-danger" id="danger-alert" style="width:300px;margin:0 auto" hidden="hidden">
-      <button type="button" class="close" data-dismiss="alert">x</button>
-      <strong>Email already exists</strong>
-    </div>
+   
   </div>
 
 

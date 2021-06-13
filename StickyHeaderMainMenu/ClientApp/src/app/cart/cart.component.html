@@ -3,9 +3,42 @@
 <head>
     <meta charset="utf-8" />
     <title>Shopping Cart</title>
+  <style>
+    .handle-counter { overflow: hidden; }
+
+.handle-counter .counter-minus,  .handle-counter .counter-plus,  .handle-counter input {
+  float: left;
+  text-align: center;
+}
+
+.handle-counter .counter-minus,  .handle-counter .counter-plus { text-align: center; }
+
+.handle-counter input {
+  width: 50px;
+  border-width: 1px;
+  border-left: none;
+  border-right: none;
+}
+
+.btn {
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  color: #fff;
+}
+
+.btn:disabled, .btn:disabled:hover {
+  background-color: darkgrey;
+  cursor: not-allowed;
+}
+
+.btn-primary { background-color: #009dda; }
+
+.btn-primary:hover, .btn-primary:focus { background-color: #0486b9; }
+  </style>
 </head>
 <body>
   <h1>Shopping Cart</h1>
+
   <!--<table class="table table-bordered table-responsive table-hover">
     <thead class="thead-light">
       <tr>
@@ -24,31 +57,31 @@
     </tr>
   </table>-->
 
-  <div class="table-responsive" style="height:500px">
+  <div class="table-responsive" style="min-height:500px">
     <table class="table" id="tblcart">
-      
+
       <tbody>
-        <tr *ngFor="let prod of productAddedTocart">
+        <tr *ngFor="let prod of productAddedTocart;let i=index">
           <td scope="row" width="100px" *ngIf="prod.isCustomized==1; else elseBlock">
             <!--<img src="assets/Img/tshirt.jpg" style="width:150px;height:150px" />-->
             <div style="position: relative; left: 0; top: 0;">
               <img id="img_tshirt_modal" style="position: relative; left: 0; top: 0;width:150px" src="assets/Tshirt_Imgs/15.jpg" />
 
               <!--<img id="img_tshirt_write" style="position: absolute; left: 65px; top: 100px;width:100px"
-    src="assets/Img/download.png" />-->
+              src="assets/Img/download.png" />-->
               <!--<div id="text_div" style="line-height:0.6; position: absolute;border:dotted;border-color:red; left: 156px; top: 100px;width:100px">-->
               <div id="outer_editor_div" style=" width:50px">
-                
+
                 <div id="img_tshirt_write" style="position: absolute; left:60px;top:50px;font-size:6px" innerHTML="{{prod.customContent}}">
-</div>
+                </div>
               </div>
-              </div>
+            </div>
           </td>
           <ng-template #elseBlock>
-            <td scope="row" width="150px" >
-              <img src="{{prod.modelLink}}"  style="width:150px;height:150px" />
-              </td>
-</ng-template>
+            <td scope="row" width="150px">
+              <img src="{{prod.modelLink}}" style="width:150px;height:150px" />
+            </td>
+          </ng-template>
           <td width="250px">
             <div>
               <span ng-if="prod.gender==null; else sizeblock"></span>
@@ -57,27 +90,36 @@
               </ng-template>
               <!--<span><span style="font-size:medium;color:blue">color:</span> {{prod.color}}</span><br />-->
 
-              <span><span style="font-size:medium;color:blue">Price:</span> {{prod.itemPrice}}</span><br />
+              <span  ><span style="font-size:medium;color:blue">Price:</span>
+                                <label id="price">{{prod.itemPrice}}</label></span><br />
               <span>
                 <span style="font-size:medium;color:blue">Qty:</span>
-                <input type="number" id="qtywheel" value="{{prod.quantity}}" min="0" max="500" step="1">
+     
+                <input type="number" id="qtywheel" placeholder="{{i}}" value="{{prod.quantity}}" min="0" max="500" step="1">
               </span>
-              
+
             </div>
-            
+
           </td>
-          <td width="150px" style="text-align:right"><button (click)="trash(prod)"><i class="fa fa-trash" aria-hidden="true" ></i></button></td>
+          <td width="150px" style="text-align:right"><button (click)="trash(prod)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
         </tr>
+        <tr>
+          <td><label>Total:</label></td>
+          <td><label id="lbltotal"></label></td>
+        </tr>
+
+
         <br />
-        <button class="btn btn-primary" type="button" (click)="paynow()" >PayNow</button>
+        <button class="btn btn-primary" type="button" (click)="paynow()">PayNow</button>
       </tbody>
     </table>
+
     <br />
     <br />
     <br />
     <div id="emptycart" hidden="hidden" style="text-align:center">
-      <p>Your Cart Currently is empty</p>
+      <p>Your Cart is Currently empty</p>
     </div>
-    </div>
+  </div>
 </body>
 </html>
