@@ -38,13 +38,15 @@ namespace StickyHeaderMainMenu.Controllers
             }
             else
             {
-                 productmodel = _context.Productmodel.Where(e => e.ProdId == id).ToList();
+       
+                    productmodel = _context.Productmodel.Where(e => e.ProdId == id).ToList();
 
+                }
                 if (productmodel == null)
                 {
                     return NotFound();
                 }
-            }
+            
             return productmodel;
         }
 

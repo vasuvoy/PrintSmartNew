@@ -29,6 +29,12 @@ namespace StickyHeaderMainMenu.Models
         public virtual DbSet<Statusmaster> Statusmaster { get; set; }
         public virtual DbSet<VwGetproductlist> VwGetproductlist { get; set; }
 
+        public virtual DbSet<VwGetnewproducts> VwGetnewproducts { get; set; }
+
+        public virtual DbSet<VwGettrendinglist> VwGettrendinglist { get; set; }
+
+        public virtual DbSet<VwGetsalelist> VwGetsalelist { get; set; }
+
         public virtual DbSet<Productservice> Productservice { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -42,6 +48,76 @@ namespace StickyHeaderMainMenu.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<VwGettrendinglist>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_gettrendinglist");
+
+                entity.Property(e => e.DtCreate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.IsActive).HasColumnType("tinyint(1)");
+
+                entity.Property(e => e.ModelCode)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ModelDesc)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ModelLink)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VwGetnewproducts>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_getnewproducts");
+
+                entity.Property(e => e.DtCreate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.IsActive).HasColumnType("tinyint(1)");
+
+                entity.Property(e => e.ModelCode)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ModelDesc)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ModelLink)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VwGetsalelist>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_getsalelist");
+
+                entity.Property(e => e.DtCreate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.IsActive).HasColumnType("tinyint(1)");
+
+                entity.Property(e => e.ModelCode)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ModelDesc)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ModelLink)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
+
+
             modelBuilder.Entity<Productservice>(entity =>
             {
                 entity.HasKey(e => e.ServId)

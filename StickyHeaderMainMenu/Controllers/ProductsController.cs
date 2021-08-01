@@ -33,6 +33,72 @@ namespace StickyHeaderMainMenu.Controllers
           //  return login_record;
         }
 
+        [HttpGet("{carousel}")]
+        public async Task<ActionResult<IEnumerable<VwGettrendinglist>>> GetProduct(string carousel)
+        {
+            var product_lst = new List<StickyHeaderMainMenu.Models.VwGettrendinglist>();
+
+          //  var product_lst_sale = new List<StickyHeaderMainMenu.Models.VwGetsalelist>();
+
+            if (carousel == "trendingnow")
+            {
+                product_lst=await _context.VwGettrendinglist.ToListAsync();
+            }
+
+            //if (carousel == "sale")
+            //{
+            //    product_lst_sale = await _context.VwGetsalelist.ToListAsync();
+            //}
+
+            return product_lst;
+            // var login_record = _context.VwGetproductlist.FromSqlRaw("select * from vw_getproductlist").ToList();
+            //  return login_record;
+        }
+
+        [HttpGet("{sec_carousel:int}/{carousel}")]
+        public async Task<ActionResult<IEnumerable<VwGetsalelist>>> GetProduct(int sec_carousel,string carousel)
+        {
+            
+
+             var product_lst_sale = new List<StickyHeaderMainMenu.Models.VwGetsalelist>();
+
+            if (sec_carousel == 2 && carousel=="sale")
+            {
+                product_lst_sale = await _context.VwGetsalelist.ToListAsync();
+            }
+
+            //if (carousel == "sale")
+            //{
+            //    product_lst_sale = await _context.VwGetsalelist.ToListAsync();
+            //}
+
+            return product_lst_sale;
+            // var login_record = _context.VwGetproductlist.FromSqlRaw("select * from vw_getproductlist").ToList();
+            //  return login_record;
+        }
+
+        [HttpGet("{sec_carousel:int}/{carousel}/{home}")]
+        public async Task<ActionResult<IEnumerable<VwGetnewproducts>>> GetProduct(int sec_carousel, string carousel,string home)
+        {
+
+
+            var product_lst_newprods = new List<StickyHeaderMainMenu.Models.VwGetnewproducts>();
+
+            if (sec_carousel ==3 && carousel == "newprods" && home=="home")
+            {
+                product_lst_newprods = await _context.VwGetnewproducts.ToListAsync();
+            }
+
+            //if (carousel == "sale")
+            //{
+            //    product_lst_sale = await _context.VwGetsalelist.ToListAsync();
+            //}
+
+            return product_lst_newprods;
+            // var login_record = _context.VwGetproductlist.FromSqlRaw("select * from vw_getproductlist").ToList();
+            //  return login_record;
+        }
+
         // GET: api/Products/5
         [HttpGet("{prd_level}/{prodid}")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct(string prd_level,int prodid)

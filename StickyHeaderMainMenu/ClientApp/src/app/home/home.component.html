@@ -14,41 +14,44 @@
       <div class="col-sm">
         <div class="container" style="width:300px;height:300px">
           <h3>Trending now</h3>
-          <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-              <li data-target="#myCarousel" data-slide-to="1"></li>
-              <li data-target="#myCarousel" data-slide-to="2"></li>
-            </ol>
 
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-              <div class="item active" >
-                <img src="assets/brouchers/BFB_1.jpg" alt="Los Angeles" style="height:270px">
-                <div class="carousel-caption">
-                  <h3>3d Wallpaper</h3>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" >
+              <!-- Indicators -->
+              <div  >
+                <ol class="carousel-indicators">
+                  <li data-target="#myCarousel" class="active" *ngFor="let img of img_list_trnnow;let i=index" [attr.data-slide-to]="i"></li>
+                  <!--<li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>-->
+                </ol>
 
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" >
+                  <div (click)="redirect_trndingnow();" id="div_trndingnow" *ngFor="let img_inner of img_list_trnnow;let j=index" [ngClass]="j == 0 ? 'item active' : 'item'">
+                    <img src="{{img_inner.modelLink}}"  alt="{{img_inner.modelLink}}" style="height:270px">
+                    <div class="carousel-caption">
+                      <!--<h3>{{i}}</h3>-->
+
+                    </div>
+                  </div>
+
+                  <!--<div class="item">
+      <img src="assets/brouchers/BFB_2.jpg" alt="Chicago" style="height:270px">
+      <div class="carousel-caption">
+        <h3>Door</h3>
+
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="assets/brouchers/BFF_1.jpg" alt="New york" style="height:270px">
+      <div class="carousel-caption">
+        <h3>Floor</h3>
+
+      </div>
+    </div>-->
                 </div>
               </div>
-
-              <div class="item">
-                <img src="assets/brouchers/BFB_2.jpg" alt="Chicago" style="height:270px">
-                <div class="carousel-caption">
-                  <h3>Door</h3>
-
-                </div>
-              </div>
-
-              <div class="item">
-                <img src="assets/brouchers/BFF_1.jpg" alt="New york" style="height:270px">
-                <div class="carousel-caption">
-                  <h3>Floor</h3>
-
-                </div>
-              </div>
-            </div>
-
+  
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
               <span class="glyphicon glyphicon-chevron-left"></span>
@@ -67,36 +70,36 @@
           <div id="discountCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-              <li data-target="#discountCarousel" data-slide-to="0" class="active"></li>
-              <li data-target="#discountCarousel" data-slide-to="1"></li>
-              <li data-target="#discountCarousel" data-slide-to="2"></li>
+              <li data-target="#myCarousel" class="active" *ngFor="let img of img_list_trnnow;let i=index" [attr.data-slide-to]="i"></li>
+              <!--<li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>-->
             </ol>
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
-              <div class="item active">
-                <img src="assets/Calendars/CSPC_1.jpg" alt="Los Angeles">
+              <div (click)="redirect_sale();" id="div_sale" *ngFor="let img_sale of img_list_sale;let j=index" [ngClass]="j == 0 ? 'item active' : 'item'">
+                <img src="{{img_sale.modelLink}}" alt="{{img_sale.modelLink}}" style="height:270px">
                 <div class="carousel-caption">
-                  <h3>Los Angeles</h3>
-                  <p>LA is always so much fun!</p>
+                  <!--<h3>{{i}}</h3>-->
+
                 </div>
               </div>
 
-              <div class="item">
-                <img src="assets/Calendars/CTTC_2.jpg" alt="Chicago">
-                <div class="carousel-caption">
-                  <h3>Los Angeles</h3>
-                  <p>LA is always so much fun!</p>
-                </div>
-              </div>
+              <!--<div class="item">
+      <img src="assets/brouchers/BFB_2.jpg" alt="Chicago" style="height:270px">
+      <div class="carousel-caption">
+        <h3>Door</h3>
 
-              <div class="item">
-                <img src="assets/Calendars/CTTC_3.jpg" alt="New york">
-                <div class="carousel-caption">
-                  <h3>Los Angeles</h3>
-                  <p>LA is always so much fun!</p>
-                </div>
-              </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="assets/brouchers/BFF_1.jpg" alt="New york" style="height:270px">
+      <div class="carousel-caption">
+        <h3>Floor</h3>
+
+      </div>
+    </div>-->
             </div>
 
             <!-- Left and right controls -->
@@ -117,41 +120,17 @@
           <div id="NewprodCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-              <li data-target="#NewprodCarousel" data-slide-to="0" class="active"></li>
-              <li data-target="#NewprodCarousel" data-slide-to="1"></li>
-              <li data-target="#NewprodCarousel" data-slide-to="2"></li>
-              <!--<li data-target="#NewprodCarousel" data-slide-to="3"></li>
-              <li data-target="#NewprodCarousel" data-slide-to="4"></li>
-              <li data-target="#NewprodCarousel" data-slide-to="5"></li>
-              <li data-target="#NewprodCarousel" data-slide-to="6"></li>
-              <li data-target="#NewprodCarousel" data-slide-to="7"></li>
-              <li data-target="#NewprodCarousel" data-slide-to="8"></li>
-              <li data-target="#NewprodCarousel" data-slide-to="9"></li>
-              <li data-target="#NewprodCarousel" data-slide-to="10"></li-->
+              <li data-target="#myCarousel" class="active" *ngFor="let img of img_list_newprods;let i=index" [attr.data-slide-to]="i"></li>
+              <!--<li data-target="#myCarousel" data-slide-to="1"></li>
+  <li data-target="#myCarousel" data-slide-to="2"></li>-->
             </ol>
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
-              <div class="item active" (click)="redirect();">
-                <img src="assets/Smart LED Boards/slednew362021114735329.jpg"  alt="3dwallpapers" style="width:270px;height:270px">
+              <div (click)="redirect_newprods();" id="div_newprods" *ngFor="let img_newprods of img_list_newprods;let j=index" [ngClass]="j == 0 ? 'item active' : 'item'">
+                <img src="{{img_newprods.modelLink}}" alt="{{img_newprods.modelLink}}" style="height:270px">
                 <div class="carousel-caption">
-                  <h3 style="color:deeppink">3D wallpapers</h3>
-                  <!--<p>3D wallpapers</p>-->
-                </div>
-              </div>
-
-              <div class="item">
-                <img src="assets/Home Decors/HDCUS_4.jpg" alt="calendars" style="width:270px;height:270px">
-                <div class="carousel-caption">
-                  <h3 style="color:deeppink">Calendars</h3>
-                  <!--<p>LA is always so much fun!</p>-->
-                </div>
-              </div>
-
-              <div class="item" (click)="redirect();">
-                <img src="assets/Home Decors/HDCUS_5.jpg" alt="Tshirt" style="width:270px;height:270px">
-                <div class="carousel-caption">
-                  <h3 style="color:deeppink">Custom T-shirts</h3>
+                  <!--<h3>{{i}}</h3>-->
 
                 </div>
               </div>
