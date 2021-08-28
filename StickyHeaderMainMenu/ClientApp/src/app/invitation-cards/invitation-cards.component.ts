@@ -46,12 +46,18 @@ export class InvitationCardsComponent implements OnInit {
       $("#success-alert").hide();
       $("#danger-alert").hide();
 
+      if (localStorage.getItem('Prod_name') == "") {
+        $("#ahref1").hide();
+        $("#linkspan").hide();
+      }
+
       //nav link
       $("#ahref1").text(localStorage.getItem('Prod_name'));
       $("#ahref2").text(localStorage.getItem('Prodl2_name'));
 
       $("#ahref2").click(function () {
         $("#div_invicards").show();
+        $("#innerdiv_invicards").hide();
       //  this.router.navigateByUrl('/invitation-cards');
         $("#ahref2").attr("href", this.prod_service.getUrl() +"/invitation-cards");
       }); 
@@ -142,6 +148,7 @@ export class InvitationCardsComponent implements OnInit {
 
 
     if (localStorage.getItem("Prodl3Id") != "null") {
+      
       this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + localStorage.getItem("Prodl3Id") + '/' + "invi").subscribe
         ((res: any) => {
           this.img_list = res;

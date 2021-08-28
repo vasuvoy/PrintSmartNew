@@ -99,6 +99,27 @@ namespace StickyHeaderMainMenu.Controllers
             //  return login_record;
         }
 
+        [HttpGet("{sec_carousel:int}/{carousel}/{home}/{tiles}")]
+        public async Task<ActionResult<IEnumerable<VwHomescreentabs>>> GetProduct(int sec_carousel, string carousel, string home,string tiles)
+        {
+
+
+            var product_lst_newprods = new List<StickyHeaderMainMenu.Models.VwHomescreentabs>();
+
+            if (sec_carousel == 4 && carousel == "newtiles" && home == "home" && tiles=="tile")
+            {
+                product_lst_newprods = await _context.VwHomescreentabs.ToListAsync();
+            }
+
+            //if (carousel == "sale")
+            //{
+            //    product_lst_sale = await _context.VwGetsalelist.ToListAsync();
+            //}
+
+            return product_lst_newprods;
+            // var login_record = _context.VwGetproductlist.FromSqlRaw("select * from vw_getproductlist").ToList();
+            //  return login_record;
+        }
         // GET: api/Products/5
         [HttpGet("{prd_level}/{prodid}")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct(string prd_level,int prodid)

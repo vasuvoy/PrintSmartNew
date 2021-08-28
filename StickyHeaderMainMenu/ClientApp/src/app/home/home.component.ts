@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   public img_list_trnnow: Images;
   public img_list_sale: Images;
   public img_list_newprods: Images;
+  public img_list_tiles: Images;
 
   constructor(public router: Router, private prod_service: ProductService, private httpClient: HttpClient)
   //private productService: ProductService
@@ -37,7 +38,8 @@ export class HomeComponent implements OnInit {
                 for (let i = 0; i <= r.length; i++) {
                   if (prodid == r[i].prodId) {
                     //
-                    localStorage.setItem('Prod_name', r[i].prodDesc);
+                    localStorage.setItem('Prod_name', "");
+                    localStorage.setItem('Prodl2_name', r[i].prodDesc);
                   }
                 }
               
@@ -48,6 +50,7 @@ export class HomeComponent implements OnInit {
                 for (let i = 0; i <= r.length; i++) {
                   if (prodid == r[i].prodId) {
                     //
+                    localStorage.setItem('Prod_name', "");
                     localStorage.setItem('Prodl2_name', r[i].prodDesc);
                   }
                 }
@@ -76,7 +79,8 @@ export class HomeComponent implements OnInit {
                 for (let i = 0; i <= r.length; i++) {
                   if (prodid == r[i].prodId) {
                     //
-                    localStorage.setItem('Prod_name', r[i].prodDesc);
+                    localStorage.setItem('Prod_name', "");
+                    localStorage.setItem('Prodl2_name', r[i].prodDesc);
                   }
                 }
 
@@ -86,7 +90,7 @@ export class HomeComponent implements OnInit {
               (r: any) => {
                 for (let i = 0; i <= r.length; i++) {
                   if (prodid == r[i].prodId) {
-                    //
+                    localStorage.setItem('Prod_name', "");
                     localStorage.setItem('Prodl2_name', r[i].prodDesc);
                   }
                 }
@@ -115,7 +119,8 @@ export class HomeComponent implements OnInit {
                 for (let i = 0; i <= r.length; i++) {
                   if (prodid == r[i].prodId) {
                     //
-                    localStorage.setItem('Prod_name', r[i].prodDesc);
+                    localStorage.setItem('Prod_name', "");
+                    localStorage.setItem('Prodl2_name', r[i].prodDesc);
                   }
                 }
 
@@ -126,6 +131,7 @@ export class HomeComponent implements OnInit {
                 for (let i = 0; i <= r.length; i++) {
                   if (prodid == r[i].prodId) {
                     //
+                    localStorage.setItem('Prod_name', "");
                     localStorage.setItem('Prodl2_name', r[i].prodDesc);
                   }
                 }
@@ -186,6 +192,11 @@ export class HomeComponent implements OnInit {
     this.httpClient.get(this.prod_service.getUrl() + 'api/Products/' + 3 + '/' + "newprods"+"/"+"home").subscribe((result: any) => {
       this.img_list_newprods = result;
     });
+
+    //tiles
+    this.httpClient.get(this.prod_service.getUrl() + 'api/Products/' + 4 + '/' + "newtiles" + "/" + "home"+"/"+"tile").subscribe((result: any) => {
+      this.img_list_tiles = result;
+    });
     
     $(document).ready(function () {
    
@@ -193,8 +204,17 @@ export class HomeComponent implements OnInit {
         
       })
 
+      $(".container .row .box").click(function () {
+        this.router.navigate(['/invitation-cards']);
+      });
     });
   }
 
+  tile_click(id,name) {
+    localStorage.setItem('Prod_name', "");
+    localStorage.setItem('Prodl2_name',name)
+    localStorage.setItem("Prodl3Id", id);
+    this.router.navigate(['/invitation-cards']);
+  }
  
 }

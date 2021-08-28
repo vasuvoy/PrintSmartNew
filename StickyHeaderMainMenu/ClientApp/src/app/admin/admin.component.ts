@@ -338,19 +338,25 @@ export class AdminComponent implements OnInit {
 
 
     $("#card_create").hide();
-    if (prodid_l3_edit != undefined) {
-      this.http.get(this.prod_service.getUrl() + 'api/Pricedetails/' + "edit_page" + "/" + prodid_l3_edit).subscribe((e: any) => {
-        this.price_detail = e;
-        if (e.length > 0)
-          $("#makeEditable").show();
-        else {
-          $("#danger-alert").show();
-          $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
-            $("#danger-alert").slideUp(1000);
-          });
-        }
-      });
+    if ($('#ddl_prodl3_edit :selected').text() != "") {
+      if (prodid_l3_edit != undefined) {
+        this.http.get(this.prod_service.getUrl() + 'api/Pricedetails/' + "edit_page" + "/" + prodid_l3_edit).subscribe((e: any) => {
+          this.price_detail = e;
+          if (e.length > 0) {
+            $("#makeEditable").show();
 
+
+          }
+          else {
+            $("#danger-alert")[0].hidden = false;
+            $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+              $("#danger-alert").slideUp(1000);
+            });
+          }
+          // prodid_l3_edit = undefined;
+        });
+
+      }
     }
     else {
 
@@ -359,7 +365,7 @@ export class AdminComponent implements OnInit {
         if (e.length > 0)
           $("#makeEditable").show();
         else {
-          $("#danger-alert").show();
+          $("#danger-alert")[0].hidden = false;
           $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
             $("#danger-alert").slideUp(1000);
           });
@@ -389,6 +395,53 @@ export class AdminComponent implements OnInit {
     $("table")[2].children[1].children[i].children[8].children[0].hidden = true;
   }
 
+  //delete record
+  btn_rowdel_click(e, i) {
+    function stringtonum(input: string) {
+      var n = Number(input);
+      return n;
+    }
+    this.http.delete(this.prod_service.getUrl() + 'api/Productmodels/' +e.modelId).subscribe
+      ((e: any) => {
+        if ($('#ddl_prodl3_edit :selected').text() != "") {
+          if (prodid_l3_edit != undefined) {
+            this.http.get(this.prod_service.getUrl() + 'api/Pricedetails/' + "edit_page" + "/" + prodid_l3_edit).subscribe((e: any) => {
+              this.price_detail = e;
+              if (e.length > 0) {
+                $("#makeEditable").show();
+
+
+              }
+              else {
+                $("#makeEditable")[0].hidden = true;
+                //$("#danger-alert")[0].hidden = false;
+                //$("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+                //  $("#danger-alert").slideUp(1000);
+                //});
+              }
+              // prodid_l3_edit = undefined;
+            });
+
+          }
+        }
+        else {
+
+          this.http.get(this.prod_service.getUrl() + 'api/Pricedetails/' + "edit_page" + "/" + prodid_l2_edit).subscribe((e: any) => {
+            this.price_detail = e;
+            if (e.length > 0)
+              $("#makeEditable").show();
+            else {
+              $("#makeEditable")[0].hidden = true;
+              //$("#danger-alert")[0].hidden = false;
+              //$("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+              //  $("#danger-alert").slideUp(1000);
+              //});
+            }
+          });
+        }
+
+      });
+  }
 
   btn_newsave(i) {
     function stringtonum(input: string) {

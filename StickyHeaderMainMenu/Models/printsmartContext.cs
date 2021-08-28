@@ -37,6 +37,8 @@ namespace StickyHeaderMainMenu.Models
 
         public virtual DbSet<Productservice> Productservice { get; set; }
 
+        public virtual DbSet<VwHomescreentabs> VwHomescreentabs { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -48,6 +50,26 @@ namespace StickyHeaderMainMenu.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<VwHomescreentabs>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vw_homescreentabs");
+
+                entity.Property(e => e.TileImage)
+                    .IsRequired()
+                    .HasMaxLength(28)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("''");
+
+                entity.Property(e => e.TileName)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("''");
+            });
+
+
             modelBuilder.Entity<VwGettrendinglist>(entity =>
             {
                 entity.HasNoKey();

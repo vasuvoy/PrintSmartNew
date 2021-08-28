@@ -96,18 +96,27 @@ namespace StickyHeaderMainMenu.Controllers
 
         // DELETE: api/Productmodels/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Productmodel>> DeleteProductmodel(byte id)
+        public async Task<ActionResult<Productmodel>> DeleteProductmodel(short id)
         {
-            var productmodel = await _context.Productmodel.FindAsync(id);
-            if (productmodel == null)
+            
+            var  productmodel =await _context.Productmodel.FindAsync(id);
+                if (productmodel == null)
+                {
+                    return NotFound();
+                }
+             productmodel.IsActive = 0;
+            productmodel.DtModify = DateTime.Now;
+                _context.Productmodel.Update(productmodel);
+            try
             {
-                return NotFound();
+                await _context.SaveChangesAsync();
             }
-
-            _context.Productmodel.Remove(productmodel);
-            await _context.SaveChangesAsync();
-
+            catch (Exception e) {
+            }
             return productmodel;
+
+
+
         }
 
         private bool ProductmodelExists(byte id)
