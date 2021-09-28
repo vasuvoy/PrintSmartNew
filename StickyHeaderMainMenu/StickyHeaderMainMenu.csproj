@@ -86,7 +86,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\assets\HomeScreenTiles\" />
     <Folder Include="ClientApp\src\assets\upload\" />
   </ItemGroup>
 
