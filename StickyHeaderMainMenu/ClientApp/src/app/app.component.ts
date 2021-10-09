@@ -260,7 +260,8 @@ export class AppComponent implements OnInit {
         interval: false,
       });
 
-
+      localStorage.setItem("tile_id", "");
+      localStorage.setItem("nav_home", "");
 
     });
 

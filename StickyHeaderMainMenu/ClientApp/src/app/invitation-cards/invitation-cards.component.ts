@@ -24,7 +24,8 @@ let discamount = 0;
 })
 export class InvitationCardsComponent implements OnInit {
 
-  public img_list: Images;
+  public img_list: Images[]=[];
+  public img_list_App: Images;
   public prod: Product[];
   // public position_lbl: img_position[] = [];
   public position_lbl1: any=[];
@@ -145,19 +146,53 @@ export class InvitationCardsComponent implements OnInit {
 
     var i ="div_bride";
 
+    //added on oct6 2021 for navigation from home screen tiles
 
 
-    if (localStorage.getItem("Prodl3Id") != "null") {
-      
+    if (localStorage.getItem("Prodl3Id") != "") {
+
       this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + localStorage.getItem("Prodl3Id") + '/' + "invi").subscribe
         ((res: any) => {
           this.img_list = res;
         });
     }
-    else {
+    else if (localStorage.getItem("Prodl2Id") != "") {
       this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + localStorage.getItem("Prodl2Id") + '/' + "invi").subscribe
         ((res: any) => {
           this.img_list = res;
+        });
+    }
+
+    else if (localStorage.getItem("nav_home") == "home") {
+      function stringtonum(input: string) {
+        var n = Number(input);
+        return n;
+      }
+      this.httpClient.get(this.prod_service.getUrl() + 'api/Products/' + 'p2' + '/' + localStorage.getItem("tile_id")).subscribe(
+        (res1: any) => {
+          var s = res1;
+          if (s.length > 0) {
+            for (var i = 0; i < res1.length; i++) {
+
+              this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + s[i].prodId + '/' + "invi").subscribe
+                ((res: any) => {
+                  var result = res;
+
+                  if (res.length > 0) {
+
+                    for (var j = 0; j < res.length; j++) {
+                      this.img_list.push({
+                        ModelDesc: res[j].modelDesc, IsActive: res[j].isActive,
+                        ModelId: res[j].modelId, ModelLink: res[j].modelLink,
+                        ProdId: res[j].prodId
+                      })
+                    }
+                  }
+                  // this.img_list_App[i].push(this.img_list);
+                });
+
+            }
+          }
         });
     }
   }

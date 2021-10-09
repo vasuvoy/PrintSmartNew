@@ -138,7 +138,7 @@ namespace StickyHeaderMainMenu.Controllers
 
             if (prd_level == "p2")
             {
-                 product = await _context.Product.Where(e => e.ParentId ==prodid).ToListAsync();
+                 product = await _context.Product.Where(e =>e.ParentId==prodid).ToListAsync();
             }
 
             return product;

@@ -241,11 +241,12 @@
 
       <div class="container" style="padding-bottom:10px">
         <div class="row" id="div_tiles"  style="margin-left:15px !important;width:1000px !important">
-          <div  *ngFor="let img of img_list_tiles;let i=index">
+          <div  *ngFor="let img of img_list_tiles;let i=index" style="margin-left:10px !important">
             <br/>
-            <div class="col-sm" (click)="tile_click(img.tileProdId,img.tileName);">
+
+            <div class="col-sm" style="border:1px solid black;border-radius:10px;margin-left:10px !important" (click)="tile_click(img.tileProdId,img.tileName);">
               <img style="height:155px" src="{{img.tileImage}}" alt="New york">
-              <p class='caption-content'>{{img.tileName}}</p>
+              <p class='caption-content' style="padding-left:30px">{{img.tileName}}</p>
             </div>
             
               

@@ -213,7 +213,10 @@ export class HomeComponent implements OnInit {
   tile_click(id,name) {
     localStorage.setItem('Prod_name', "");
     localStorage.setItem('Prodl2_name',name)
-    localStorage.setItem("Prodl3Id", id);
+    localStorage.setItem("Prodl3Id", "");
+    localStorage.setItem("Prodl2Id", "");
+    localStorage.setItem("tile_id", id);
+    localStorage.setItem("nav_home", "home");
     this.router.navigate(['/invitation-cards']);
   }
  
