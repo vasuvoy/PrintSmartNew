@@ -212,6 +212,10 @@
             <th>
               Model Description
             </th>
+            <th hidden="hidden">
+              head
+            </th>
+
           </tr>
         </thead>
         <tbody>
@@ -243,8 +247,8 @@
             <td>
               <button type="button" class="btn btn-primary" id="btn_row" (click)="btn_row_click(price_dt,i)">Edit</button>
               <button type="button" class="btn btn-primary" id="btn_row_del" (click)="btn_rowdel_click(price_dt,i)">Delete</button>
-              <span class="btn_save" id="spn_save"> <button type="button" class="" hidden="hidden" (click)="btn_newsave(i)"> Save</button> </span>
-              &nbsp;<span class="btn_cancel" id="spn_cancel"> <button type="button" class="btncancel" hidden="hidden" (click)="btn_newcancel(i)"> Cancel</button></span>
+               <button type="button" id="btn_row_newsave" class="btn btn-primary" hidden="hidden" (click)="btn_newsave(i)"> Save</button> 
+              <button type="button" id="btn_row_newcancel" class="btn btn-primary" hidden="hidden" (click)="btn_newcancel(i)"> Cancel</button>
             </td>
           </tr>
         </tbody>

@@ -375,8 +375,16 @@ export class AdminComponent implements OnInit {
 
   }
 
+  //edit record
   btn_row_click(e, i) {
-
+   // $("#btn_row").hide();
+    $("table")[2].children[1].children[i].children[8].children[0].hidden = true;
+    $("table")[2].children[1].children[i].children[8].children[1].hidden = true;
+    //$("#btn_row_del").hide();
+    $("table")[2].children[1].children[i].children[8].children[2].hidden = false;
+    $("table")[2].children[1].children[i].children[8].children[3].hidden = false;
+   // $("#btn_row_newsave")[0].hidden = false;
+    //$("#btn_row_newcancel")[0].hidden = false;
     for (let j = 0; j < $("table")[2].children[1].children[i].children.length; j++) {
       if ($("table")[2].children[1].children[i].cells[j].children.length > 0) {
         if ($("table")[2].children[1].children[i].cells[j].children[0].className == "edit") {
@@ -443,6 +451,7 @@ export class AdminComponent implements OnInit {
       });
   }
 
+  //saving new record
   btn_newsave(i) {
     function stringtonum(input: string) {
       var n = Number(input);
@@ -476,17 +485,25 @@ export class AdminComponent implements OnInit {
     this.btn_newcancel(i);
   }
 
+  //cancel new record
   btn_newcancel(i) {
     for (let j = 0; j < 6; j++) {
       if ($("table")[2].children[1].children[i].cells[j].children.length > 0) {
-        if ($("table")[2].children[1].children[i].cells[j].children[0].className == "edit") {
-          $("table")[2].children[1].children[i].cells[j].children[0].disabled = true;
+        $("table")[2].children[1].children[i].cells[j].children[0].disabled = true;
           $("table")[2].children[1].children[i].cells[j].children[0].value = actual_mrp;
           $("table")[2].children[1].children[i].cells[j].children[0].value = actual_disc;
-        }
+        //if ($("table")[2].children[1].children[i].cells[j].children[0].className == "edit") {
+        //  $("table")[2].children[1].children[i].cells[j].children[0].disabled = true;
+        //  $("table")[2].children[1].children[i].cells[j].children[0].value = actual_mrp;
+        //  $("table")[2].children[1].children[i].cells[j].children[0].value = actual_disc;
+        //}
       }
     }
-
+    $("table")[2].children[1].children[i].children[8].children[0].hidden = false;
+    $("table")[2].children[1].children[i].children[8].children[1].hidden = false;
+    //$("#btn_row_del").hide();
+    $("table")[2].children[1].children[i].children[8].children[2].hidden = true;
+    $("table")[2].children[1].children[i].children[8].children[3].hidden = true;
     for (let s = 1; s <= 2; s++) {
 
       // $("table")[2].children[1].children[i].children[6].children[0].children[0].hidden = false;

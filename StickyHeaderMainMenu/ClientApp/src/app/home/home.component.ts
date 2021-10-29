@@ -29,35 +29,38 @@ export class HomeComponent implements OnInit {
     this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels').subscribe
       ((res: any) => {
         this.img_list = res;
-        for (let i = 0; i <= res.length; i++) {
-          if (this.img_list[i].modelLink == src) {
-            var prodid = this.img_list[i].prodId;
-            localStorage.setItem("Prodl3Id", prodid);
-            this.httpClient.get(this.prod_service.getUrl() + 'api/Products/' + 'p1' + '/' + prodid).subscribe(
-              (r: any) => {
-                for (let i = 0; i <= r.length; i++) {
-                  if (prodid == r[i].prodId) {
-                    //
-                    localStorage.setItem('Prod_name', "");
-                    localStorage.setItem('Prodl2_name', r[i].prodDesc);
+        if (res.length > 0) {
+          for (let i = 0; i < res.length; i++) {
+         
+            if (this.img_list[i].modelLink == src) {
+              var prodid = this.img_list[i].prodId;
+              localStorage.setItem("Prodl3Id", prodid);
+              this.httpClient.get(this.prod_service.getUrl() + 'api/Products/' + 'p1' + '/' + prodid).subscribe(
+                (r: any) => {
+                  for (let i = 0; i < r.length; i++) {
+                    if (prodid == r[i].prodId) {
+                      //
+                      localStorage.setItem('Prod_name', "");
+                      localStorage.setItem('Prodl2_name', r[i].prodDesc);
+                    }
                   }
-                }
-              
-              });
 
-            this.httpClient.get(this.prod_service.getUrl() + 'api/Products/' + 'p2' + '/' + prodid).subscribe(
-              (r: any) => {
-                for (let i = 0; i <= r.length; i++) {
-                  if (prodid == r[i].prodId) {
-                    //
-                    localStorage.setItem('Prod_name', "");
-                    localStorage.setItem('Prodl2_name', r[i].prodDesc);
+                });
+
+              this.httpClient.get(this.prod_service.getUrl() + 'api/Products/' + 'p2' + '/' + prodid).subscribe(
+                (r: any) => {
+                  for (let i = 0; i < r.length; i++) {
+                    if (prodid == r[i].prodId) {
+                      //
+                      localStorage.setItem('Prod_name', "");
+                      localStorage.setItem('Prodl2_name', r[i].prodDesc);
+                    }
                   }
-                }
 
-              });
+                });
 
-            this.router.navigate(['/invitation-cards']);
+              this.router.navigate(['/invitation-cards']);
+            }
           }
         }
         // this.img_list.ModelLink
@@ -70,13 +73,13 @@ export class HomeComponent implements OnInit {
     this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels').subscribe
       ((res: any) => {
         this.img_list = res;
-        for (let i = 0; i <= res.length; i++) {
+        for (let i = 0; i < res.length; i++) {
           if (this.img_list[i].modelLink == src) {
             var prodid = this.img_list[i].prodId;
             localStorage.setItem("Prodl3Id", prodid);
             this.httpClient.get(this.prod_service.getUrl() + 'api/Products/' + 'p1' + '/' + prodid).subscribe(
               (r: any) => {
-                for (let i = 0; i <= r.length; i++) {
+                for (let i = 0; i < r.length; i++) {
                   if (prodid == r[i].prodId) {
                     //
                     localStorage.setItem('Prod_name', "");
@@ -88,7 +91,7 @@ export class HomeComponent implements OnInit {
 
             this.httpClient.get(this.prod_service.getUrl() + 'api/Products/' + 'p2' + '/' + prodid).subscribe(
               (r: any) => {
-                for (let i = 0; i <= r.length; i++) {
+                for (let i = 0; i < r.length; i++) {
                   if (prodid == r[i].prodId) {
                     localStorage.setItem('Prod_name', "");
                     localStorage.setItem('Prodl2_name', r[i].prodDesc);
@@ -110,13 +113,13 @@ export class HomeComponent implements OnInit {
     this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels').subscribe
       ((res: any) => {
         this.img_list = res;
-        for (let i = 0; i <= res.length; i++) {
+        for (let i = 0; i < res.length; i++) {
           if (this.img_list[i].modelLink == src) {
             var prodid = this.img_list[i].prodId;
             localStorage.setItem("Prodl3Id", prodid);
             this.httpClient.get(this.prod_service.getUrl() + 'api/Products/' + 'p1' + '/' + prodid).subscribe(
               (r: any) => {
-                for (let i = 0; i <= r.length; i++) {
+                for (let i = 0; i < r.length; i++) {
                   if (prodid == r[i].prodId) {
                     //
                     localStorage.setItem('Prod_name', "");
@@ -128,7 +131,7 @@ export class HomeComponent implements OnInit {
 
             this.httpClient.get(this.prod_service.getUrl() + 'api/Products/' + 'p2' + '/' + prodid).subscribe(
               (r: any) => {
-                for (let i = 0; i <= r.length; i++) {
+                for (let i = 0; i < r.length; i++) {
                   if (prodid == r[i].prodId) {
                     //
                     localStorage.setItem('Prod_name', "");
