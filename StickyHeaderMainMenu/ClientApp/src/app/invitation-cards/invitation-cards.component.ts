@@ -149,14 +149,14 @@ export class InvitationCardsComponent implements OnInit {
     //added on oct6 2021 for navigation from home screen tiles
 
 
-    if (localStorage.getItem("Prodl3Id") != "") {
+    if (localStorage.getItem("Prodl3Id") != "null") {
 
       this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + localStorage.getItem("Prodl3Id") + '/' + "invi").subscribe
         ((res: any) => {
           this.img_list = res;
         });
     }
-    else if (localStorage.getItem("Prodl2Id") != "") {
+    else if (localStorage.getItem("Prodl2Id") != "null") {
       this.httpClient.get(this.prod_service.getUrl() + 'api/Productmodels/' + localStorage.getItem("Prodl2Id") + '/' + "invi").subscribe
         ((res: any) => {
           this.img_list = res;
@@ -197,173 +197,175 @@ export class InvitationCardsComponent implements OnInit {
     }
   }
 
-  imgclick(e,f,g) {
-    $("#div_invicards").hide();
-  
-
-    function stringtonum(input: string) {
-      var n = Number(input);
-      return n;
-    }
-    //if (localStorage.getItem("Prodl3Id") != null) {
-    //  levelid = stringtonum(localStorage.getItem("Prodl3Id"));
-    //}
-    //else {
-    //  this.level_id = stringtonum(localStorage.getItem("Prodl2Id"));
-    //}
-
-    if (localStorage.getItem("Prodl3Id") == "null") {
-      this.httpClient.get(this.prod_service.getUrl() + 'api/Productmaterials/' + stringtonum(localStorage.getItem("Prodl2Id"))).subscribe
-        ((res: any) => {
-          if (res.length > 0) {
-            // this.prod_mat = res;
-            res.forEach(e => {
-
-              var ddl_prodoption = new Option(e.matDescription, e.matId, false, false);
-
-              $('#ddl_prodmat').append(ddl_prodoption).trigger('change');
+  imgclick(e, f, g) {
+    if (e != undefined) {
+      $("#div_invicards").hide();
 
 
-            });
-            $("#trmat")[0].hidden = false;
-          }
-
-          //this.prod_mat..forEach(e => {
-          //  var newOption_gender = new Option(e.gender, e.gender, false, false);
-          //  $('#ddl_gender').append(newOption_gender).trigger('change');
-          //});
-        });
-    }
-    else {
-      this.httpClient.get(this.prod_service.getUrl() + 'api/Productmaterials/' + stringtonum(localStorage.getItem("Prodl3Id"))).subscribe
-        ((res: any) => {
-          if (res.length > 0) {
-            // this.prod_mat = res;
-            res.forEach(e => {
-
-              var ddl_prodoption = new Option(e.matDescription, e.matId, false, false);
-
-              $('#ddl_prodmat').append(ddl_prodoption).trigger('change');
-
-
-            });
-            $("#trmat")[0].hidden = false;
-          }
-        
-        });
-    }
-
-    //check for product service dropdown
-
-    if (localStorage.getItem("Prodl3Id") == "null") {
-      this.httpClient.get(this.prod_service.getUrl() + 'api/Productservices/' + stringtonum(localStorage.getItem("Prodl2Id"))).subscribe
-        ((r: any) => {
-          if (r.length > 0) {
-            r.forEach(e => {
-
-              var ddl_prodSeroption = new Option(e.servDescription, e.servId, false, false);
-
-              $('#ddl_prodser').append(ddl_prodSeroption).trigger('change');
-
-            });
-            $("#trser")[0].hidden = false;
-          }
-        });
-    }
-    else {
-      this.httpClient.get(this.prod_service.getUrl() + 'api/Productservices/' + stringtonum(localStorage.getItem("Prodl3Id"))).subscribe
-        ((r: any) => {
-          if (r.length > 0) {
-   
-
-            r.forEach(e => {
-
-              var ddl_prodSeroption = new Option(e.servDescription, e.servId, false, false);
-
-              $('#ddl_prodser').append(ddl_prodSeroption).trigger('change');
-
-            });
-            $("#trser")[0].hidden = false;
-          }
-        });
-
-    }
-
-  //  $("#div_invicards").hide();
-    $("#innerdiv_invicards").show();
-    $("#img_selected_invicard").attr("src", f);
-    //$("#lbl_desc").text(g);
-    $("#div_desc").text(g);
-    localStorage.setItem('ModelId', e);
-    this.httpClient.get(this.prod_service.getUrl()  + 'api/Pricedetails/' + e).subscribe((res: any) => {
-      this.price_detail = res;
-      if (this.price_detail.length>0) {
-      $("#lbl_price").text(this.price_detail[0].maxRetailPrice);
-      $("#lbl_price").attr("style", "text-decoration:line-through");
-      var numVal1 = this.price_detail[0].maxRetailPrice;
-      var numVal2 = this.price_detail[0].percentDisc / 100;
-      var totalValue = numVal1 - (numVal1 * numVal2);
-        $("#sp_disc").text("(" + this.price_detail[0].percentDisc + "%" + ")");
-        discamount = this.price_detail[0].percentDisc;
-        $("#lbl_sellingprice").text(totalValue);
+      function stringtonum(input: string) {
+        var n = Number(input);
+        return n;
       }
-     // document.getElementById("total").value = totalValue.toFixed(2);
-    });
+      //if (localStorage.getItem("Prodl3Id") != null) {
+      //  levelid = stringtonum(localStorage.getItem("Prodl3Id"));
+      //}
+      //else {
+      //  this.level_id = stringtonum(localStorage.getItem("Prodl2Id"));
+      //}
 
-    //this.position_lbl = [{ bottom: 190, left: 168, label_text: "BRIDE NAME", position: "relative" }];
-    //this.position_lbl.push({ bottom: 150, left: 168, label_text: "GROOM NAME", position:"relative" });
-    //$("#innerdiv_invicards").show();
-    //$("#innerdiv_invicards").append('<label id="ID_item" >' + this.position_lbl[0].label_text + '</label><br /><hr />')
-    //$("#ID_item").css({ "color": "red", "bottom": this.position_lbl[0].bottom + 'px', "left": this.position_lbl[0].left, "position": this.position_lbl[0].position });
-    //$("#innerdiv_invicards").append('<label id="ID_item1" >' + this.position_lbl[1].label_text + '</label><br /><hr />')
-    //$("#ID_item1").css({ "color": "red", "bottom": this.position_lbl[1].bottom + 'px', "left": this.position_lbl[1].left, "position": this.position_lbl[1].position  });
-   // let s: string = '[{"count":2,"1":{ "bottom": 190, "left": 208, "label_text":"BRIDE NAME", "position":"relative"},"2":{ "bottom": 190, "left": 168, "label_text":"GROOM NAME", "position":"relative"}}]';
+      if (localStorage.getItem("Prodl3Id") == "null") {
+        this.httpClient.get(this.prod_service.getUrl() + 'api/Productmaterials/' + stringtonum(localStorage.getItem("Prodl2Id"))).subscribe
+          ((res: any) => {
+            if (res.length > 0) {
+              // this.prod_mat = res;
+              res.forEach(e => {
 
-   // this.position_lbl = JSON.parse(s);
-   // for (let i = 1; i <= this.position_lbl[0].count; i++) {
-   //   let df: string = "lbl_" + i;
-   //   $("#innerdiv_invicards").append('<label id=' + df + ' class="summernote" >' + this.position_lbl[0][i].label_text + '</label><br /><hr />')
-   //   $('#'+df).css({ "color": "red", "bottom": this.position_lbl[0][i].bottom + 'px', "left": this.position_lbl[0][i].left, "position": this.position_lbl[0][i].position });
-   //   //$('#' + df).click(function () {
-   //   // // $('.summernote').summernote('destroy');
-   //   // // $('#' + df).summernote('destroy');
-   //   //  $('#' + df).summernote({
+                var ddl_prodoption = new Option(e.matDescription, e.matId, false, false);
 
-   //   //    width: 450,
-   //   //    height: 200,
-   //   //    tooltip: false,
-   //   //  });
-   //   //});
-   // }
-
-   // //$("#innerdiv_invicards table label").click(function (e) {
-   // //  debugger;
-   // //  alert("hsdjgkfjdhsg");
-   // //});
-   //// $("#innerdiv_invicards").append('<label id="ID_item" >' + this.position_lbl[0].label_text+ '</label><br /><hr />')
-    
-   //// $("#innerdiv_invicards").append('<span>&</span>')
+                $('#ddl_prodmat').append(ddl_prodoption).trigger('change');
 
 
-    //$(".summernote").click(function (e) {
-    //  //$("body").find(".summernote").summernote('destroy');
-    //  $('.summernote').each(function (index) {
-    //    $(this).summernote('destroy');
-    //  })
-    //  $('#' + e.target.id).summernote({
-    //    width: 200,
-    //    height: 30,
+              });
+              $("#trmat")[0].hidden = false;
+            }
 
-    //    bottom:250,
-    //    tooltip: false,
-    //    toolbar: [
-    //      ['style', ['bold', 'italic', 'underline', 'clear']],
-    //      ['font', ['superscript', 'subscript']],
-    //      //['fontsize', ['fontsize']],
-    //      ['color', ['color']],
-    //    ],
-    //  });
-    //});
+            //this.prod_mat..forEach(e => {
+            //  var newOption_gender = new Option(e.gender, e.gender, false, false);
+            //  $('#ddl_gender').append(newOption_gender).trigger('change');
+            //});
+          });
+      }
+      else {
+        this.httpClient.get(this.prod_service.getUrl() + 'api/Productmaterials/' + stringtonum(localStorage.getItem("Prodl3Id"))).subscribe
+          ((res: any) => {
+            if (res.length > 0) {
+              // this.prod_mat = res;
+              res.forEach(e => {
+
+                var ddl_prodoption = new Option(e.matDescription, e.matId, false, false);
+
+                $('#ddl_prodmat').append(ddl_prodoption).trigger('change');
+
+
+              });
+              $("#trmat")[0].hidden = false;
+            }
+
+          });
+      }
+
+      //check for product service dropdown
+
+      if (localStorage.getItem("Prodl3Id") == "null") {
+        this.httpClient.get(this.prod_service.getUrl() + 'api/Productservices/' + stringtonum(localStorage.getItem("Prodl2Id"))).subscribe
+          ((r: any) => {
+            if (r.length > 0) {
+              r.forEach(e => {
+
+                var ddl_prodSeroption = new Option(e.servDescription, e.servId, false, false);
+
+                $('#ddl_prodser').append(ddl_prodSeroption).trigger('change');
+
+              });
+              $("#trser")[0].hidden = false;
+            }
+          });
+      }
+      else {
+        this.httpClient.get(this.prod_service.getUrl() + 'api/Productservices/' + stringtonum(localStorage.getItem("Prodl3Id"))).subscribe
+          ((r: any) => {
+            if (r.length > 0) {
+
+
+              r.forEach(e => {
+
+                var ddl_prodSeroption = new Option(e.servDescription, e.servId, false, false);
+
+                $('#ddl_prodser').append(ddl_prodSeroption).trigger('change');
+
+              });
+              $("#trser")[0].hidden = false;
+            }
+          });
+
+      }
+
+      //  $("#div_invicards").hide();
+      $("#innerdiv_invicards").show();
+      $("#img_selected_invicard").attr("src", f);
+      //$("#lbl_desc").text(g);
+      $("#div_desc").text(g);
+      localStorage.setItem('ModelId', e);
+      this.httpClient.get(this.prod_service.getUrl() + 'api/Pricedetails/' + e).subscribe((res: any) => {
+        this.price_detail = res;
+        if (this.price_detail.length > 0) {
+          $("#lbl_price").text(this.price_detail[0].maxRetailPrice);
+          $("#lbl_price").attr("style", "text-decoration:line-through");
+          var numVal1 = this.price_detail[0].maxRetailPrice;
+          var numVal2 = this.price_detail[0].percentDisc / 100;
+          var totalValue = numVal1 - (numVal1 * numVal2);
+          $("#sp_disc").text("(" + this.price_detail[0].percentDisc + "%" + ")");
+          discamount = this.price_detail[0].percentDisc;
+          $("#lbl_sellingprice").text(totalValue);
+        }
+        // document.getElementById("total").value = totalValue.toFixed(2);
+      });
+
+      //this.position_lbl = [{ bottom: 190, left: 168, label_text: "BRIDE NAME", position: "relative" }];
+      //this.position_lbl.push({ bottom: 150, left: 168, label_text: "GROOM NAME", position:"relative" });
+      //$("#innerdiv_invicards").show();
+      //$("#innerdiv_invicards").append('<label id="ID_item" >' + this.position_lbl[0].label_text + '</label><br /><hr />')
+      //$("#ID_item").css({ "color": "red", "bottom": this.position_lbl[0].bottom + 'px', "left": this.position_lbl[0].left, "position": this.position_lbl[0].position });
+      //$("#innerdiv_invicards").append('<label id="ID_item1" >' + this.position_lbl[1].label_text + '</label><br /><hr />')
+      //$("#ID_item1").css({ "color": "red", "bottom": this.position_lbl[1].bottom + 'px', "left": this.position_lbl[1].left, "position": this.position_lbl[1].position  });
+      // let s: string = '[{"count":2,"1":{ "bottom": 190, "left": 208, "label_text":"BRIDE NAME", "position":"relative"},"2":{ "bottom": 190, "left": 168, "label_text":"GROOM NAME", "position":"relative"}}]';
+
+      // this.position_lbl = JSON.parse(s);
+      // for (let i = 1; i <= this.position_lbl[0].count; i++) {
+      //   let df: string = "lbl_" + i;
+      //   $("#innerdiv_invicards").append('<label id=' + df + ' class="summernote" >' + this.position_lbl[0][i].label_text + '</label><br /><hr />')
+      //   $('#'+df).css({ "color": "red", "bottom": this.position_lbl[0][i].bottom + 'px', "left": this.position_lbl[0][i].left, "position": this.position_lbl[0][i].position });
+      //   //$('#' + df).click(function () {
+      //   // // $('.summernote').summernote('destroy');
+      //   // // $('#' + df).summernote('destroy');
+      //   //  $('#' + df).summernote({
+
+      //   //    width: 450,
+      //   //    height: 200,
+      //   //    tooltip: false,
+      //   //  });
+      //   //});
+      // }
+
+      // //$("#innerdiv_invicards table label").click(function (e) {
+      // //  debugger;
+      // //  alert("hsdjgkfjdhsg");
+      // //});
+      //// $("#innerdiv_invicards").append('<label id="ID_item" >' + this.position_lbl[0].label_text+ '</label><br /><hr />')
+
+      //// $("#innerdiv_invicards").append('<span>&</span>')
+
+
+      //$(".summernote").click(function (e) {
+      //  //$("body").find(".summernote").summernote('destroy');
+      //  $('.summernote').each(function (index) {
+      //    $(this).summernote('destroy');
+      //  })
+      //  $('#' + e.target.id).summernote({
+      //    width: 200,
+      //    height: 30,
+
+      //    bottom:250,
+      //    tooltip: false,
+      //    toolbar: [
+      //      ['style', ['bold', 'italic', 'underline', 'clear']],
+      //      ['font', ['superscript', 'subscript']],
+      //      //['fontsize', ['fontsize']],
+      //      ['color', ['color']],
+      //    ],
+      //  });
+      //});
+    }
   }
 
   AddToCart() {

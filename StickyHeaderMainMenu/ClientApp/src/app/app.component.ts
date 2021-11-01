@@ -284,12 +284,12 @@ export class AppComponent implements OnInit {
 
  
 
-  subL2MenuhyperlinkClick(e) {
+  subL2MenuhyperlinkClick(j) {
     // alert(e.target.innerText+e.target.id);
     localStorage.setItem("Prodl3Id", null);
-    localStorage.setItem('Prodl2Id', e.target.id);
-    localStorage.setItem('Prodl2_name', e.target.innerText);
-    this.router.navigate(e.target.href);
+    localStorage.setItem('Prodl2Id', j.target.id);
+    localStorage.setItem('Prodl2_name', j.target.innerText);
+    this.router.navigate(j.target.href);
 
  //   localStorage.setItem('Prodl3Id', e.target.id)
   }
