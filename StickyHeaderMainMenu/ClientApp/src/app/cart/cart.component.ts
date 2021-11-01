@@ -84,7 +84,7 @@ export class cartComponent implements OnInit {
       let myobjarray = [];
       $("#qtywheel").val();
       //for (let i = 0; i < productAddedTocart_0.length; i++) {
-        alert(total);
+      //  alert(total);
         // if (i != stringtonum(index)) {
         //   total = (productAddedTocart_0[i].itemPrice) * (productAddedTocart_0[i].quantity);
           // myobjarray.push(total);
@@ -117,7 +117,7 @@ export class cartComponent implements OnInit {
           else
             total = (total + this.productAddedTocart[i].itemPrice) * qty;
         }
-        alert(total);
+      //  alert(total);
         $("#lbltotal").text(total);
         //total = 0;
         if (r.length > 0) {

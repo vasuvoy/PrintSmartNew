@@ -183,7 +183,7 @@ export class InvitationCardsComponent implements OnInit {
                     for (var j = 0; j < res.length; j++) {
                       this.img_list.push({
                         ModelDesc: res[j].modelDesc, IsActive: res[j].isActive,
-                        ModelId: res[j].modelId, ModelLink: res[j].modelLink,
+                        ModelId: res[j].modelId, modelLink: res[j].modelLink,
                         ProdId: res[j].prodId
                       })
                     }
